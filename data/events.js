@@ -1,9 +1,7 @@
 window.EVENT_META = {
   updated: '2026-08-21',
   rangeStart: '2026-08-01',
-  rangeEnd: '2026-10-04',
-  source: 'https://bytedance.larkoffice.com/wiki/YZ4Pw7SjCim8xUkww0RcoDQ9nxf',
-  sourceLabel: '【EXT】【BS＆Agency向け】TikTok LIVE公式イベント One Pager'
+  rangeEnd: '2026-10-04'
 };
 
 window.EVENTS = [

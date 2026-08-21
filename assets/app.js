@@ -183,10 +183,9 @@
 
   function head() {
     var internal = !!(window.EVENTS_INTERNAL && window.EVENTS_INTERNAL.length);
-    document.getElementById('meta').innerHTML =
-      '出典：<a href="' + META.source + '" target="_blank" rel="noopener">' + esc(META.sourceLabel) + '</a>'
-      + '<span>Lark最終更新 ' + META.updated + '</span>'
-      + '<span class="badge' + (internal ? ' on' : '') + '">' + (internal ? '社内版：未解禁' + window.EVENTS_INTERNAL.length + '件を含む' : '公開版：未解禁イベントは非表示') + '</span>';
+    var h = '<span>最終更新 ' + META.updated + '</span>';
+    if (internal) h += '<span class="badge on">社内版：未公開' + window.EVENTS_INTERNAL.length + '件を含む</span>';
+    document.getElementById('meta').innerHTML = h;
   }
 
   head();

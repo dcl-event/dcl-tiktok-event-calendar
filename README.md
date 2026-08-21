@@ -1,7 +1,7 @@
 # TikTok LIVE 公式イベントカレンダー
 
-Lark の [【EXT】【BS＆Agency向け】TikTok LIVE公式イベント One Pager](https://bytedance.larkoffice.com/wiki/YZ4Pw7SjCim8xUkww0RcoDQ9nxf) の
-イベント一覧を、日付軸のガントチャートに組み直した静的サイト。ビルド不要（HTML + CSS + バニラJS）。
+TikTok LIVE の公式イベント一覧を、日付軸のガントチャートに組み直した静的サイト。
+ビルド不要（HTML + CSS + バニラJS）。データの元資料は社内で管理している。
 
 ## 使い方
 
@@ -19,18 +19,17 @@ python3 -m http.server 8080
 | `assets/app.js` | ガント描画・絞り込み・詳細パネル |
 | `assets/style.css` | スタイル（ライト／ダーク自動切替） |
 | `data/events.js` | 公開してよいイベントデータ |
-| `data/events.internal.js` | 未解禁・社外共有NGのイベント（**gitignore 済み。コミットしない**） |
+| `data/events.internal.js` | 社外に公開しないイベント（**gitignore 済み。コミットしない**） |
 
 `data/events.internal.js` が存在する環境（社内・ローカル）では全件表示、
-GitHub Pages などの公開環境では公開分のみが表示される。ヘッダーのバッジで
-どちらのモードか判別できる。
+公開環境では公開分のみが表示される。社内版のときだけヘッダーにバッジが出る。
 
 ## データ更新の手順
 
-1. Lark の One Pager を開き、8月・9月のイベント詳細テーブルを確認する
+1. 元資料のイベント詳細テーブル（当月・翌月）を確認する
 2. `data/events.js` の該当イベントに `segs`（開催期間）・`target`（参加対象）・`summary`（概要）を反映する
-3. 未解禁・社外共有NGのイベントは `data/events.internal.js` 側に `restricted: true` で置く
-4. `window.EVENT_META.updated` を Lark の最終更新日に合わせる
+3. 社外に公開しないイベントは `data/events.internal.js` 側に `restricted: true` で置く
+4. `window.EVENT_META.updated` を元資料の最終更新日に合わせる
 
 ## データ形式
 
@@ -48,5 +47,5 @@ GitHub Pages などの公開環境では公開分のみが表示される。ヘ�
 
 ## 注意
 
-- 原文のダイヤ表記のゆれ（「💎160以上」「💎0-20万」）は万単位に統一している
-- Lark 側は数時間単位で更新されるため、この表はスナップショット。最終判断は必ず原文で行う
+- 元資料のダイヤ表記のゆれ（「💎160以上」「💎0-20万」）は万単位に統一している
+- 元資料は随時更新されるため、この表はスナップショット。最終判断は必ず元資料で行う

@@ -77,7 +77,7 @@
       }
     }
     var ti = todayIdx();
-    if (ti !== null) h += '<div class="today-flag" style="left:' + px(ti) + 'px">今日 ' + fmt(new Date(start.getTime() + ti * DAY)) + '</div>';
+    if (ti !== null) h += '<div class="today-flag" style="left:' + (px(ti) + 4) + 'px;transform:none">今日 ' + fmt(new Date(start.getTime() + ti * DAY)) + '</div>';
     return h + '</div></div>';
   }
 
@@ -177,7 +177,7 @@
     document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value; render(); });
     document.getElementById('jump-today').addEventListener('click', function () {
       var t = todayIdx();
-      if (t !== null) document.getElementById('chart').scrollTo({ left: Math.max(0, px(t) - 200), behavior: 'smooth' });
+      if (t !== null) document.getElementById('chart').scrollTo({ left: Math.max(0, px(t) - (window.innerWidth < 640 ? 16 : 140)), behavior: 'smooth' });
     });
   }
 
@@ -193,9 +193,23 @@
   controls();
   render();
 
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      var w = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--day-w')) || 12;
+      if (w === dayW) return;
+      dayW = w;
+      var t = todayIdx();
+      render();
+      if (t !== null) document.getElementById('chart').scrollLeft = Math.max(0, px(t) - (window.innerWidth < 640 ? 16 : 140));
+    }, 200);
+  });
+
+  function leadIn() { return window.innerWidth < 640 ? 16 : 140; }
   var ti = todayIdx();
   if (ti !== null) {
     var chart = document.getElementById('chart');
-    chart.scrollLeft = Math.max(0, px(ti) - 240);
+    chart.scrollLeft = Math.max(0, px(ti) - leadIn());
   }
 })();

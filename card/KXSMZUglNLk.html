@@ -175,7 +175,7 @@ li.ggbanner .box svg{opacity:1}
 <script>
 const F='<svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 // 進捗送信（チェック→GAS→シート。ENDPOINT空なら送らない＝無害）
-const CARD_TOKEN="KXSMZUglNLk", CARD_USER="moena0604", ENDPOINT="";
+const CARD_TOKEN="KXSMZUglNLk", CARD_USER="moena0604", ENDPOINT="https://script.google.com/macros/s/AKfycbwbdGKwz-jLpYa2eZVOESPSW2Hi1DkhsPv0YJTut__1I1V_odiCqEKrPn0EYctbC9zKFA/exec";
 function sendCheck(li){
   li.classList.toggle('done');
   const on=li.classList.contains('done');

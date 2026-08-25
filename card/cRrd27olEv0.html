@@ -324,7 +324,7 @@ function render(key){
     ${plan.red?`<div class="redflag">${plan.red}</div>`:''}
     <div class="metrics">${d.met.map(([v,k,s])=>`<div class="m ${s}"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('')}</div>
     <div class="sec"><h3>📝 今週のクエスト</h3>${tasks(plan.week)}</div>
-    <div class="sec today"><h3>🔥 今日 これだけは！（★は必須）</h3>${tasks(plan.today)}</div>
+    <div class="sec today"><h3>🔥 今日 これだけは！（「重点」は必須）</h3>${tasks(plan.today)}</div>
     <div class="evsec"><h3>🎪 次のあなたにぴったりのイベント</h3>
       <div class="ev">
         <div class="evtop"><span class="evname">${ev.names.join(" or ")}</span><span class="evstage">着地見込み ${jp(proj)}💎</span></div>

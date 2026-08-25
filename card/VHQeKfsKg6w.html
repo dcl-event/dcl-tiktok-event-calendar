@@ -174,6 +174,19 @@ li.ggbanner .box svg{opacity:1}
 
 <script>
 const F='<svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// 進捗送信（チェック→GAS→シート。ENDPOINT空なら送らない＝無害）
+const CARD_TOKEN="VHQeKfsKg6w", CARD_USER="nakasaki_koto", ENDPOINT="";
+function sendCheck(li){
+  li.classList.toggle('done');
+  const on=li.classList.contains('done');
+  const txtEl=li.querySelector('.txt'); const txt=txtEl?txtEl.textContent:'';
+  const secEl=li.closest('.sec'); const h=secEl?secEl.querySelector('h3'):null; const sec=h?h.textContent.trim():'';
+  const dc=document.getElementById('dc'); if(dc)dc.textContent=document.querySelectorAll('li.done').length;
+  if(ENDPOINT && ENDPOINT.indexOf('http')===0){
+    try{fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({t:CARD_TOKEN,u:CARD_USER,sec:sec,item:txt,on:on,at:new Date().toISOString()})});}catch(e){}
+  }
+}
 const L={"nakasaki_koto": {"nm": "中咲こと🥒", "em": "🥒", "ac": "#06B6D4", "acs": "#E7FBFD", "stage": "S0", "rank": "⚠️ ランク維持せず", "now": 30966, "met": [["20h", "配信", "bad"], ["89%", "バトル", "warn"], ["3.5万", "インプレ", "bad"], ["38", "新規ファン", "bad"]], "h": 19.7, "bat": 88.7, "imp": 34662, "fans": 38, "msg": "まずは出る量から！土台を作ろう🥒"}};
 const order=["nakasaki_koto"];
 const C=326.7; // 2*pi*52
@@ -276,7 +289,7 @@ function buildPlan(d){
   week.splice(2,0,["__GG__",0]);
   return {weak,why,red,week,today};
 }
-function taskLi(t,s){return `<li onclick="this.classList.toggle('done')"><span class="box">${F}</span><span class="txt">${t}</span>${s?'<span class="star">重点</span>':''}</li>`;}
+function taskLi(t,s){return `<li onclick="sendCheck(this)"><span class="box">${F}</span><span class="txt">${t}</span>${s?'<span class="star">重点</span>':''}</li>`;}
 function ggBlock(star){return `<li class="gg" onclick="ggProgress(this)"><span class="box">${F}</span><span class="txt">ギフギャラの進捗をスタッフに送る</span>${star?'<span class="star">重点</span>':''}</li>`
 +`<li class="ggdone" onclick="ggComplete(this)"><span class="box">${F}</span><span class="txt">コンプしたらスクショをスタッフに送る</span></li>`
 +`<li class="ggbanner" onclick="ggRevert(this)"><span class="box">${F}</span><span class="txt">✅ ギフギャラ完了・報告済み（タップで戻す）</span></li>`;}

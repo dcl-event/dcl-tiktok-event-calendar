@@ -1,0 +1,1280 @@
+<title>ライバー攻略ブック</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --ground:#F4F6FA; --surface:#FFFFFF; --surface-2:#FAFBFE;
+    --ink:#1B2650; --muted:#5B6484; --hair:#E6E8F1;
+    --danger:#E8446E; --danger-ink:#C22551; --danger-tint:#FCE6EC;
+    --blue:#2E5BD6; --blue-tint:#E9EFFF;
+    --amber:#E8892B; --amber-deep:#B4400E; --amber-tint:#FCEBD9;
+    --ok:#1E9E6A;
+    --accent:#E8446E; /* per-chapter override */
+    --shadow:0 1px 2px rgba(27,38,80,.05),0 12px 34px -20px rgba(27,38,80,.30);
+    --shadow-sm:0 1px 2px rgba(27,38,80,.06);
+    --r:18px; --r-sm:12px;
+    --font-d:"Zen Kaku Gothic New",system-ui,sans-serif;
+    --font-b:"Noto Sans JP",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --ground:#0D0F1C; --surface:#161A2C; --surface-2:#1B2036;
+    --ink:#EBEDF8; --muted:#9AA2C0; --hair:#2A2F4A;
+    --danger:#FF5C86; --danger-ink:#FF89A8; --danger-tint:#2A1420;
+    --blue:#7FA2FF; --blue-tint:#182142;
+    --amber:#F0A24E; --amber-deep:#F0743E; --amber-tint:#2A1C10;
+    --ok:#4FD39C;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 44px -22px rgba(0,0,0,.72);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --ground:#0D0F1C; --surface:#161A2C; --surface-2:#1B2036;
+    --ink:#EBEDF8; --muted:#9AA2C0; --hair:#2A2F4A;
+    --danger:#FF5C86; --danger-ink:#FF89A8; --danger-tint:#2A1420;
+    --blue:#7FA2FF; --blue-tint:#182142;
+    --amber:#F0A24E; --amber-deep:#F0743E; --amber-tint:#2A1C10;
+    --ok:#4FD39C;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 44px -22px rgba(0,0,0,.72);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  }
+  /* derived accent tints (adapt to theme via color-mix) */
+  .chapter,.home{
+    --a-tint:color-mix(in srgb,var(--accent) 12%,var(--surface));
+    --a-hi:color-mix(in srgb,var(--accent) 22%,var(--surface));
+    --a-ink:color-mix(in srgb,var(--accent) 72%,var(--ink));
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-b);
+    line-height:1.75;font-feature-settings:"palt" 1;-webkit-font-smoothing:antialiased}
+
+  /* ---------- TOP BAR + TABS ---------- */
+  .topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .topbar__row{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:11px 16px}
+  .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-weight:900;font-size:1rem;letter-spacing:.01em}
+  .logo svg{width:20px;height:20px;color:var(--danger)}
+  .logo small{font-family:var(--font-b);font-weight:500;font-size:.66rem;color:var(--muted);letter-spacing:.04em}
+  .tabs{max-width:860px;margin:0 auto;display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1px solid var(--hair);background:var(--surface);color:var(--muted);
+    font-family:var(--font-d);font-weight:700;font-size:.82rem;padding:7px 13px;border-radius:999px;
+    cursor:pointer;white-space:nowrap;transition:all .16s}
+  .tab:hover{color:var(--ink);border-color:var(--muted)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab .no{font-variant-numeric:tabular-nums;opacity:.6;margin-right:5px}
+
+  .wrap{max-width:860px;margin:0 auto;padding:26px 18px 80px}
+  .view{display:none;animation:fade .3s ease}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+  /* ---------- HOME ---------- */
+  .home-hero{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:34px 26px;overflow:hidden;margin-bottom:24px}
+  .home-hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(90% 80% at 0% 0,var(--danger-tint) 0,transparent 55%),
+    radial-gradient(80% 80% at 100% 100%,var(--blue-tint) 0,transparent 55%);opacity:.7}
+  .home-hero>*{position:relative}
+  .home-hero .eye{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:.76rem;
+    letter-spacing:.14em;color:var(--muted)}
+  .home-hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(1.9rem,6.6vw,3rem);
+    line-height:1.24;margin:12px 0 10px;text-wrap:balance}
+  .home-hero h1 .hl{color:var(--danger)}
+  .home-hero p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
+  .use{display:grid;gap:10px;grid-template-columns:1fr;margin:22px 0 26px}
+  @media(min-width:620px){.use{grid-template-columns:repeat(3,1fr)}}
+  .use div{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);padding:13px 15px;font-size:.9rem}
+  .use b{font-family:var(--font-d)}
+  .toc{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:620px){.toc{grid-template-columns:1fr 1fr}}
+  .toc-card{--accent:var(--danger);text-align:left;background:var(--surface);border:1px solid var(--hair);
+    border-radius:var(--r);box-shadow:var(--shadow-sm);padding:17px 18px;cursor:pointer;display:flex;gap:14px;
+    align-items:flex-start;font:inherit;color:var(--ink);transition:transform .16s,box-shadow .16s,border-color .16s;
+    --a-tint:color-mix(in srgb,var(--accent) 14%,var(--surface));--a-ink:color-mix(in srgb,var(--accent) 72%,var(--ink))}
+  .toc-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--accent)}
+  .toc-card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .toc-card .no{flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:var(--a-tint);color:var(--a-ink);
+    font-family:var(--font-d);font-weight:900;font-size:1.15rem;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+  .toc-card h3{font-family:var(--font-d);font-weight:900;margin:2px 0 3px;font-size:1.05rem}
+  .toc-card p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.55}
+
+  /* ---------- CHAPTER HEADER ---------- */
+  .chapter__intro{border-radius:var(--r);padding:26px 22px;margin-bottom:24px;
+    background:linear-gradient(160deg,var(--a-tint),var(--surface));border:1px solid var(--hair)}
+  .chapter__kicker{font-family:var(--font-d);font-weight:900;font-size:.8rem;letter-spacing:.14em;color:var(--a-ink)}
+  .chapter__title{font-family:var(--font-d);font-weight:900;font-size:clamp(1.6rem,5.4vw,2.2rem);
+    line-height:1.3;margin:8px 0 8px;text-wrap:balance}
+  .chapter__lead{margin:0;color:var(--muted);font-size:.98rem;max-width:52ch}
+
+  /* ---------- BLOCK ---------- */
+  .block{margin:30px 0}
+  .block__head{display:flex;align-items:center;gap:11px;margin:0 2px 14px}
+  .block__head::before{content:"";width:5px;height:22px;border-radius:3px;background:var(--accent);flex:0 0 auto}
+  .block__head h3{font-family:var(--font-d);font-weight:900;margin:0;font-size:1.2rem;letter-spacing:.01em}
+
+  /* headline statement */
+  .headline{font-family:var(--font-d);font-weight:900;font-size:clamp(1.15rem,4vw,1.5rem);line-height:1.5;
+    margin:0 0 4px;text-wrap:balance}
+  .headline .hl{color:var(--accent)}
+
+  /* callout */
+  .callout{background:var(--a-tint);border-radius:var(--r-sm);padding:14px 16px;margin:14px 0}
+  .callout__label{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:.72rem;letter-spacing:.05em;
+    color:var(--surface);background:var(--accent);padding:3px 11px;border-radius:999px;margin-bottom:8px}
+  .callout__body{margin:0;font-size:.94rem}
+  .callout--warn{background:var(--amber-tint)}
+  .callout--warn .callout__label{background:var(--amber-deep)}
+  .callout--tip{background:color-mix(in srgb,var(--ok) 12%,var(--surface))}
+  .callout--tip .callout__label{background:var(--ok)}
+
+  /* do / dont */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px 0}
+  @media(max-width:430px){.cols{grid-template-columns:1fr}}
+  .col{border-radius:var(--r-sm);padding:13px 14px}
+  .col--ng{background:var(--danger-tint)}
+  .col--ok{background:var(--blue-tint)}
+  .col__head{font-family:var(--font-d);font-weight:900;font-size:.85rem;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+  .col--ng .col__head{color:var(--danger-ink)}
+  .col--ok .col__head{color:var(--blue)}
+  .col__head::before{content:"";width:17px;height:17px;border-radius:50%;flex:0 0 auto;background-repeat:no-repeat;background-position:center;background-size:11px}
+  .col--ng .col__head::before{background-color:var(--danger);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E")}
+  .col--ok .col__head::before{background-color:var(--blue);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E")}
+  .col__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .col__list li{position:relative;padding-left:15px;font-size:.87rem;line-height:1.5}
+  .col__list li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%}
+  .col--ng .col__list li::before{background:var(--danger)}
+  .col--ok .col__list li::before{background:var(--blue)}
+
+  /* point */
+  .point{background:var(--surface-2);border:1px dashed var(--hair);border-radius:var(--r-sm);padding:12px 14px;
+    font-size:.92rem;line-height:1.6;margin:14px 0}
+  .point__label{display:inline-block;font-family:var(--font-d);font-weight:900;font-size:.72rem;letter-spacing:.08em;
+    color:var(--ok);margin-right:8px;vertical-align:1px}
+
+  /* topic card grid */
+  .cardgrid{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0}
+  @media(min-width:600px){.cardgrid{grid-template-columns:1fr 1fr}}
+  .cardgrid.cols3{grid-template-columns:1fr}
+  @media(min-width:600px){.cardgrid.cols3{grid-template-columns:1fr 1fr 1fr}}
+  .tcard{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);box-shadow:var(--shadow-sm);
+    padding:15px 16px;border-top:3px solid var(--accent)}
+  .tcard__h{font-family:var(--font-d);font-weight:900;font-size:1rem;margin:0 0 6px;line-height:1.4}
+  .tcard__b{margin:0;font-size:.88rem;color:var(--ink);line-height:1.65}
+  .tcard__b .hl{color:var(--a-ink);font-weight:700}
+
+  /* flow (numbered process) */
+  .flow{display:flex;flex-direction:column;gap:0;margin:14px 0}
+  .flow__item{display:flex;gap:13px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--hair)}
+  .flow__item:last-child{border-bottom:0}
+  .flow__n{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;
+    font-family:var(--font-d);font-weight:900;font-size:.9rem;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+  .flow__t{font-size:.92rem;line-height:1.6}
+  .flow__t b{font-family:var(--font-d)}
+
+  /* steps ladder */
+  .steps{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .step{flex:1 1 92px;min-width:92px;border-radius:12px;padding:11px 9px;border:1px solid var(--hair);
+    background:var(--surface-2);text-align:center}
+  .step .lv{display:block;font-family:var(--font-d);font-weight:700;font-size:.68rem;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+  .step .nm{font-family:var(--font-d);font-weight:900;font-size:.94rem;line-height:1.3}
+  .step[data-tier="1"]{background:var(--a-tint);border-color:transparent}
+  .step[data-tier="1"] .nm{color:var(--a-ink)}
+  .step[data-tier="2"]{background:var(--amber-tint);border-color:transparent}
+  .step[data-tier="2"] .nm,.step[data-tier="2"] .lv{color:var(--amber)}
+  .step[data-tier="3"]{background:linear-gradient(180deg,var(--amber-deep),#8f2f0a);border-color:transparent}
+  .step[data-tier="3"] .nm{color:#fff}.step[data-tier="3"] .lv{color:#ffd9c7}
+  .step[data-tier="goal"]{background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000));border-color:transparent}
+  .step[data-tier="goal"] .nm{color:#fff}.step[data-tier="goal"] .lv{color:rgba(255,255,255,.8)}
+
+  /* stat row */
+  .statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:14px 0}
+  @media(max-width:480px){.statrow{grid-template-columns:1fr}}
+  .stat{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);padding:15px;text-align:center;box-shadow:var(--shadow-sm)}
+  .stat__n{font-family:var(--font-d);font-weight:900;font-size:1.7rem;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+  .stat__l{display:block;margin-top:6px;font-size:.82rem;color:var(--muted)}
+
+  /* check list (static) */
+  .clist{list-style:none;margin:14px 0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .clist li{position:relative;padding-left:30px;font-size:.92rem;line-height:1.6}
+  .clist li::before{content:"";position:absolute;left:0;top:.28em;width:19px;height:19px;border-radius:6px;background:var(--a-tint);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23E8446E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
+  .clist li b{font-family:var(--font-d)}
+
+  /* table */
+  .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--hair);border-radius:var(--r-sm)}
+  table.ttable{border-collapse:collapse;width:100%;font-size:.88rem;min-width:340px}
+  table.ttable th,table.ttable td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--hair);vertical-align:top}
+  table.ttable th{background:var(--a-tint);font-family:var(--font-d);font-weight:700;color:var(--a-ink);white-space:nowrap}
+  table.ttable tr:last-child td{border-bottom:0}
+  table.ttable td b{font-family:var(--font-d);color:var(--ink)}
+
+  /* inline tags */
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+  .tag{background:var(--a-tint);color:var(--a-ink);font-family:var(--font-d);font-weight:700;font-size:.8rem;padding:5px 11px;border-radius:999px}
+
+  /* source note */
+  .src{margin:16px 0 0;font-size:.78rem;color:var(--muted);line-height:1.6}
+  .src b{color:var(--ink)}
+
+  /* chapter footer nav */
+  .chnav{display:flex;justify-content:space-between;gap:10px;margin-top:34px;padding-top:18px;border-top:1px solid var(--hair)}
+  .chnav button{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);padding:11px 15px;
+    font:inherit;font-family:var(--font-d);font-weight:700;color:var(--ink);cursor:pointer;font-size:.86rem;transition:border-color .16s}
+  .chnav button:hover{border-color:var(--accent)}
+  .chnav button:disabled{opacity:.35;cursor:default}
+  .chnav .sub{display:block;font-family:var(--font-b);font-weight:400;font-size:.7rem;color:var(--muted)}
+
+  /* footer */
+  .foot{max-width:860px;margin:0 auto;padding:24px 18px 40px;text-align:center;color:var(--muted);font-size:.78rem;line-height:1.7}
+  .foot b{color:var(--ink)}
+
+  /* ---------- BAN chapter specific: rule cards ---------- */
+  .rules{display:grid;grid-template-columns:1fr;gap:16px;margin:14px 0}
+  @media(min-width:680px){.rules{grid-template-columns:1fr 1fr}}
+  .rule{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow-sm);
+    padding:18px 17px;display:flex;flex-direction:column;gap:12px}
+  .rule__head{display:flex;align-items:center;gap:11px}
+  .rule__num{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;
+    font-family:var(--font-d);font-weight:900;font-size:1.05rem;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+  .rule__title{font-family:var(--font-d);font-weight:900;margin:0;font-size:1.05rem;line-height:1.35}
+  .rule__headline{margin:0;font-family:var(--font-d);font-weight:700;font-size:1rem;line-height:1.5}
+  .note{background:var(--a-tint);border-radius:var(--r-sm);padding:12px 13px}
+  .note__label{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:.72rem;letter-spacing:.05em;
+    color:#fff;background:var(--accent);padding:3px 10px;border-radius:999px;margin-bottom:7px}
+  .note__body{margin:0;font-size:.89rem}
+  .check-card{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 20px;margin:14px 0}
+  .check-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:14px}
+  .check-top p{margin:0;color:var(--muted);font-size:.9rem}
+  .counter{font-family:var(--font-d);font-weight:900;font-size:1rem;white-space:nowrap}
+  .counter b{color:var(--accent);font-size:1.6rem;font-variant-numeric:tabular-nums}
+  .bar{height:8px;background:var(--hair);border-radius:999px;overflow:hidden;margin-bottom:16px}
+  .bar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--amber));transition:width .35s}
+  .checks{display:flex;flex-direction:column;gap:9px}
+  .check{display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;background:var(--surface-2);
+    border:1px solid var(--hair);border-radius:var(--r-sm);padding:12px 15px;font:inherit;color:var(--ink);transition:border-color .16s}
+  .check:hover{border-color:var(--accent)}.check:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .cbox{flex:0 0 auto;width:23px;height:23px;border-radius:7px;border:2px solid var(--hair);background:var(--surface);display:grid;place-items:center;transition:all .16s}
+  .cbox svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:all .16s}
+  .check.done .cbox{background:var(--ok);border-color:var(--ok)}.check.done .cbox svg{opacity:1;transform:scale(1)}
+  .check.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--hair)}
+  .check .cn{flex:0 0 auto;width:21px;height:21px;border-radius:6px;background:var(--a-tint);color:var(--a-ink);
+    font-family:var(--font-d);font-weight:900;font-size:.78rem;display:grid;place-items:center}
+  .check .t{font-size:.92rem}
+  .banner{margin-top:15px;border-radius:var(--r-sm);padding:14px;text-align:center;background:color-mix(in srgb,var(--ok) 14%,transparent);
+    border:1px solid var(--ok);color:var(--ok);font-family:var(--font-d);font-weight:900;opacity:0;transform:translateY(6px);transition:all .3s}
+  .banner.show{opacity:1;transform:none}
+</style>
+
+
+<header class="topbar">
+  <div class="topbar__row">
+    <span class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5S5.5 4 8.5 4 12 5.5 12 5.5v13S10 17 8 17s-5 1.2-5 1.2V5.5Z"/><path d="M21 5.5S18.5 4 15.5 4 12 5.5 12 5.5v13s2-1.5 4-1.5 5 1.2 5 1.2V5.5Z"/></svg>
+      ライバー攻略ブック <small>by DeNA Creator Links</small>
+    </span>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="章">
+    <button class="tab" role="tab" aria-selected="true" data-target="home">目次</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch1"><span class="no">1</span>BAN・コンプラ</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch2"><span class="no">2</span>配信の土台</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch3"><span class="no">3</span>集客・伸ばす</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch4"><span class="no">4</span>トーク・場作り</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch5"><span class="no">5</span>定着・常連</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch6"><span class="no">6</span>ギフト・換金</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch7"><span class="no">7</span>バトル・イベント</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch8"><span class="no">8</span>リスナー・距離感</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch9"><span class="no">9</span>メンタル・継続</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch10"><span class="no">10</span>ジャンル別攻略</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch11"><span class="no">11</span>機能ガイド</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="ch12"><span class="no">12</span>やりがちNG→改善</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="glossary">用語・早見</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="view active home" id="home">
+    <div class="home-hero">
+      <span class="eye">TikTok LIVE 育成ナレッジ</span>
+      <h1>伸びる・<span class="hl">稼ぐ</span>・続ける、<br>ぜんぶ1冊に。</h1>
+      <p>配信のコツ・BAN対策・トーク・ギフト・バトル・リスナーとの関係・メンタルまで。現場で貯めた知見を、初心者からわかるようにまとめました。</p>
+    </div>
+    <div class="use">
+      <div><b>📖 使い方</b><br>上のタブで章を移動。気になる所から読んでOK。</div>
+      <div><b>★ のマーク</b><br>今すぐ効く実務テク。まずここから試そう。</div>
+      <div><b>⚠️ 数字は目安</b><br>報酬・条件は変わります。最終は公式で確認を。</div>
+    </div>
+    <div class="toc" id="toc">
+      <button class="toc-card" data-target="ch1" style="--accent:#E8446E"><span class="no">1</span><div><h3>BAN・コンプラ</h3><p>やりがちな落とし穴・AI音声禁止・もらいBAN・著作権と、配信前チェック。</p></div></button>
+      <button class="toc-card" data-target="ch2" style="--accent:#0E9AA0"><span class="no">2</span><div><h3>配信の土台</h3><p>配信量・リーグ・枠固定・機材と画角・ゴールデンタイム。</p></div></button>
+      <button class="toc-card" data-target="ch3" style="--accent:#1E9E6A"><span class="no">3</span><div><h3>集客・伸ばす</h3><p>2026アルゴリズム・初見の入り・ショート・最初の30日設計。</p></div></button>
+      <button class="toc-card" data-target="ch4" style="--accent:#4B45C2"><span class="no">4</span><div><h3>トーク・場作り</h3><p>0人でも回す・会話を線に・沈黙の立て直し・トーク練習・企画ストック。</p></div></button>
+      <button class="toc-card" data-target="ch5" style="--accent:#B0479E"><span class="no">5</span><div><h3>定着・常連を育てる</h3><p>最初の5分と5日・カルテ・温度・共通言語・段階別ロードマップ。</p></div></button>
+      <button class="toc-card" data-target="ch6" style="--accent:#D98A1F"><span class="no">6</span><div><h3>ギフト・換金</h3><p>なぜ投げるか5原則・大口の心理・サブスク設計・ガーディアン。</p></div></button>
+      <button class="toc-card" data-target="ch7" style="--accent:#7A54D6"><span class="no">7</span><div><h3>バトル・イベント</h3><p>バトルの装置化・アイテム・生誕祭進行・100万への階段。</p></div></button>
+      <button class="toc-card" data-target="ch8" style="--accent:#CC5A3C"><span class="no">8</span><div><h3>リスナー・距離感・トラブル</h3><p>やっかい5タイプ・闇落ち6段階・神対応の型・ガチ恋の線引き。</p></div></button>
+      <button class="toc-card" data-target="ch9" style="--accent:#5566A8"><span class="no">9</span><div><h3>メンタル・継続</h3><p>対等な関係・3ヶ月の壁・休止という選択・燃え尽き予防の習慣。</p></div></button>
+      <button class="toc-card" data-target="ch10" style="--accent:#2C8C7A"><span class="no">10</span><div><h3>ジャンル別攻略</h3><p>歌枠・ゲーム枠・雑談枠・顔出しなし・作業耐久・海外対応。</p></div></button>
+      <button class="toc-card" data-target="ch11" style="--accent:#3D6FB8"><span class="no">11</span><div><h3>機能ガイド</h3><p>LIVEゴール・ガーディアン・リーグ・コラボ・モデ機能の使い方。</p></div></button>
+      <button class="toc-card" data-target="ch12" style="--accent:#B4400E"><span class="no">📈</span><div><h3>やりがちNG→改善</h3><p>つい陥るNGを ❌→✅ に。土台・トーク・換金・定着の一手。</p></div></button>
+      <button class="toc-card" data-target="glossary" style="--accent:#6B7280"><span class="no">📖</span><div><h3>用語・早見</h3><p>配信用語集とギフト早見。わからない言葉が出たらここへ。</p></div></button>
+    </div>
+    <p class="src">出典：DeNA Creator Links 育成ナレッジ・ハブ／TikTok LIVE 現場知見の蒸留（参考発信：@liver_textbook・@answer42.do.not.panic・UNICORN ほか、各章に明記）。<br>※本書は育成の考え方をまとめたもの。報酬・還元率・イベント条件・機能仕様は変更されるため、最終判断は必ず公式の最新情報で確認してください。</p>
+  </section>
+
+    <section class="view chapter" id="ch1" style="--accent:#E8446E">
+    <div class="chapter__intro">
+      <span class="chapter__kicker">CHAPTER 1</span>
+      <h2 class="chapter__title">BAN・コンプラ ── その油断が、BANにつながる</h2>
+      <p class="chapter__lead">「これくらい大丈夫」——最近のTikTok LIVE審査はかなり厳しい。やりがちな7つ＋2026年の新ルール（AI音声・もらいBAN・著作権）と、配信前チェックをまとめました。</p>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>ペナルティは段階的に重くなる</h3></div>
+      <p class="callout callout--warn"><span class="callout__label">重要</span><span class="callout__body">一度の警告を放置して同じ配信を続けると、停止期間はどんどん延びます。<b>永久BANは一度失うと二度と配信できなくなることも。</b>「警告が来たら見直す」が一番の予防です。</span></p>
+      <div class="steps">
+        <div class="step" data-tier="1"><span class="lv">最初は</span><span class="nm">警告</span></div>
+        <div class="step" data-tier="1"><span class="lv">↓</span><span class="nm">数分停止</span></div>
+        <div class="step" data-tier="2"><span class="lv">↓</span><span class="nm">1時間停止</span></div>
+        <div class="step" data-tier="2"><span class="lv">↓</span><span class="nm">1週間停止</span></div>
+        <div class="step" data-tier="2"><span class="lv">↓</span><span class="nm">2週間停止</span></div>
+        <div class="step" data-tier="3"><span class="lv">最悪</span><span class="nm">永久BAN</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>知らずにやりがちな7つの落とし穴</h3></div>
+      <div class="rules">
+        <article class="rule"><header class="rule__head"><span class="rule__num">1</span><h3 class="rule__title">ギフトのお願いが強すぎる</h3></header><p class="rule__headline">ギフトの要求は「BANの原因」になることも</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">お願いすること自体はNGではないが「強要」に見える言い方は要注意。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>ギフト投げて！</li><li>ギフトちょうだい！</li><li>投票して！</li><li>お金払うから○○して！</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>応援してもらえると嬉しいです</li><li>協力してくれると助かります</li><li>○○位を目指しています！</li><li>一緒に頑張ろう！</li></ul></div></div><p class="point"><span class="point__label">POINT</span>「お願いする」でなく「目標を共有して応援を集める」。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">2</span><h3 class="rule__title">性的な発言・行為</h3></header><p class="rule__headline">性的な内容は「即BAN」の対象に</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">性的な言葉・行為・過度なボディタッチなど、不快感を与える内容は厳しく取り締まられる。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>性的な話題・下ネタ</li><li>性的な暗示を含む発言</li><li>過度な露出・セクシーポーズ</li><li>性的な誘導・煽り</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>健全で明るいトーク</li><li>清潔感のある身だしなみ</li><li>安心して楽しめる配信</li><li>誠実で親しみやすい対応</li></ul></div></div><p class="point"><span class="point__label">POINT</span>「見ていて心地よい配信」が長く愛される秘訣。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">3</span><h3 class="rule__title">見た目や画角で誤解される</h3></header><p class="rule__headline">画角や服装でもBAN対象になることがある</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">本人にそのつもりがなくても、露出が多く見えたり体を強調して見える映像は注意。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>胸元が大きく見える画角</li><li>お腹が目立つ構図</li><li>カメラにお尻を向ける</li><li>体のラインを強調</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>顔中心の画角</li><li>上半身が自然に映る構図</li><li>清潔感のある服装</li></ul></div></div><p class="point"><span class="point__label">POINT</span>「視聴者からどう見えるか」を確認しておこう。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">4</span><h3 class="rule__title">子どもが長時間映る</h3></header><p class="rule__headline">お子さんが配信の主役になると危険</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">少し映るだけで即BANとは限らないが、長時間映り続けると規制対象になる場合が。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>子どもが長時間映る</li><li>子どもが画面中央</li><li>子どもの声がメイン</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>主役は配信者</li><li>少し映る程度に</li><li>コラボ中の映り込みも注意</li></ul></div></div><p class="point"><span class="point__label">POINT</span>長時間映さない・中心にしない。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">5</span><h3 class="rule__title">お酒・タバコ・危険行為</h3></header><p class="rule__headline">映っているだけでもBAN対象になることが</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">本人に悪気がなくても、飲酒・喫煙・危険行為と判断される映像は注意。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>飲みながら配信</li><li>タバコが映る</li><li>運転しながら配信</li><li>危険に見える行動</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>お酒を映さない</li><li>喫煙具は画面外へ</li><li>停車中に安全な場所で</li><li>落ち着いた環境で</li></ul></div></div><p class="point"><span class="point__label">POINT</span>「やってない」でなく「そう見えないか」。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">6</span><h3 class="rule__title">外部サービスへの誘導</h3></header><p class="rule__headline">TikTok外への誘導は要注意</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">外部サービスへの誘導は制限されることがある。宣伝・案内の時ほど注意。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>他SNSへ誘導</li><li>外部サイトに飛ばす</li><li>チケット購入を促す</li><li>SHOP以外で商品紹介</li><li>QRを配信中に見せる</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>TikTok内で案内</li><li>TikTok SHOPを活用</li><li>ガイドラインを確認</li><li>不明なら事前相談</li></ul></div></div><p class="point"><span class="point__label">POINT</span>宣伝したい時ほど、事前確認を忘れずに。</p></article>
+        <article class="rule"><header class="rule__head"><span class="rule__num">7</span><h3 class="rule__title">グレーな企画を続ける</h3></header><p class="rule__headline">警告が来たらすぐ見直そう</p><div class="note"><span class="note__label">審査のポイント</span><p class="note__body">警告が来た内容をそのまま続けると、停止が段階的に重くなることがある。</p></div><div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>警告後も同じ企画</li><li>内容を変えず再配信</li><li>「大丈夫だった」と続行</li><li>ガイドを確認しない</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>警告内容を確認</li><li>配信内容を見直す</li><li>ガイドを再確認</li><li>不安なら事務所に相談</li></ul></div></div><p class="point"><span class="point__label">POINT</span>警告は“セーブ”でなく“改善して”のサイン。</p></article>
+      </div>
+    </div>
+
+    <div class="block"><div class="block__head"><h3>【2026年改定】配信中の「AI音声」は禁止に</h3></div><p class="callout callout--warn"><span class="callout__label">最重要</span><span class="callout__body">2026年7月のガイドライン改定で、<b>ライブ配信でのAI合成音声</b>が禁止対象になったと解説されています。違反は「配信機能の一時停止 → 露出激減 → 繰り返しで永久停止」と段階的に。</span></p><div class="cols"><div class="col col--ng"><div class="col__head">やってはいけない</div><ul class="col__list"><li>テキスト読み上げ（TTS）で自動ナレーション配信</li><li>音声クローンの無断使用</li><li>アバター音声を使った“無人ライブ”</li></ul></div><div class="col col--ok"><div class="col__head">これはOK</div><ul class="col__list"><li>AIで企画・台本・分析を作る</li><li>その台本を“本人が読み上げる”</li><li>配信中の声はあなた自身で出す</li></ul></div></div><p class="point"><span class="point__label">POINT</span>AIは“準備（上流）”で使うのはOK。配信中の声は自分で。読み上げ任せ・無人放置はアカウントごと危険です。（制度は改訂前提＝最終は公式で確認）</p></div>
+
+    <div class="block"><div class="block__head"><h3>“もらいBAN”に注意（コラボ相手の違反で自分も飛ぶ）</h3></div><p class="callout"><span class="callout__label">仕組み</span><span class="callout__body">コラボ配信中に<b>相手が違反行為</b>をすると、こちら側もBAN対象になり得ます（＝もらいBAN）。おおむね1週間ほどLIVE不可になるケースが報告されています。</span></p><ul class="clist"><li><b>相手は事前に枠を1回見てから繋ぐ</b> 実力だけでなく“素行”も見る。荒れ枠・露出過多枠との連結はリスク。</li><li><b>誤BANもある</b> 飲酒・喫煙は缶や瓶が映っただけ、モデルガンは危険行為判定など、AI誤認識の例も。</li><li><b>BANされたら自己判断で消さない</b> 「設定とプライバシー → ヘルプセンター → フィードバックを送信」で異議申し立て＋事務所にすぐ共有。</li></ul></div>
+
+    <div class="block"><div class="block__head"><h3>音楽の著作権（LIVEも動画と同じ）</h3></div><p class="callout callout--warn"><span class="callout__label">重要</span><span class="callout__body">LIVE配信も投稿動画と<b>同じ著作権ルール</b>。CD音源などを無断でBGMに流すのは権利侵害＝アカウントBAN・音声ミュートの原因になります。</span></p><div class="cols"><div class="col col--ok"><div class="col__head">使ってOK</div><ul class="col__list"><li>商用楽曲ライブラリ（CML）の認証曲</li><li>規約OKのフリーBGM</li><li>自作曲</li></ul></div><div class="col col--ng"><div class="col__head">やってはいけない</div><ul class="col__list"><li>CD音源をそのまま流す</li><li>曲の速度変更・リミックス</li><li>歌詞の改変</li></ul></div></div><p class="point"><span class="point__label">POINT</span>歌枠は特に、使える音源かどうかとアプリ内機能の利用可否を事前に確認。</p></div>
+
+    <div class="block">
+      <div class="block__head"><h3>配信前チェック</h3></div>
+      <div class="check-card">
+        <div class="check-top"><p>ライブを始める前に、7つを指でタップして確認。</p><div class="counter"><b id="cnt">0</b> / 7</div></div>
+        <div class="bar"><span id="fill"></span></div>
+        <div class="checks" id="checks">
+          <button class="check" type="button" aria-pressed="false"><span class="cn">1</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">ギフト要求が強すぎないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">2</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">下ネタに聞こえる発言はないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">3</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">画角や服装に誤解がないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">4</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">子どもが長時間映っていないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">5</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">お酒・タバコ・危険行為が映っていないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">6</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">外部誘導になっていないか</span></button>
+          <button class="check" type="button" aria-pressed="false"><span class="cn">7</span><span class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="t">警告後に同じ内容を続けていないか</span></button>
+        </div>
+        <div class="banner" id="banner">🎬 全部クリア！安心して配信スタート</div>
+      </div>
+      <p class="src">参考：TikTok <b>@liver_textbook</b>（ライバーの教科書）の発信より再構成。※審査基準・停止期間は変わることがあります。公式ガイドラインで最終確認を。</p>
+    </div>
+
+    <nav class="chnav"><button disabled>&nbsp;</button><button data-target="ch2">次の章 →<span class="sub">配信の土台</span></button></nav>
+  </section>
+
+  <section class="view chapter" id="ch2" style="--accent:#0E9AA0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 2</span><h2 class="chapter__title">配信の土台 ── 配信量が、すべてのはじまり</h2><p class="chapter__lead">集客も換金も、まず“出る量”があってこそ。土台となる配信量・続け方・配信環境をまとめました。</p></div>
+
+<div class="block"><div class="block__head"><h3>まず“出る量”を確保する</h3></div>
+<p class="headline">才能より先に効くのは、<span class="hl">出続けた回数</span>。</p>
+<p>TikTokのアルゴリズムは「アクティブに配信している人」を押し出す傾向があります。逆に言えば、量が土台に乗るまでは集客テクも換金テクも空回りしがち。まずは“毎日ここにいる”を作りましょう。</p>
+<ul class="clist">
+<li><b>配信量の目安</b> S0（立ち上げ期）は1日3時間／S1以降は1日4時間（月80h相当）を目安に。週5本のペースで習慣にする。</li>
+<li><b>1回の長さ</b> 1回は最低25分以上（時間ミッション＝最大還元の条件になりやすい）。ダラダラ長時間より「毎回きちんと出る」を優先。</li>
+<li><b>通常枠の基準</b> 通常枠は30〜60分を基準にし、反応が良い日だけ延長する。質を落としてまで伸ばさない。</li>
+<li><b>点ける習慣</b> 開始15分前に「タイトル＋話題3つ」を決めるルーティンを持つと、その場のノリを再現できる運用に変わる。</li>
+</ul>
+<p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">「絶やさない＝無理する」ではありません。しんどい日は5分・10分・あいさつだけでも点けて“流れ”を切らさないこと。完璧な1本より、切れない連続のほうが土台になります。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>知らないと損する“配信時間”の仕組み</h3></div>
+<p>「毎日やってるつもり」でも、TikTok的には「0日」扱いになっていることがあります。カウントの仕組みを知っておくと、同じ努力が無駄になりません。</p>
+<div class="cardgrid cols3">
+<div class="tcard"><h4 class="tcard__h">毎日1回は“またぐ”</h4><p class="tcard__b">毎日<span class="hl">24時までに1回</span>配信して、リーグの“かけら”減少（−1）を防ぐ。1日でも空けると翌日に響く。</p></div>
+<div class="tcard"><h4 class="tcard__h">短すぎるとカウント外</h4><p class="tcard__b">1時間未満だと「1日配信した」に<span class="hl">カウントされない</span>ことも。まず1.5〜2時間、最低2時間で“おすすめ審査”を通す。</p></div>
+<div class="tcard"><h4 class="tcard__h">朝9時が区切り</h4><p class="tcard__b">1日の締めは<span class="hl">朝9時</span>。この区切りで自分の配信時間とダイヤを確認する習慣を。「朝9時またぎ」も有効。</p></div>
+</div>
+<p class="point"><span class="point__label">POINT</span>「昨日は何時間・何ダイヤだったか」を毎朝チェックするだけで、頑張りが“カウントされる形”になっているか見えるようになる。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>リーグ・かけら・シールド</h3></div>
+<p>クリエイターリーグは、配信量と成果がそのまま“順位”に反映される仕組み。用語を押さえておくと、休み方まで設計できます。</p>
+<div class="cardgrid cols3">
+<div class="tcard"><h4 class="tcard__h">リーグ</h4><p class="tcard__b">約18段階のステージ制。<span class="hl">毎日配信で昇格</span>していく。まずは1つ上への昇格を目標に、慣れたらリーグ内上位を狙う。</p></div>
+<div class="tcard"><h4 class="tcard__h">かけら</h4><p class="tcard__b">昇格のためのポイント。上位%に入ると増え、<span class="hl">未配信の日は−1</span>。「勝負枠」で上位%を取りにいくと貯まりやすい。</p></div>
+<div class="tcard"><h4 class="tcard__h">シールド</h4><p class="tcard__b">かけら喪失を肩代わりしてくれる保険。<span class="hl">最大10個</span>まで保持できる。残数を見て“休配日”を計画に組み込む。</p></div>
+</div>
+<p class="callout"><span class="callout__label">重要</span><span class="callout__body">リーグ・かけら・シールドの段階数や条件は改訂される前提です。数値は目安として捉え、最新の仕様は公式・事務所で確認してください。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>枠を“固定”する</h3></div>
+<p class="headline">「いつ来れば会えるか」を、<span class="hl">リスナーが言えるか</span>。</p>
+<p>時間がバラバラだと、来たい人も来られません。固定客が付く前に辞めてしまうのがいちばんもったいないパターン。同じ時間・一定ペースが、信頼をいちばん早く積みます。</p>
+<div class="cols">
+<div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>気分で配信時間がバラバラ</li><li>やる気のある日だけ長時間、あとは無配信のバースト型</li><li>固定客が付く前に「伸びない」と辞めてしまう</li></ul></div>
+<div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>毎日“ほぼ同じ時間”に始める</li><li>一定ペース＋計画的な休養で長く続ける</li><li>反応が薄くても、付くまで続ける前提で臨む</li></ul></div>
+</div>
+<p class="point"><span class="point__label">POINT</span>親近感は「長さ」より「頻度」で育つ。忙しい日は1回を短くしてでも毎日続ける。休むなら「明日は短めにね」と予告して“次への布石”にする。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>機材は一度だけ整える（段階導入）</h3></div>
+<p>機材は毎回悩むものではなく「一度そろえて放置」でOK。全部いきなり買わず、効果の大きい順に段階導入しましょう。</p>
+<ul class="clist">
+<li><b>① リングライト</b> まずはこれ。顔映りが一段明るくなり、第一印象が変わる。</li>
+<li><b>② スマホスタンド・三脚</b> 1時間以上の配信を手ブレなく固定。画角も安定する。</li>
+<li><b>③ 外部マイク</b> 慣れてきたら音質アップに。クリアな音声は<span class="hl">離脱率を下げる</span>——「音」で損している枠は意外と多い。</li>
+<li><b>④ 高負荷に耐えるスマホ</b> 処理落ち＝カクつきを回避。長時間・エフェクト多めでも安定する端末を。</li>
+<li><b>⑤ 安定した通信</b> 途切れは視聴体験を大きく損なう。上り回線5Mbps以上を目安に確保する。</li>
+</ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>画角・第一印象（最初の数秒で決まる）</h3></div>
+<p>初見さんは数秒で「見るか離れるか」を判断します。トーク力より先に“映り方”を整えるほうが、効果が早いことも多いです。</p>
+<ul class="clist">
+<li><b>カメラはアイレベル</b> 自分の目の高さに置く。見下ろし・見上げは不自然で疲れて見えるためNG。</li>
+<li><b>UI安全帯を空ける</b> 頭上5〜10%、下1/5・左右1/10に余白を確保。画面のボタン類で顔や手元が隠れないようにする。</li>
+<li><b>時々レンズを見る</b> ときどきレンズを見つめて“アイコンタクト”効果を作る。視聴維持が上がり離脱を防ぐ。</li>
+<li><b>メガネの反射対策</b> ライトは斜め上から当てて反射を防ぐ。レンズにライトが映り込まない角度に調整。</li>
+<li><b>背景はシンプル</b> 派手な柄・生活感を避け、観葉植物や間接照明でアクセントを。壁から少し離れると奥行きが出る。</li>
+</ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>配信前チェックリスト</h3></div>
+<p>毎回同じ手順で確認するだけで、事故（通知の映り込み・音割れ・途中で充電切れ）はほぼ防げます。配信ボタンを押す前に、上から順に。</p>
+<ul class="clist">
+<li><b>背景</b> シンプルに整っているか。個人特定につながるもの（郵便物・窓の景色）が映っていないか。</li>
+<li><b>画角</b> 壁から離れて奥行きを確保。アイレベル・余白（UI安全帯）はOKか。</li>
+<li><b>端末</b> 機内モード＋Wi-Fiで通知OFF（配信中の通知の映り込み・着信を防ぐ）。</li>
+<li><b>明るさ・音量</b> 固定して途中で変わらないように。音割れしていないか。</li>
+<li><b>空き容量</b> 十分あるか（不足は録画・切り抜きに響く）。</li>
+<li><b>充電</b> 80%以上、できれば給電しながら。</li>
+<li><b>通信</b> 上り回線5Mbps以上を確保できているか。</li>
+</ul>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">初配信の前は“練習モード”（非公開）で、機材・画角・各種機能を一通りテストしておくと本番で慌てません。人前に出る前に一度リハーサルを。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>ゴールデンタイムを狙う</h3></div>
+<p class="callout"><span class="callout__label">目安</span><span class="callout__body">人が集まりやすいのは夜20〜23時（最大帯は18〜22時）。週末は金・土の夕食後、20時以降が狙い目です。ただし“正解”は人によって違います。</span></p>
+<ul class="clist">
+<li><b>まず定番の時間に寄せる</b> 迷ったら夜20〜23時から。人が動く時間に配信を合わせるだけで、初見に見つかる確率が上がる。</li>
+<li><b>週末は夕食後</b> 金・土の20時以降は在宅リスナーが多い。イベント前など勝負したい日はここに寄せる。</li>
+<li><b>“自分のゴールデンタイム”を特定</b> インサイトでフォロワーのアクティブ時間帯を確認し、いくつかの時間で数回試して、いちばん反応が良い枠を自分の主戦場に固定する。</li>
+</ul>
+</div>
+
+<p class="src">参考：@liver_textbook（ライバーの教科書）／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式で確認を。</p>
+<nav class="chnav"><button data-target="ch1">← 前の章<span class="sub">BAN・コンプラ</span></button><button data-target="ch3">次の章 →<span class="sub">集客・伸ばす</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch3" style="--accent:#1E9E6A">
+    <div class="chapter__intro">
+      <span class="chapter__kicker">CHAPTER 3</span>
+      <h2 class="chapter__title">集客・伸ばす ── 見つけてもらう→入ってもらう→また来てもらう</h2>
+      <p class="chapter__lead">新しい人に届き、入りやすくして、また来たくなる。その順番で設計します。</p>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>2026年、アルゴリズムはこう変わった</h3></div>
+      <p class="headline">これからは<span class="hl">「ジャンルを絞る・フォロワーに最初に刺す・最後まで見てもらう・検索語を入れる」</span>が効きます。</p>
+      <div class="cardgrid">
+        <div class="tcard"><h4 class="tcard__h">ジャンルは1つに</h4><p class="tcard__b">1つのアカウントで<span class="hl">3トピック以上</span>を跨ぐと、最大-45%までリーチが下がるとされています。「何のアカウントか」を1本に絞るのが構造的に有利。</p></div>
+        <div class="tcard"><h4 class="tcard__h">完視率50→70%</h4><p class="tcard__b">「最後まで見られたか」の基準が上がりました。ショートもLIVEも<span class="hl">7割見てもらえる</span>設計（冒頭で掴む・飽きさせない）が前提に。</p></div>
+        <div class="tcard"><h4 class="tcard__h">フォロワーファースト</h4><p class="tcard__b">新しい動画はまず<span class="hl">フォロワーに優先配信</span>され、反応が良ければ非フォロワーへ広がります。＝フォロワーの初速反応がとても重要。</p></div>
+        <div class="tcard"><h4 class="tcard__h">TikTok SEO</h4><p class="tcard__b">検索がランキング指標に組み込まれました。<span class="hl">検索されそうな言葉</span>をタイトル・キャプションに入れておくと見つけてもらいやすくなります。</p></div>
+      </div>
+      <p class="point"><span class="point__label">POINT</span>おすすめに載る評価の基本の順番は、視聴維持率 &gt; 会話 &gt; フォロー率 &gt; ギフト &gt; シェア &gt; いいね連打。いいねの数より「どれだけ楽しんでいるか」。</p>
+      <p class="callout callout--tip"><span class="callout__label">診断</span><span class="callout__body">伸び悩んだら、まず<b>①ジャンルを跨いでいないか ②フォロワーの初速がとれているか</b>の2つを疑ってみましょう。動画1本より、まずアカウント全体の設計を見直すのが近道です。</span></p>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>初見が入るかは「最初の一瞬」</h3></div>
+      <p class="headline">勝負は<span class="hl">最初の3秒</span>、おすすめ流入では<span class="hl">最初の0.5秒</span>。表示された瞬間から喋り・動きを見せます。</p>
+      <div class="cols">
+        <div class="col col--ng">
+          <div class="col__head">NG例</div>
+          <ul class="col__list">
+            <li>名指しで「◯◯さん来た！」と初見を緊張させる</li>
+            <li>話しかけすぎて、様子見したい人が息苦しい</li>
+            <li>常連との内輪ノリで、初見が置いていかれる</li>
+            <li>無言でスクロール中に何の枠か伝わらない</li>
+          </ul>
+        </div>
+        <div class="col col--ok">
+          <div class="col__head">OK例</div>
+          <ul class="col__list">
+            <li>入室0.5秒で「新しい人来た！」と軽く声かけ</li>
+            <li>「見るだけでも大歓迎」と様子見できる空気を残す</li>
+            <li>今の話題を初見に一言で要約して戻す</li>
+            <li>固定テロップ・第一声で「何をする枠か」を提示</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>会話の入口を作る</h3></div>
+      <ul class="clist">
+        <li><b>冒頭で「今日やること」を宣言する</b> 何の枠か最初に分かると、初見が「見る価値」を判断できて残りやすい。</li>
+        <li><b>自分から質問して「最初の5コメント」を早く付ける</b> 序盤にコメントが立ち上がると、アルゴリズムが"盛り上がり"と判定しておすすめに広がりやすい。</li>
+        <li><b>二択質問でハードルを下げる</b> 「ご飯食べた？①食べた②これから」のように、一言で参加できる形に。無言で見ている人も打ちやすくなる。</li>
+        <li><b>「見るだけでも大歓迎」と伝える</b> コメントを強制しない安心感が、かえって滞在時間を伸ばす。</li>
+        <li><b>「また会いたいからフォローしてね」と誘う</b> お願いではなく"再会の約束"。次の楽しみ（「◯人で歌枠」など）とセットにすると自然。</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>最初の30日ロードマップ</h3></div>
+      <p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">1ヶ月目は「稼ぐ」より「型づくり」の期間。焦らず土台を積みましょう。</span></p>
+      <div class="flow">
+        <div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>1週目｜土台</b> プロフィールを整え、配信する曜日・時間を固定する。「いつ・何をする人か」を決める週。</p></div>
+        <div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>2週目｜交流</b> 新規リスナーとの交流に集中。名前を呼び、一言でも会話を広げて「また来たい」を作る。</p></div>
+        <div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>3週目｜導線</b> ショート動画からLIVEへの導線を作る。配信前の1本、切り抜きでの誘導を試す。</p></div>
+        <div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>4週目｜分析</b> アナリティクスで結果を分析し、改善する。離脱ポイントや伸びた内容を1つ見つけて次に活かす。</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>0→1000フォロワー・LIVE解放</h3></div>
+      <p class="headline">最初の壁は<span class="hl">1000フォロワー</span>。ここを越えると届く範囲が変わり、LIVEもしやすくなります。</p>
+      <ul class="clist">
+        <li><b>ショートを高頻度で投稿する</b> LIVE解放とフォロワー基盤づくりの近道。まずは1000を目標に、投稿の数を積む。</li>
+        <li><b>ジャンルは1つに一貫させる</b> プロフ・アイコン・投稿を同じジャンルに揃えると、初見が瞬時に理解でき、アルゴリズムにも有利。</li>
+        <li><b>単発バズ狙いにしない</b> 「バズる1本」より、"何のアカウントか"を一貫させて届け先を定める方が、フォロワーは着実に育つ。</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>ショート・投稿で入口を増やす</h3></div>
+      <div class="cardgrid">
+        <div class="tcard"><h4 class="tcard__h">配信前に1本</h4><p class="tcard__b">LIVEを始める前にショートを1本投稿すると、<span class="hl">おすすめ流入の呼び水</span>になります。「今からLIVEやるよ」の予告にも。</p></div>
+        <div class="tcard"><h4 class="tcard__h">冒頭2秒で掴む</h4><p class="tcard__b">最初の2秒で掴んで<span class="hl">7割完視・保存される</span>設計を狙う。冒頭にフックを、締めに「保存したくなる」一言を。</p></div>
+        <div class="tcard"><h4 class="tcard__h">直後30分で切り抜き</h4><p class="tcard__b">配信直後30分が勝負。同接の山からシーンを選び、<span class="hl">タイトルは12〜18字</span>で判別しやすく。鮮度が高いうちに投稿。</p></div>
+        <div class="tcard"><h4 class="tcard__h">ハッシュタグ3〜5個</h4><p class="tcard__b"><span class="hl">ビッグ×ミドル×スモール</span>を混ぜて3〜5個。人気タグ頼みにせず、動画の内容と関連するものを選ぶ。</p></div>
+      </div>
+      <p class="point"><span class="point__label">POINT</span>ショートのKPI目安＝完了率40%+・保存率3%+・プロフ遷移率1%+。数字を1つ見て、改善点を1つに絞って次に反映。</p>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>プロフィールは"看板・名刺"</h3></div>
+      <p class="headline">おすすめ流入者は、プロフを見て<span class="hl">「見る価値があるか」</span>を判断します。</p>
+      <ul class="clist">
+        <li><b>80字に要点を詰める</b> ジャンル／届けたい相手／自分の特徴に加えて、「毎週◯時配信」「初見歓迎」を明記。リピートを促す名刺にする。</li>
+        <li><b>アイコンは顔・活動が伝わるものに</b> 何をする人か一目で分かる画像に。第一印象が弱いと、入室してすぐ離脱されやすい。</li>
+        <li><b>固定テロップを常時表示する</b> 「初見さん歓迎／今日は◯◯」を画面に固定。無音でスクロール中の人にも内容が伝わる。</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block__head"><h3>「人数」が効くランキングもある</h3></div>
+      <p class="callout"><span class="callout__label">ヒント</span><span class="callout__body">人気ランキングはチームギフトで<b>1人あたり1日最大40ptの上限</b>があるとされます。＝大口1人ではなく<b>"人数"</b>が効くタイプ。だから、チームに入ってくれる人を増やすのが近道です。ここでも催促はせず、「みんなで一緒に達成しよう」のトーンで。</span></p>
+    </div>
+
+    <p class="src">参考：TikTok <b>@liver_textbook</b>／<b>@answer42.do.not.panic</b>／DeNA Creator Links 育成ナレッジより再構成。数値・仕様は変わるため、最終確認は公式・事務所で。</p>
+    <nav class="chnav"><button data-target="ch2">← 前の章<span class="sub">配信の土台</span></button><button data-target="ch4">次の章 →<span class="sub">トーク・場作り</span></button></nav>
+  </section>
+
+  <section class="view chapter" id="ch4" style="--accent:#4B45C2"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 4</span><h2 class="chapter__title">トーク・場作り ── 会話を“点”で終わらせない</h2><p class="chapter__lead">コメントを拾って終わりでなく、質問で返して“線”にする。0人でも過疎でも回すコツを。</p></div>
+
+<div class="block"><div class="block__head"><h3>1. 0人でも、音を止めない</h3></div>
+<p class="headline">無音は<span class="hl">即離脱</span>を生む。0人の時間こそ、あとで来る人のための“助走”。</p>
+<p>おすすめ流入で来た初見は最初の数秒で「見るか離れるか」を決める。あなたが黙って画面を見つめていたら、それだけでスワイプされる。だから0人でも“音”と“動き”を止めないのが鉄則。最初はみんな0人からのスタート、と割り切って続けよう。</p>
+<div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>コメントが来るまで無言でじっと待つ</li><li>0人だからと途中でやめる／画面を見つめて固まる</li><li>取り繕って早口・テンションだけ空回り</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>独り言・実況・BGMで“音”を絶やさない</li><li>0人でも成立する準備（トークテーマ・歌・作業/イラスト配信）を1つ持つ</li><li>沈黙したら「ちょっと考え事してた」と正体を明かして空気を緩める</li></ul></div></div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">過疎脱出は“待つ”より“動く”。初見歓迎の企画を回しながら、自分から迎えに行く姿勢で。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>2. コメント返しの“型”（4ステップ）</h3></div>
+<p>コメントを読み上げて「ありがとう」で終わると、会話は“点”のまま。<b>質問で返す</b>と会話が“線”になり、その人が居続ける理由になる。この順番を型にしよう。</p>
+<div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>名前を呼ぶ</b> 「◯◯さん、いらっしゃい！」まず認識したことを伝える。読めなくても「新しい人来た！」でOK。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>共感・受け止め</b> 「わかる〜」「それ嬉しいね」と一度感情で受ける。すれ違い防止に、意図を口頭で復唱してから返すと確実。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>質問で返す（点→線）</b> 「それいつから？」「どっち派？」と一つ広げて会話にする。ここが“線”にする核。</p></div><div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>今の状況を一言＋歓迎</b> 「今は◯◯の話してるよ、気軽にどうぞ」と場に迎え入れて着地。</p></div></div>
+<p class="point"><span class="point__label">POINT</span>名前は「入室挨拶／コメント返し／ギフト・フォローのお礼／締め挨拶」の4場面で必ず呼ぶ。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>3. 会話を広げるコツ</h3></div>
+<p>“拾う”だけでは会話は伸びない。受け止めと質問をセットにし、一つの話を掘って“線”を長くする。声と構成のひと工夫で、同じ話でも印象が変わる。</p>
+<ul class="clist"><li><b>共感＋質問の2要素で返す</b> 「わかる（共感）＋いつから好きなの？（質問）」。片方だけだと会話が続かない。</li><li><b>縦8：横2で深掘り</b> 話題を横に広げすぎず、一つの話を「いつから？」「これからどう？」と縦に掘る。浅く広くより、深く一緒に。</li><li><b>声に抑揚をつける</b> 山場の前は抑えめ・やや低め→山場で上げる。基調は明るく元気に。平坦だと“波”がなく退屈に見える。</li><li><b>話す前にオチ（結論）を決める</b> 着地を決めてから話し始めると、蛇足・迷走を防げてテンポが出る。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>4. 沈黙・過疎の立て直し</h3></div>
+<p>沈黙が怖いのはトーク力の問題でなく“ネタのストック”の問題。詰まった時に慌てず戻せる手順を持っておこう。</p>
+<div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>取り繕わない</b> 「ちょっと考え事してた」と正体を明かして空気を緩める。無理に埋めようと早口にしない。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>答えやすい二択を投げる</b> 「和食派？洋食派？」「ご飯食べた？①食べた②これから」。1秒で答えられる形にしてコメントのハードルを下げる。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>名指しで振る</b> 「◯◯さんはどう？」と個人に振ると反応が生まれ、他の人も参加しやすくなる。</p></div><div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>1ネタを5W1Hで伸ばす</b> いつ／どこ／誰と／何を／なぜ／どうやって、で1つの話を5分に展開する。日頃の練習がここで効く。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>5. オープニング30秒を型化</h3></div>
+<p>初見の居心地は最初の3秒で決まる。毎回ゼロから考えず、冒頭30秒を“型”にすると安定して掴める。新規は毎回初耳なので、恥ずかしがらず繰り返そう。</p>
+<div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>元気な挨拶</b> 明るい第一声で「こんばんは！◯◯です」。声のトーンで場の温度を作る。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>内容予告</b> 「今日は◯◯する枠だよ」と“何する枠か”を一言で明言。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>距離を縮める一言</b> 「実はちょっと緊張してて」など素の感情を少し出すと親近感が生まれる。</p></div><div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>流れを説明</b> 「まず雑談して、後半は歌うね」と見通しを渡すと安心して残ってくれる。</p></div><div class="flow__item"><span class="flow__n">5</span><p class="flow__t"><b>質問を投げかける</b> 「今日◯◯した人ー？」と最初のコメントを取りに行き、序盤の盛り上がりを作る。</p></div></div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">最初の5分は自己紹介＋企画説明を2回以上繰り返す。序盤の“最初の5コメ”が早く付くほど、盛り上がり判定でおすすめに乗りやすい。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>6. 面白い話し方（描写力）</h3></div>
+<p>トークは“情報伝達”でなく“感情の交換”。同じ出来事でも、描き方ひとつで一気に面白くなる。テクニックは真似できる。</p>
+<ul class="clist"><li><b>オノマトペで臨場感</b> 擬音を入れて情景を立ち上げる（「手のひらグルングルン返しでさ」）。聞き手の頭に絵が浮かぶ。</li><li><b>独自の比喩で言い換える</b> 「上司が同じ話ばっかりで、もうゲームのモブキャラ状態」など自分の言葉に変換すると個性が出る。</li><li><b>共感ネタは“自分事化”</b> 事実の羅列より「うっかり寝過ごしちゃって」と自分の失敗にすると共感が集まる。笑いは自分の失敗談で。</li><li><b>愚痴はネガ→ポジ変換</b> 「満員電車つらい」→「今日はおしくらまんじゅう選手権だった」。ネタ帳で変換ストックを貯める。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>7. トーク・トレーニング（日々の鍛錬）</h3></div>
+<p>トーク力は才能でなく積み重ね。配信外の“素振り”がそのまま枠の質になる。人気枠は最高の教科書。</p>
+<ul class="clist"><li><b>大手の“生配信”を観察シートで学ぶ</b> 切り抜きでなく生配信を見て、間合い・コメントの拾い方を盗む。真似ていいのはやり方だけ。</li><li><b>笑顔を1分に3回以上</b> 明るさを定量目標に。無愛想は即離脱の猛毒。</li><li><b>日常を「感情＋詳細」で毎日3つメモ</b> 「◯◯が起きて、こう感じた」の形でトークの素を貯める。</li><li><b>意図的に3秒の沈黙を作る</b> あえて“間”を取ってコメントを待つ練習。間を恐れず活かせるようになる。</li><li><b>返答フレーズを10パターン用意</b> 質問前に「心配」「驚き」など感情を1つ付けると返しに温度が出る。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>8. 雑談ネタ・二択ストック</h3></div>
+<p>沈黙が怖いのはストック不足。答えやすい二択をジャンル別に持っておくと、いつでも会話を立ち上げられる。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">季節・食べ物</h4><p class="tcard__b">「夏と冬、<span class="hl">どっち派</span>？」／「今日ご飯食べた？①食べた②これから」／「きのこの山 vs たけのこの里」。</p></div><div class="tcard"><h4 class="tcard__h">趣味・エンタメ</h4><p class="tcard__b">「映画は<span class="hl">家派？映画館派</span>？」／「音楽聴くなら邦楽？洋楽？」／「最近ハマってるもの1つ教えて」。</p></div><div class="tcard"><h4 class="tcard__h">生活</h4><p class="tcard__b">「朝型？<span class="hl">夜型</span>？」／「休日はインドア？アウトドア？」／「今いちばん欲しいもの何？」。</p></div></div>
+<p class="point"><span class="point__label">POINT</span>二択は「①◯②◯」と番号を付けると、初見でも数字ひとつでコメントできて反応が増える。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>9. そのまま使える参加型企画</h3></div>
+<p>“ここでしか見られない”企画は滞在の理由になる。全員が気軽に参加できるものを軸に、枠に合わせて回そう。</p>
+<div class="tags"><span class="tag">コメントしりとり</span><span class="tag">大喜利（○○といえば？）</span><span class="tag">秘密の合言葉</span><span class="tag">1行だけ替え歌</span><span class="tag">一緒にカウントダウン</span><span class="tag">コメントじゃんけん</span><span class="tag">簡単クイズ</span><span class="tag">独自ランキング発表</span><span class="tag">二択アンケート</span><span class="tag">作業耐久配信</span></div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">企画ストックは10個以上常備して枠に合わせて回す。コアリスナーに「次は何やりたい？」と相談すると、ネタ切れ防止＋一緒に作る一体感が生まれる。</span></p>
+</div>
+
+<p class="src">参考：@liver_textbook／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch3">← 前の章<span class="sub">集客・伸ばす</span></button><button data-target="ch5">次の章 →<span class="sub">定着・常連</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch5" style="--accent:#B0479E"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 5</span><h2 class="chapter__title">定着・常連を育てる ── 稼ぎの8割は&ldquo;いつもの人&rdquo;から</h2><p class="chapter__lead">常連は狙って作るより&ldquo;育つ&rdquo;もの。初見が通う理由をつくり、覚えて、居場所にする流れをまとめました。</p></div>
+
+<div class="block"><div class="block__head"><h3>1. 常連は&ldquo;作る&rdquo;でなく&ldquo;育つ&rdquo;</h3></div>
+<p class="headline">常連は&ldquo;作る&rdquo;ものでなく、通いやすい枠にして<span class="hl">&ldquo;育てる&rdquo;</span>もの。</p>
+<div class="statrow"><div class="stat"><span class="stat__n">8割</span><span class="stat__l">収益の多くは新規でなく&ldquo;いつもの常連&rdquo;から生まれる</span></div><div class="stat"><span class="stat__n">5分</span><span class="stat__l">初見が枠に入った&ldquo;最初の5分&rdquo;＝掴みの勝負どころ</span></div><div class="stat"><span class="stat__n">5日</span><span class="stat__l">来てくれた初見が&ldquo;通う理由&rdquo;を作る期間</span></div></div>
+<p class="callout"><span class="callout__label">なぜ</span><span class="callout__body">生活に無理なく組み込める配信＝習慣化＝常連化。だから毎日同じ時間の土台が効きます。人は「知らない人」より<b>「何度も見かけた人・会話した記憶がある人」</b>を自然に応援する（＝単純接触＋記憶）。新規集客ばかりに気を取られると伸び悩む＝収益源は常連という前提で時間配分を。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>2. 最初の5分・最初の5日</h3></div>
+<p class="headline">定着の勝負は<span class="hl">2つのタイミング</span>で決まる。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">最初の5分</h4><p class="tcard__b">入室した初見を<span class="hl">すぐ名前呼び＋今日の内容提示</span>で掴む。「新しい人来た！」「今は〇〇の話してるよ」で&ldquo;認識された&rdquo;安心を渡す。</p></div><div class="tcard"><h4 class="tcard__h">最初の5日</h4><p class="tcard__b">来てくれた初見を<span class="hl">追い続けて&ldquo;通う理由&rdquo;を作る</span>期間。1回で常連化はしない。5日通う中で「ここは居心地がいい」を積み上げる。</p></div><div class="tcard"><h4 class="tcard__h">あなたの温度が波及</h4><p class="tcard__b">あなたの<span class="hl">笑顔とノリが場の温度を作る</span>。良い温度感は一人の行動から波紋のように広がり、初見→常連の変化を速める。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>3. カルテで&ldquo;覚えてる&rdquo;を作る</h3></div>
+<p class="headline">リスナー最高の報酬は、<span class="hl">名前を呼ばれ・覚えられる</span>こと。</p>
+<ul class="clist"><li><b>記録する</b> 常連の名前・前回話した内容・推しポイントをカルテ化する。記憶に頼らず&ldquo;覚えてる接触&rdquo;の材料を持つ。</li><li><b>毎回1人ずつ触れる</b> 「先日の〇〇どうでした？」と前回の話に触れる。全員でなくていい、毎回1人ずつ個別に。</li><li><b>再訪条件を宣言する</b> 「3回来たら名前覚えるね」と&ldquo;また来る理由&rdquo;を先に提示する。通うゴールが見えると足が向く。</li><li><b>久しぶりの人を特別に迎える</b> 「おかえり、覚えてるよ」で戻ってきた人を特別扱い。離れても戻りやすい&ldquo;歓迎の空気&rdquo;を残す。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>4. 温度を変えない（ピーク・エンドの法則）</h3></div>
+<p class="callout callout--warn"><span class="callout__label">重要</span><span class="callout__body">人気・同接が増えても、初期の常連への<b>&ldquo;温度&rdquo;を変えない</b>。リスナーは配信者の温度変化を最も敏感に感じ取り、態度・熱量が変わったと感じた瞬間に離れます。売れても、最初から居てくれる人への接し方は絶対に変えない。</span></p>
+<p class="headline">締めの設計が<span class="hl">再来率</span>を決める。</p>
+<p class="point"><span class="point__label">POINT</span>人は体験を&ldquo;最も感情が高まった瞬間（ピーク）&rdquo;と&ldquo;終わり方（エンド）&rdquo;で評価する。終盤に小さな参加型（クイズ／アンケ／キーワード入力）で&ldquo;ピーク&rdquo;を作り、次回を曜日＋時間で具体告知して締める＝「最後まで見てよかった」が再来につながる。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>5. 共通言語で&ldquo;みんなの枠&rdquo;に</h3></div>
+<p class="headline">合言葉が1つあると、一気に<span class="hl">&ldquo;みんなの枠&rdquo;</span>になる。</p>
+<ul class="clist"><li><b>共通言語を作る</b> 合言葉・コール・愛称・お決まりの締め＝帰属意識が生まれる。「〇〇の人ー？」→「ハーイ！」のようにハードルの低い一体感から。</li><li><b>ファンネームを1つ公式化</b> 呼びやすく&ldquo;らしさ&rdquo;が出る名前を（民／団／隊など）。枠の仲間である証になり、横のつながりを強める。</li><li><b>推しマークで連帯感</b> 名前の後ろに付ける絵文字を決めると、コメント欄で&ldquo;仲間&rdquo;が一目で分かる。所属の可視化が応援を後押しする。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>6. リスナー同士を繋ぐ</h3></div>
+<p class="headline">横のつながりが、居場所を<span class="hl">&ldquo;辞めにくい場&rdquo;</span>にする。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">配信内で紹介</h4><p class="tcard__b">常連や貢献を<span class="hl">配信内で紹介・可視化</span>する＝社会的証明。「みんな応援してる」が伝わると、周りも参加しやすくなる。</p></div><div class="tcard"><h4 class="tcard__h">交流場を用意</h4><p class="tcard__b">オープンチャット等で<span class="hl">横のつながり</span>を作る。※外部連絡ツールは自動化せずCSV運用、DM文面は必ず人が確認してから。</p></div><div class="tcard"><h4 class="tcard__h">派閥化を防ぐ</h4><p class="tcard__b">仲良しが固まりすぎると新規が疎外される。<span class="hl">派閥横断のイベント</span>を企画して、輪を一つに保つ。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>7. 段階別ロードマップ（初見→リピーター→コアファン）</h3></div>
+<p class="headline">相手の段階で、<span class="hl">かける言葉と一手</span>を変える。</p>
+<div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>初見</b> タイトルに「入ると何が得られるか」を一文で明記する。途中参加者には直前の話題を1〜2文で要約してから戻す＝迷子にしない。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>リピーター</b> 次回を<b>曜日＋時間セット</b>で口頭告知し、SNSで日常の小ネタを投げて接点を増やす＝&ldquo;また来る理由&rdquo;を配信外にも作る。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>コアファン</b> 前回の話に触れる「先日の〇〇どうでした？」。誕生日・応援〇ヶ月などの節目に個別メッセージを送る（※文面は人が確認）。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>8. 常連が離れる時（自分のせいと限らない）</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>売れた途端、古参への態度が変わる</li><li>「いつもありがとう」だけのテンプレ感謝</li><li>疲れて愚痴や不機嫌が配信に出る</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>人気が出ても初期と同じトーンを保つ</li><li>感謝に「なぜ嬉しいか」を具体で添える</li><li>疲れた日は時間を短縮し、頻度は保つ</li></ul></div></div>
+<p class="point"><span class="point__label">POINT</span>常連が来なくなる理由の多くは、リスナー側の生活・心境の変化（仕事・学業・引越し・体調など）。トップの枠でも3ヶ月で約3割は入れ替わる前提です。自責しすぎず、「また来てね＋覚えてるよ」の歓迎の空気だけ残しておきましょう。</p>
+</div>
+
+<p class="src">参考：@answer42.do.not.panic／UNICORN／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch4">← 前の章<span class="sub">トーク・場作り</span></button><button data-target="ch6">次の章 →<span class="sub">ギフト・換金</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch6" style="--accent:#D98A1F">
+  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 6</span><h2 class="chapter__title">ギフト・換金 ── お金でなく“感情が動いた結果”</h2><p class="chapter__lead">なぜ人はギフトを送るのか。催促でなく応援を生む考え方と、換金の“階段”をまとめました。</p></div>
+
+  <div class="block">
+    <div class="block__head"><h3>なぜ人はギフトを送るのか</h3></div>
+    <p class="headline">ギフトは<span class="hl">“お願い”で出るものではなく、感情が動いた結果</span>です。だから、動かすのは催促でなく反応。</p>
+    <div class="cardgrid">
+      <div class="tcard"><h4 class="tcard__h">応答性の期待</h4><p class="tcard__b">自分の行動に<span class="hl">反応が返ってくる</span>と感じるほど投げたくなる。名前を呼ぶ・即リアクションが、その期待に応える一番の近道。</p></div>
+      <div class="tcard"><h4 class="tcard__h">効能感</h4><p class="tcard__b">自分が<span class="hl">場に影響を与えられている</span>という実感。順位が上がる・ゴールに近づく——「自分のおかげで動いた」が次の応援を生む。</p></div>
+      <div class="tcard"><h4 class="tcard__h">承認欲求</h4><p class="tcard__b">とくに大口が求めるのは、エンタメより<span class="hl">「個別に認識され、特別扱いされること」</span>。名前を覚えられることが最大の報酬になります。</p></div>
+      <div class="tcard"><h4 class="tcard__h">アンダードッグ効果</h4><p class="tcard__b">人は完璧な人より、<span class="hl">必死に頑張る人・弱さを見せる人</span>を応援したくなる。完璧を演じず、挑戦する過程を見せるのも力に。</p></div>
+    </div>
+    <p class="callout"><span class="callout__label">鍵</span><span class="callout__body">催促ではなく、<b>「反応を返す（名前呼び・即リアクション）」と「影響を可視化する（順位・ゴール）」</b>の2つ。この2つがそろうと、応援は自然に生まれます。</span></p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>換金の心理トリガー5原則</h3></div>
+    <p class="headline">「応援して」と直接お願いすると逆効果。<span class="hl">「楽しかったから応援したい」</span>を作る5つの原則があります。</p>
+    <div class="tablewrap">
+      <table class="ttable">
+        <thead><tr><th>原則</th><th>中身</th><th>踏む一手</th></tr></thead>
+        <tbody>
+          <tr><td><b>返報性</b></td><td>先に価値・感謝を与える</td><td>先に楽しませる／もらったら即お礼</td></tr>
+          <tr><td><b>社会的証明</b></td><td>すでにある盛り上がりを見せる</td><td>盛り上がりを実況／貢献者を紹介</td></tr>
+          <tr><td><b>希少性</b></td><td>今だけ・締切</td><td>「今だけ」「あと◯分」を機会として提示</td></tr>
+          <tr><td><b>一貫性</b></td><td>小さな参加から積む</td><td>いいね→コメント→ギフトの階段を作る</td></tr>
+          <tr><td><b>好意</b></td><td>共通点・親しみ</td><td>名前を呼ぶ／共通の話題を振る</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>「応援して」より「今日の目標あと3個！」。締切と現在地を見せると、催促にならずに自然と背中を押せます。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>大口は3タイプ×ギフト4動機</h3></div>
+    <div class="cardgrid cols3">
+      <div class="tcard"><h4 class="tcard__h">①目立ちたい</h4><p class="tcard__b">影響力がほしい層。<span class="hl">見せ場・貢献度の紹介</span>が刺さる。配信内で名前を挙げて称える。</p></div>
+      <div class="tcard"><h4 class="tcard__h">②応援したい</h4><p class="tcard__b">純粋に成功を支えたい層。<span class="hl">目標を共有</span>し「一緒に目指す仲間」として巻き込む。</p></div>
+      <div class="tcard"><h4 class="tcard__h">③推し変検討層</h4><p class="tcard__b">今の推しに不満で次を探し中。初回に<span class="hl">即・強めの特別感</span>（名前呼び＋歓迎）で掴む。</p></div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>ギフトの4動機＝「リアクションが嬉しい／応援したい／存在を認識してほしい／場の雰囲気に乗りたい」。タイプで刺さる見せ場が違います。①に見せ場と貢献紹介、②に目標共有、③に即・強めの特別感を。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>催促でなく“感謝と導線”で</h3></div>
+    <div class="cols">
+      <div class="col col--ng">
+        <div class="col__head">NG例</div>
+        <ul class="col__list">
+          <li>「応援して」と直接お願いする</li>
+          <li>大口1人に依存してしまう</li>
+          <li>少額ギフトを軽く扱う</li>
+          <li>初ギフトを雑に流してしまう</li>
+        </ul>
+      </div>
+      <div class="col col--ok">
+        <div class="col__head">OK例</div>
+        <ul class="col__list">
+          <li>先に楽しませて「応援したい」を作る</li>
+          <li>2人目の常連ギフター候補を育てる</li>
+          <li>少額でも即・大きくお礼を返す</li>
+          <li>初ギフトは特に大きく祝う</li>
+        </ul>
+      </div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>トーンは「みんなで達成する目標」に。“くれたら◯◯”のような取引化は収益ガイドライン違反のリスクがあります。参加型演出も“取引”でなく“一緒に目指す”の枠で。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>ギフトの型（早見）</h3></div>
+    <p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">1コインでも<b>“名前付きで大きく称賛”</b>すると、初心者がギフター化します。ただし1つに時間をかけすぎると場が死ぬ＝<b>派手に・短く</b>が鉄則。称賛は手厚く、流れは止めすぎない。</span></p>
+    <div class="tablewrap">
+      <table class="ttable">
+        <thead><tr><th>帯</th><th>コイン範囲（目安）</th><th>リアクション目安</th></tr></thead>
+        <tbody>
+          <tr><td><b>手軽</b></td><td>1〜250</td><td>名前呼び＋一言</td></tr>
+          <tr><td><b>中額</b></td><td>299〜899</td><td>決めリアクション1つ</td></tr>
+          <tr><td><b>高額</b></td><td>999〜4,888</td><td>特別リアクション＋実況</td></tr>
+          <tr><td><b>最上位</b></td><td>5,000〜</td><td>全力の特別演出</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>ギフト種ごとに違うリアクションを事前に用意し、「◯◯ギフト＋送り主名」を必ずセットで呼ぶ。「みんなも拍手〜」で周りを巻き込むと、投げやすい文化が育ちます。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>換金は“階段”（大口は急に湧かない）</h3></div>
+    <p class="headline">大口はいきなり現れません。<span class="hl">初ギフト→常連→役割</span>と、一段ずつ育っていきます。</p>
+    <div class="steps">
+      <div class="step" data-tier="1"><span class="lv">入口</span><span class="nm">ハートミー</span></div>
+      <div class="step" data-tier="1"><span class="lv">常連化</span><span class="nm">メンバーLv</span></div>
+      <div class="step" data-tier="2"><span class="lv">競争</span><span class="nm">ガーディアン</span></div>
+      <div class="step" data-tier="2"><span class="lv">課金習慣</span><span class="nm">スーパーファン</span></div>
+      <div class="step" data-tier="goal"><span class="lv">GOAL</span><span class="nm">殿堂入り</span></div>
+    </div>
+    <p class="callout"><span class="callout__label">診断</span><span class="callout__body">換金が伸びない時は、<b>“階段のどこで止まっているか”</b>を見ます。初ギフトを祝う → レベル到達を祝う → 役割（ガーディアン／モデ）を渡す、と一段ずつ引き上げると、大口は後から育ちます。</span></p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>大口との付き合い方</h3></div>
+    <div class="cardgrid cols3">
+      <div class="tcard"><h4 class="tcard__h">一強依存のリスク</h4><p class="tcard__b">大口1人依存は危険。<span class="hl">初見が入りづらく</span>、他リスナーが冷め、その人が去ると枠ごと崩れます。複数の常連ギフターへ分散を。</p></div>
+      <div class="tcard"><h4 class="tcard__h">ギフトは契約でない</h4><p class="tcard__b">同じ投げでも動機で関係が変わる。<span class="hl">見返り期待（支配型）より、感謝・応援（勇気づけ型）</span>を育てる関わりを。</p></div>
+      <div class="tcard"><h4 class="tcard__h">期待の管理</h4><p class="tcard__b">回収されない期待は<span class="hl">“敵意”に反転</span>しやすい。特別扱いしすぎず、日頃の感謝を明確に言葉で示すことが予防になります。</p></div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>応援には“重み”があります。生活の中で何かを制約して応援している人も多い＝軽視しない・感謝を示す。同じ人に何度も期待する“乱獲”を避け、無理をさせず裾野を広げましょう。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>サブスクは“工数”から逆算する</h3></div>
+    <p class="headline">続く特典は「売上」でなく<span class="hl">「工数・人件費」から逆算</span>して決めます。回らない特典は継続を壊します。</p>
+    <ul class="clist">
+      <li><b>特典はオンライン完結・毎回回せるものに</b> 限定ライブ／限定動画／会員チャットなど、現場で無理なく渡せるものに絞る。凝りすぎは自分の首を絞める。</li>
+      <li><b>限定バッジ＋限定エモートで古参感を出す</b> 継続月数で色が変わる限定バッジと、限定エモート（最大15個）を用意。枠の“共通言語”になり帰属意識も高まる。</li>
+      <li><b>「意見が届いている」実感を返す</b> 購読者の要望を配信に反映し、継続コミュニケーションを保つ。届いている感覚が継続課金の鍵。</li>
+    </ul>
+    <p class="point"><span class="point__label">POINT</span>本人の目標は必ず<b>ダイヤ単位</b>で。還元率は公式非公表＝円換算で断定しないのが安全です。</p>
+  </div>
+
+  <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／DeNA Creator Links 育成ナレッジ・Notion正本より再構成。※本人の目標はダイヤ単位で。還元率・仕様は変わるため断定せず、最終確認は公式・事務所で。</p>
+  <nav class="chnav"><button data-target="ch5">← 前の章<span class="sub">定着・常連</span></button><button data-target="ch7">次の章 →<span class="sub">バトル・イベント</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch7" style="--accent:#7A54D6"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 7</span><h2 class="chapter__title">バトル・イベント ── 熱量を&ldquo;設計&rdquo;する</h2><p class="chapter__lead">バトルは使い方次第で強力な装置。イベントの出方と、上を目指す階段をまとめました。</p></div>
+
+<div class="block"><div class="block__head"><h3>1. バトルはギフト営業を&ldquo;5分&rdquo;に圧縮する装置</h3></div>
+<p class="headline">普段は雑談・企画、<span class="hl">勝負の5分だけ全員で集中</span>する。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">だらだらより見やすい</h4><p class="tcard__b">ずっとお願いし続けるより、<span class="hl">勝負の時間だけ全員が集中</span>する方が見やすく、収益も出る。普段は楽しい枠のまま、ここぞで熱量を作る。</p></div><div class="tcard"><h4 class="tcard__h">課金の意味が変わる</h4><p class="tcard__b">「参加させる」と、ギフトの意味が<span class="hl">個人の娯楽→チームへの貢献</span>に変わる。潜っている初見も「一緒に戦って」で巻き込む。</p></div><div class="tcard"><h4 class="tcard__h">4つの欲を同時に刺激</h4><p class="tcard__b">バトルが効くのは<span class="hl">勝ちたい／応援されたい／盛り上がりたい／挑戦したい</span>の4つを一度に刺激するから。相手選びと実況で演出する。</p></div></div>
+<p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">少人数の枠で連発すると、リスナーが疲れて離れます。予約バトルは<b>週1本を目安</b>に、<b>3日前告知</b>で期待感を積み、相手は<b>フォロワー・ギフト量が同格</b>の人を選ぶ（格差が大きいと盛り上がらない・一方的になる）。事前に相手の枠を一度見て適合を確認しておくと安心です。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>2. バトルの小技</h3></div>
+<p class="headline">応援は<span class="hl">&ldquo;集中&rdquo;と&ldquo;段取り&rdquo;</span>で効きが変わる。</p>
+<ul class="clist"><li><b>グローブは倍率タイムに集中投下</b> グローブは&ldquo;スピードチャレンジのボーナス30秒&rdquo;に集中して使う＝効果は重複しないので、バラ撒かず常連とタイミングを合わせるのがコツ。</li><li><b>応援の段取りを事前共有</b> 「開始10秒はタップ集中」など、いつ・どう応援するかを常連に先に伝えておく。最初の盛り上がりが&ldquo;勢いのある枠&rdquo;として初見流入も呼ぶ。</li><li><b>楽しくない相手は招待オフでよい</b> 気が乗らない相手・荒れそうな相手は招待をオフにしていい。無理に受けず、&ldquo;楽しい戦い&rdquo;になる相手を選ぶ。</li><li><b>ガチ参戦とゆる参戦を混ぜる</b> 毎回全力だとリスナーも疲れる。ガチは月1〜2ヶ月に1回程度にし、ふだんはゆる参戦＝&ldquo;疲れさせない&rdquo;配分で長く続ける。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>3. バトルのアイテム・形式を理解する</h3></div>
+<p class="headline">仕組みを知ると、<span class="hl">応援を&ldquo;効く場面&rdquo;</span>に集められる。</p>
+<div class="tablewrap"><table class="ttable"><thead><tr><th>アイテム</th><th>効果（目安）</th></tr></thead><tbody><tr><td><b>グローブ</b></td><td>約30%の確率で<b>5倍</b>に計上される応援アイテム。倍率チャンスに集中させたい。</td></tr><tr><td><b>ボーナスタイム</b></td><td>制限時間を<b>+10秒</b>延ばす。逆転や追い込みの&ldquo;もう少し&rdquo;を作れる。</td></tr><tr><td><b>ミスト・ハンマー</b></td><td>相手を<b>妨害</b>する系。演出として盛り上げに使う（敵意でなくプロレスの割り切りで）。</td></tr></tbody></table></div>
+<div class="tablewrap"><table class="ttable"><thead><tr><th>形式</th><th>向いている使い方</th></tr></thead><tbody><tr><td><b>1v1（通常）</b></td><td>実力が近い1人と真剣勝負。物語が作りやすい基本形。</td></tr><tr><td><b>マルチ（3〜4人）</b></td><td>複数枠が集まり賑やか。新規同士の顔合わせに。</td></tr><tr><td><b>2v2（チーム）</b></td><td>味方と組む＝&ldquo;一緒に戦う&rdquo;連帯感が出る。</td></tr><tr><td><b>ランダム／フレンド</b></td><td>ランダム＝新規開拓、フレンド＝仲の良い相手と安心して。</td></tr></tbody></table></div>
+<p class="point"><span class="point__label">POINT</span>「どの形式か」でなく「今日は何を作りたいか（新規開拓／連帯感／真剣勝負）」から選ぶと、バトルが目的とかみ合います。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>4. &ldquo;あと少し&rdquo;を見せる（ライブゴール）</h3></div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">ゴールは&ldquo;高さ&rdquo;で組むより<b>松竹梅の合計</b>（メイン／サブ／小さめ）で組むと届きやすい。かけら・ゴールの進捗バーで<b>「あと少し！」を可視化</b>すると、自然に背中を押せます。未達でも責めず<b>感謝で締める</b>＝次回の動機に。高すぎる目標の乱用は「どうせ届かない」と信用低下を招くので注意。</span></p>
+<p class="headline">応援は&ldquo;お願い&rdquo;でなく、<span class="hl">一緒に目指す現在地</span>で動く。</p>
+<p class="point"><span class="point__label">POINT</span>「応援して」と直接お願いするより、「今日の目標あと3個！」と締切と現在地を見せる方が、義務感・集金感なく自然に応援が集まります。ゴールは4時間で自動終了＝必要なら1日に複数回設定してOK。目標は&ldquo;ダイヤ単位&rdquo;で置き、円換算で握らないのが安全です。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>5. イベントは初心者ほどチャンス</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>「自分にはまだ早い」と出ない</li><li>順位・結果だけを気にして消耗する</li><li>大型イベントにいきなり挑んで疲れる</li></ul></div><div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>まず出てみる（参加すること自体が経験値）</li><li>認知・応援者・仲間と繋がる場と捉える</li><li>新人向けから&ldquo;届く目標&rdquo;として選ぶ</li></ul></div></div>
+<p class="point"><span class="point__label">POINT</span>長く応援してくれる人は「初イベントから見てたよ」という人が多いもの。順位が振るわなくても、そこで出会った人がコアファンになります。&ldquo;結果&rdquo;より&ldquo;出会いと露出の場&rdquo;と捉えましょう。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>6. イベントで勝つ順番</h3></div>
+<p class="headline">火力より、<span class="hl">感情と物語の設計</span>で差がつく。</p>
+<div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>目標を言葉に</b> 「3日でギフト〇個」など具体数を決めて画面に掲示する。参加前に期間中の配信スケジュールも確定し、頻度を上げておく。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>応援される理由をつくる</b> なぜ挑戦するのか＝物語を語る。丁寧な自己紹介でこの期間に来た初見をコアファンにする意識で。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>本番で感情を伝える</b> ラスト時間帯に集中配信＋スピードチャレンジ（ポイント倍増）を逃さない。逆転や追い込みの&ldquo;熱&rdquo;を実況で伝える。</p></div><div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>感謝で絆</b> 応援が報われた実感を返す感謝企画で締める。「一緒に達成した」を可視化＝次も応援したい関係に。</p></div><div class="flow__item"><span class="flow__n">5</span><p class="flow__t"><b>振り返りでファン化</b> 終わった後こそ枠が消えやすい。翌日も短くても配信し、イベントで出会った人を追い続けて定着させる。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>7. 生誕祭・記念日の進行</h3></div>
+<p class="headline">お祝いは<span class="hl">告知の積み上げと、ハードル下げ</span>が肝。</p>
+<ul class="clist"><li><b>1〜2週間前から告知する</b> プロフィール・配信タイトルにイベント名＋日付を明記。早くから&ldquo;その日&rdquo;を知ってもらうほど人が集まりやすい。</li><li><b>告知はカウントダウン形式で</b> 「あと〇日」で期待感を積み上げる。ストーリーやショートでも繰り返し出して初動を作る。</li><li><b>直前3回の告知を打つ</b> 前日／当日昼／開始30分前の3回で来場を後押し。告知なしは来場率が大きく下がる。</li><li><b>当日冒頭5分で流れを提示</b> ①誕生日配信であること ②何時まで ③やること、を伝え、小さな柱を1つ用意する（乾杯／合唱／今年の目標など）。</li><li><b>ハードルを下げる一言を</b> 「コメントだけでも嬉しい」「来てくれるだけでプレゼント」で、ギフトを押しつけず参加しやすくする。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>8. 100万への階段</h3></div>
+<p class="headline">いきなり頂上でなく、<span class="hl">一段ずつ</span>登る。</p>
+<div class="steps"><div class="step" data-tier="1"><span class="lv">STEP 1</span><span class="nm">登竜門（〜20万目安）</span></div><div class="step" data-tier="1"><span class="lv">STEP 2</span><span class="nm">新人王（新人向け）</span></div><div class="step" data-tier="2"><span class="lv">STEP 3</span><span class="nm">事務所イベント（月末など）</span></div><div class="step" data-tier="goal"><span class="lv">GOAL</span><span class="nm">ミリオン（100万）</span></div></div>
+<p class="callout"><span class="callout__label">POINT</span><span class="callout__body">順位を競うより<b>&ldquo;誰とどう戦うか&rdquo;の物語を設計</b>する方が、健全に熱量を作れます。まずは<b>新人向けイベント</b>（競争が絞られ、露出が付きやすい）で結果を出すのが近道。イベント名・条件・時期は改訂されるため、必ず<b>公式カレンダー・事務所で最新を確認</b>してください。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>9. 露出につながるランキング</h3></div>
+<p class="headline">ランキングは<span class="hl">&ldquo;露出の入口&rdquo;</span>として狙う。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">日間ランキング</h4><p class="tcard__b">その日の応援が<span class="hl">直接反映</span>される。週1回、ゴールデン（19〜23時）やショートがバズった直後などに&ldquo;勝負枠&rdquo;を狙う日を作ると届きやすい。</p></div><div class="tcard"><h4 class="tcard__h">殿堂</h4><p class="tcard__b">日間<span class="hl">10位以内で特典</span>（フレーム・デコなど）。1位は全LIVEにウェルカムアナウンスが出る＝超露出。毎週の&ldquo;届く目標&rdquo;に据えやすい。</p></div><div class="tcard"><h4 class="tcard__h">人気ランキング</h4><p class="tcard__b">チームギフトで加算。<span class="hl">1人1日40ptが上限</span>のため、少人数の火力より<b>人数</b>が効く＝みんなで参加する形が向く。</p></div></div>
+</div>
+
+<p class="src">参考：@liver_textbook／@answer42.do.not.panic／DeNA Creator Links 育成ナレッジ。数値・イベント条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch6">← 前の章<span class="sub">ギフト・換金</span></button><button data-target="ch8">次の章 →<span class="sub">リスナー・距離感</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch8" style="--accent:#CC5A3C">
+  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 8</span><h2 class="chapter__title">リスナー・距離感・トラブル ── 関係の質が、すべて</h2><p class="chapter__lead">近すぎても遠すぎても枠は縮む。ちょうどいい距離と、こじれる前の見立て方をまとめました。</p></div>
+
+  <div class="block">
+    <div class="block__head"><h3>理想の距離感＝「カフェの常連客と店員」</h3></div>
+    <p class="headline">目指すのは<span class="hl">「親しみやすさ×節度」のバランス</span>。交流は“配信という公の場”に限定するのがコツです。</p>
+    <div class="cols">
+      <div class="col col--ng">
+        <div class="col__head">近すぎ（縮む）</div>
+        <ul class="col__list">
+          <li>特定リスナーの「自分だけのもの」化 → 依存・嫉妬でコミュニティが崩壊</li>
+          <li>投げ銭マウントが起きて他の人が冷める</li>
+          <li>個人情報を過共有 → 身バレ・ストーカーのリスク</li>
+          <li>配信外のDMが頻発 → ライバーが疲弊し活動停止に</li>
+        </ul>
+      </div>
+      <div class="col col--ok">
+        <div class="col__head">遠すぎ（伸びない）</div>
+        <ul class="col__list">
+          <li>一体感がなく盛り上がらない</li>
+          <li>内輪ネタばかりで新規が疎外される</li>
+          <li>反応ゼロで応援したい気持ちが減る</li>
+          <li>親しみが欠けて長期の継続が難しい</li>
+        </ul>
+      </div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>やんわり断るフレーズを常備すると迷いません。例：「みんなと同じ距離で話したいから、個別対応はしないんだ」「ルールでアプリ外はやり取りできないの」。線を引くのは冷たさではなく、枠を長く守るための優しさです。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>やっかいリスナー5タイプ</h3></div>
+    <p class="headline">こじれる前に<span class="hl">タイプで見分けて、初動を決めておく</span>と、現場で動揺しません。</p>
+    <div class="tablewrap">
+      <table class="ttable">
+        <thead><tr><th>タイプ</th><th>特徴</th><th>初動の目安</th></tr></thead>
+        <tbody>
+          <tr><td><b>①依存・過干渉</b></td><td>友人扱い・DM・私的接触を求める</td><td>「みんなと同じ距離」を明言／個別対応はしない</td></tr>
+          <tr><td><b>②注目・承認欲求</b></td><td>連投・自分語り・他人と張り合う</td><td>短く受けて全体に話題を戻す</td></tr>
+          <tr><td><b>③ネガティブ</b></td><td>愚痴・被害妄想で空気を重くする</td><td>深追いせず切り替え／続くならミュート</td></tr>
+          <tr><td><b>④荒らし</b></td><td>スパム・宣伝・暴言</td><td>論争せず淡々と削除・ミュート・ブロック</td></tr>
+          <tr><td><b>⑤危険</b></td><td>個人情報探索・ストーキング＝最警戒</td><td>即ブロック＋通報＋証拠保存／事務所に相談</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout callout--warn"><span class="callout__label">対応の芯</span><span class="callout__body">論争しない・<b>淡々と処理</b>する・「みんな平等」を明言する・そして<b>自分の心の安全を最優先</b>にする。無理な対応は即タイムアウト／ブロックでOKです。</span></p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>熱心なリスナーの“闇落ち”6段階</h3></div>
+    <p class="headline">応援してくれる人ほど、期待が回収されないと<span class="hl">“味方”から“批判者”へ反転</span>することがあります。</p>
+    <div class="flow">
+      <div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>味方</b> 純粋に応援してくれる、いちばん嬉しい段階。</p></div>
+      <div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>理解者</b> 「自分はこの人を分かっている」という自負が芽生える。</p></div>
+      <div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>恩人のつもり</b> 「支えてやっている」という意識が強まる。</p></div>
+      <div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>被害者意識</b> 期待どおり扱われないと「裏切られた」と感じ始める。</p></div>
+      <div class="flow__item"><span class="flow__n">5</span><p class="flow__t"><b>監視者</b> 言動をチェックし、細かく口を出すようになる。</p></div>
+      <div class="flow__item"><span class="flow__n">6</span><p class="flow__t"><b>批判者</b> 敵意に転じ、枠の外でも批判・晒しに向かう。</p></div>
+    </div>
+    <p class="callout"><span class="callout__label">予防</span><span class="callout__body">早めの<b>役割の線引き</b>と、日頃の<b>感謝の言語化</b>が効きます。回収されない期待はやがて“敵意”に変わる——だからこそ「特別扱い」ではなく「みんなへの感謝」を丁寧に言葉にしておきましょう。</span></p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>問題行動を“叱る”より理解する（アドラー5段階）</h3></div>
+    <p class="headline">困った行動には段階があります。<span class="hl">段階に応じて距離を取る</span>のが、叱るより効きます。</p>
+    <p class="callout"><span class="callout__label">5段階</span><span class="callout__body"><b>①称賛要求</b>（褒めてほしい）→<b>②注目喚起</b>（かまってほしい）→<b>③権力争い</b>（言うことを聞かせたい）→<b>④復讐</b>（暴露・晒しで傷つけようとする）→<b>⑤自己憐憫</b>（かわいそうな自分を演じる）。前の段階で気づいて<b>距離を調整</b>できれば、こじれる前に収まります。深追いや正論での論破は、かえって次の段階へ押し上げてしまいます。</span></p>
+    <p class="point"><span class="point__label">POINT</span>「叱る＝相手を変えようとする」より、「理解する＝どの段階かを見て自分の距離を決める」。相手を変えるより、自分の反応をコントロールする方が確実です。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>神対応の型（初見も常連も離れない）</h3></div>
+    <ul class="clist">
+      <li><b>新規表示で0.2秒以内に声かけ</b> 名前が読めなくても「新しい人来た！」でOK。まず“気づいたよ”を返すのが最優先。</li>
+      <li><b>冒頭に予防線を張る</b> 「全部は拾えないけど、ちゃんと見えてるよ」と最初に伝えておくと、拾い漏れが不満になりにくい。</li>
+      <li><b>拾えなかったコメも後で回収</b> 流れてしまっても「さっきのもありがとう」と後から触れる。見ていた事実が伝わる。</li>
+      <li><b>笑いは自分の失敗談で</b> 初見コメントをネタにしない・他者を批評しない。安全な笑いは自分ネタから。</li>
+      <li><b>問題コメは柔らかく制止</b> 頭ごなしに叱らず「この枠の空気、守ろうね」と場のルールとして伝える。</li>
+      <li><b>感謝は“なぜ嬉しいか”を具体で</b> テンプレの「ありがとう」で終えず、何がどう嬉しかったかを一言添える。継続応援には特に丁寧に。</li>
+    </ul>
+    <p class="point"><span class="point__label">POINT</span>常連トークが盛り上がったら、区切りをつけて「全員が分かる話題」に戻す時間を必ず作る。初見が置いていかれない配慮が、そのまま定着率になります。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>ガチ恋の線引き</h3></div>
+    <p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">「好かれたい」は武器ですが、<b>恋愛依存を煽りすぎると自分がしんどくなります</b>。あくまで<b>娯楽の範囲</b>で、<b>現実と架空の境界を明示</b>すること。距離が近すぎればプライベートを侵害され、遠すぎれば応援は減る——最難関はここのバランスです。本気の恋愛に発展すると、過度な期待・要求・プライバシー侵害につながり、精神的な負担が大きくなります。</span></p>
+    <p class="point"><span class="point__label">POINT</span>過度な要求には「意見は参考にするけど、最終判断は自分でするね」と、優しく毅然と返す。恋愛対象ではないことは、配信内できっぱり線を引いて大丈夫です。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>モデレーターの任せ方</h3></div>
+    <p class="headline">モデは<span class="hl">“仲良し”でなく“枠を守れる人”</span>で選び、役割を先に言葉にして渡します。</p>
+    <div class="cardgrid cols3">
+      <div class="tcard"><h4 class="tcard__h">選ぶ基準</h4><p class="tcard__b"><span class="hl">信頼できる熱心な常連×冷静に対処できる人</span>。仲良しだけで選ばない。目立ちたがりは避ける。</p></div>
+      <div class="tcard"><h4 class="tcard__h">役割を先に明文化</h4><p class="tcard__b">初見歓迎コメントの配置／荒らしはミュート・ブロック／話題をピン留め／判断に迷うものは<span class="hl">配信者にパス</span>。</p></div>
+      <div class="tcard"><h4 class="tcard__h">渡す権限</h4><p class="tcard__b">ミュート・ブロック・<span class="hl">スターコメントの固定</span>。今日の話題や目標を上部に固定し、良い回答を後から昇格できる。</p></div>
+    </div>
+    <p class="callout callout--warn"><span class="callout__label">重要</span><span class="callout__body">「モデとは何をする人か」のイメージは<b>人によって違います</b>（裏方／秩序維持／教育…）。先に共有しないと、良かれと思った行動同士がぶつかって揉めます。役割は渡す前に、必ず言葉にしておきましょう。</span></p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>荒らし・迷惑コメント対応</h3></div>
+    <div class="cols">
+      <div class="col col--ng">
+        <div class="col__head">NG例</div>
+        <ul class="col__list">
+          <li>論争して場そのものが荒れる</li>
+          <li>みんなの前で叱る・晒す</li>
+          <li>困り顔も含めて過剰に反応する</li>
+          <li>その場のノリで感情的に返す</li>
+        </ul>
+      </div>
+      <div class="col col--ok">
+        <div class="col__head">OK例</div>
+        <ul class="col__list">
+          <li>論争せず淡々と削除・ミュート・ブロック</li>
+          <li>公開の場で叱責しない</li>
+          <li>反応を与えない（無視で処理）</li>
+          <li>段階表に沿って公平に運用する</li>
+        </ul>
+      </div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>迷惑コメは“反応が報酬”です。困り顔さえも、反応すればするほど相手を強化してしまう。だから淡々と。運用は段階表＝<b>警告→一時ブロック→永久ブロック</b>で、誰に対しても同じ基準で公平に。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>安全に配信する</h3></div>
+    <ul class="clist">
+      <li><b>コメント欄ルールをプロフに固定＋NGワードフィルター</b> 禁止事項を最初から見える化しておくと、荒らしの予防になる。</li>
+      <li><b>背景の個人特定情報を毎回チェック</b> 郵便物・窓の景色・表札などが映っていないか、配信前に必ず確認する。</li>
+      <li><b>線を引く情報を決めておく</b> 本名・住所・学校・オフ会・アプリ外（LINE／DM）の金銭やり取りは、応じない前提でルール化する。</li>
+      <li><b>不快な要求に応じる義務はゼロ</b> 断っていい。応じないことは失礼でも冷たさでもない。</li>
+      <li><b>重度トラブルは“証拠→ブロック→通報→相談”</b> 誹謗中傷・ストーカーはブロック＋通報＋証拠スクショ。警察相談ダイヤル<b>#9110</b>の存在も知っておく。一人で抱えず事務所に相談を。</li>
+    </ul>
+    <p class="callout"><span class="callout__label">診断</span><span class="callout__body">トラブルや疲弊が多いときは“近すぎ”、過疎で新規が残らないときは“遠すぎ”のサインです。どちらに振れているかで打ち手が変わります。そして、自分を守ることは「配信を続けるための必須スキル」——味方がいる状態を先に作っておきましょう。</span></p>
+  </div>
+
+  <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／DeNA Creator Links 育成ナレッジより再構成。※対応の線引き・ペナルティの基準は変わることがあります。重度トラブルは一人で判断せず、公式・事務所に相談を。</p>
+  <nav class="chnav"><button data-target="ch7">← 前の章<span class="sub">バトル・イベント</span></button><button data-target="ch9">次の章 →<span class="sub">メンタル・継続</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch9" style="--accent:#5566A8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 9</span><h2 class="chapter__title">メンタル・継続 ── 続けられる人が、いちばん強い</h2><p class="chapter__lead">伸びるまでは時間がかかる前提。折れずに続けるための考え方と、心を守る習慣をまとめました。</p></div>
+
+<div class="block"><div class="block__head"><h3>1. モチベは波があって当然</h3></div>
+<p class="headline">モチベは常に高く保つものじゃない。<span class="hl">下がる日があって普通</span>。</p>
+<p>やる気は上がったり下がったりするのが自然な状態です。燃え尽きの主な原因は、下がった時に「自分はダメだ」と<b>過剰に自分を責めること</b>。数字が伸びない週に自責で潰れてしまう人ほど、辞めやすい傾向があります。落ちた日は「今日はそういう日」と受け止めて、しっかり休んでOK。大事なのは、波があること自体を責めないことです。</p>
+<p class="callout"><span class="callout__label">支柱をつくる</span><span class="callout__body">「なぜ配信を始めたのか」＝開始動機を紙やメモに書き出して、見える所に置いておく。言語化しておくと、数字の浮き沈みに振り回されにくくなります。落ち込んだ日は数字ではなく、この「始めた理由」だけを思い出せば十分です。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>2. リスナーは“神様”でなく“対等なパートナー”</h3></div>
+<p>「もてなす側」という無意識の思い込みが、ギフトという報酬と結びつくと、いつのまにか<b>「ギフト＝支配の武器」</b>のように感じられ、恐怖心や過剰サービスにつながります。目指したいのは、リスナーを対等な仲間として見る関係です。</p>
+<div class="cardgrid"><div class="tcard"><h4 class="tcard__h">陥りがちな罠</h4><p class="tcard__b">大口の顔色をうかがい、機嫌を取りすぎて<span class="hl">疲弊</span>する。過剰なおもてなしが当たり前になり、素の自分を出せなくなる。</p></div>
+<div class="tcard"><h4 class="tcard__h">転換＝対等な仲間</h4><p class="tcard__b">過剰なおもてなしは<span class="hl">不要</span>。機嫌を取りすぎなくていい。リスナーは支える対象でも神様でもなく、一緒に枠をつくるパートナーです。</p></div>
+<div class="tcard"><h4 class="tcard__h">素の感情を出す</h4><p class="tcard__b">喜怒哀楽を<span class="hl">素で見せる</span>方が、本当のファンがつきます。取り繕った完璧さより、人間らしさが応援したくなる理由になります。</p></div>
+<div class="tcard"><h4 class="tcard__h">自浄作用を味方に</h4><p class="tcard__b">良識ある常連を歓迎役やモデレーターにすると、有害なユーザーの<span class="hl">抑止力</span>になります。コミュニティが自分たちで居心地を守る空気に。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>3. 「3ヶ月の壁」は“通常運転”</h3></div>
+<p>多くのライバーが、始めてから数週間〜3ヶ月で伸び悩みの壁にぶつかります。これは特別なことではなく<b>“普通のこと”</b>。「自分だけが失敗している」わけではありません。まず「壁は誰にでも来る」と知っておくだけで、折れにくくなります。</p>
+<p class="callout"><span class="callout__label">重要</span><span class="callout__body">伸びない原因は、動画1本の出来より<b>アカウント全体の設計</b>にあることが多いです。プロフィールは整っているか／ジャンルは一貫しているか／通常投稿(ショート)の質と頻度は保てているか。1本の反応に一喜一憂するより、土台を点検しましょう。</span></p>
+<p class="point"><span class="point__label">POINT</span>壁が来たら、動画単体でなく“アカウント全体”を点検する。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>4. しんどさは、弱さじゃない</h3></div>
+<p>配信を続けるうえで感じる疲れは、根性でなんとかするものではありません。仕組みで対処するのが正解です。まずは疲れの“正体”を正しく知ることから。</p>
+<div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">疲れの正体は“脳”</h4><p class="tcard__b">配信の疲れは体力より<span class="hl">精神・脳疲労</span>が主因。休息はダラダラ過ごすより、SNS断ち・情報遮断で脳を休めるのが効きます。</p></div>
+<div class="tcard"><h4 class="tcard__h">比べる相手を変える</h4><p class="tcard__b">比較対象を“他人”から<span class="hl">“過去の自分”</span>へ。月単位で自分の成長を測ると、他人との差で落ち込まなくなります。</p></div>
+<div class="tcard"><h4 class="tcard__h">まず自分が楽しむ</h4><p class="tcard__b">何より、まず<span class="hl">自分が心から楽しむ</span>こと。楽しさは画面越しに伝わります。無理して盛り上げるより、自分がワクワクする枠を。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>5. 燃え尽きを防ぐ習慣</h3></div>
+<p>燃え尽きは「気合い」でなく「習慣」で防ぎます。心が消耗する前に、あらかじめ距離のとり方を仕組みにしておきましょう。</p>
+<ul class="clist"><li><b>始めた動機を書き出す</b> 配信を始めた理由を紙やメモに書き、いつも見える所に置く。落ち込んだ日の“支柱”になります。</li>
+<li><b>配信直後の1時間は見ない</b> 配信直後1時間はコメント欄を見ない。寝る前のエゴサ(自分の名前検索)もしない。反応の波に感情を持っていかれないように。</li>
+<li><b>週1日はSNS完全オフ</b> 週に1日、SNSを一切見ない日をつくる。脳を休める“定休日”として先にカレンダーに入れておく。</li>
+<li><b>配信後3〜5分のノート</b> 日付／その日の出来事／感じたこと／できたこと／明日への一言、を短く記録。振り返りと成長の記録が同時にできます。</li>
+<li><b>沈むアカウントはミュート</b> 見ると気分が沈むアカウントはミュートやフォロー解除。通知はまとめて確認する形にして、常時さらされない状態に。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>6. ネガティブは“物理的に”遠ざける</h3></div>
+<p>疲れている時は判断ミスや感情的な反応が増えます。だからこそ、根性で我慢するのではなく、<b>接触する時間そのものを構造的に減らす</b>設計が有効です。物理的に距離をとってしまえば、心はすり減りません。</p>
+<ul class="clist"><li><b>直後1時間ルール</b> 配信が終わってから1時間は、コメント欄もエゴサも見ない。</li>
+<li><b>寝る前は検索しない</b> 就寝前のエゴサ禁止。眠れなくなる原因を寝る前に持ち込まない。</li>
+<li><b>週1完全オフ</b> 週に1日はSNSを完全に断つ日をつくる。</li>
+<li><b>沈むアカはミュート</b> 気分が落ちるアカウントは即ミュート。見ない仕組みにする。</li></ul>
+<p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">2週間ルール ── 気分の落ち込みや睡眠障害が<b>2週間以上</b>続く場合は、配信の改善より先に、専門家への相談を検討してください。これはメンタル不調のセーフティラインです。我慢して続けるより、ケアを優先していい場面です。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>7. 「引退」より先に「休止」</h3></div>
+<p class="callout"><span class="callout__label">選択肢</span><span class="callout__body">辞める前に、まず<b>「休止」</b>という選択肢を持ってください。休止なら、気持ちが整えばまた戻れる安心を残せます。事務所に相談して一時的に配信を代行してもらう、といった方法もあります。「引退」は最後の手段。その前にできることがあります。</span></p>
+<p class="point"><span class="point__label">POINT</span>質が落ちた配信を続ける方が、短期の休配よりファン離れを招きます。＝休む勇気を。そして、しんどい時は一人で抱え込まないこと。ファミリー・マネージャー・仲間ライバーに打ち明けてください。“味方がいる”状態をつくるのも、続けるためのスキルです。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>8. 過程を“資産”にする</h3></div>
+<p>うまくいかない時間も、続け方しだいで未来の財産になります。悩みを抱えたまま止まるのでなく、記録と行動に変えていきましょう。</p>
+<ul class="clist"><li><b>失敗や学びをノート化</b> うまくいかなかったこと・気づいたことをノートに書きため、“蓄積資産”にする。同じ壁で二度悩まないための記録です。</li>
+<li><b>悩む時間を作業に変える</b> ぐるぐる悩む時間を、観察(他の配信を見る)や制作(ショート編集)といった作業に転換する。手を動かすとネガティブ思考が止まります。</li>
+<li><b>同業をリスペクトする</b> 他のライバーを下げない。参考にした人や影響元はきちんと明記する姿勢を持つ。人を貶さないことが、自分のメンタルも守ります。</li>
+<li><b>親近感は長さより頻度</b> 人は接触の“長さ”より“頻度”に親しみを感じます。忙しい時は1回を短くして、毎日続ける方が定着に効く。完全に休むより、短くてもこまめに顔を出す方が信頼は積み上がります。</li></ul>
+</div>
+
+<p class="src">参考：@answer42.do.not.panic／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch8">← 前の章<span class="sub">リスナー・距離感</span></button><button data-target="ch10">次の章 →<span class="sub">ジャンル別攻略</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch10" style="--accent:#2C8C7A"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 10</span><h2 class="chapter__title">ジャンル別攻略 ── “何の枠か”で伸ばし方は変わる</h2><p class="chapter__lead">歌・ゲーム・雑談・顔出しなし・作業耐久。ジャンルごとの伸ばし方と、海外リスナーへの対応を。</p></div>
+
+<div class="block"><div class="block__head"><h3>1. まずジャンルを1つに絞る</h3></div>
+<p class="headline">枠が伸びる第一歩は、才能でも運でもなく<span class="hl">“何の枠か”を1つに決めること</span>。</p>
+<p>歌もゲームも雑談も少しずつ…という“なんでも枠”は、初見にとって「結局この人は何をする人？」が伝わらず、その場で離脱されます。さらに2026年のアルゴリズムは、1つのチャンネルが複数ジャンルを跨ぐことに厳しくなっています。ジャンルを1つに絞り込み、そのジャンルを軸に配信を積み重ねるほど、興味の合う初見に見つけてもらいやすくなります。</p>
+<p class="callout callout--warn"><span class="callout__label">重要</span><span class="callout__body">2026年のアルゴリズムは、1チャンネルで<b>3トピック以上を跨ぐ</b>と“ニッチ違反”と判定し、最大で<b>-45%ほどリーチが下がる</b>とされています(数値は目安・変動します)。ジャンルの一貫性は、もはや「あった方がいい」ではなく“伸ばすための必須条件”。プロフィール文・アイコン・固定投稿も、すべてそのジャンルに統一しておくと、おすすめ経由で来た初見が一瞬で「この枠は◯◯の枠だ」と理解できます。</span></p>
+<p class="point"><span class="point__label">POINT</span>「この枠、何する枠？」に一言で答えられるように。その一言が、あなたの入口の看板になります。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>2. 歌枠 ── リクエストとセトリで“特別感”をつくる</h3></div>
+<p>歌枠の強みは、リスナーの「自分のために歌ってくれた」という特別感です。ただ歌い続けるのではなく、参加してもらう仕組みとテーマ性で、初見にも常連にも刺さる枠にしていきましょう。著作権まわりだけは必ず守るのが大前提です。</p>
+<ul class="clist"><li><b>カラオケ機能でリクエストを受ける</b> リスナーは視聴画面のマイクボタンから曲をリクエストできます。応えることで「自分のために歌ってくれた」という特別感が生まれ、フォロー率が上がります。</li>
+<li><b>テーマ性のあるセトリを組む</b> ボカロしばり／失恋ソング／懐かしのアニソン…など、その日の“縛り”を決めると、初見にも枠の意図が瞬時に伝わります。</li>
+<li><b>新曲・リク多め＋定番を数曲</b> 新しい曲やリクエスト曲を多めにしつつ、定番・お気に入りを数曲残す構成に。飽きずに満足度の高い枠になります。</li>
+<li><b>音質と機材を整える</b> 音質設定は「標準」か「ワイドスペクトラム」を使い、専用マイク＋イヤモニで自分の声を確認しながら歌う。歌枠は音の良さがそのまま満足度に直結します。</li>
+<li><b>耳と目の両方を楽しませる</b> トレンド曲を取り入れつつ、ARエフェクトで画面にも変化を。聴くだけでなく“見て楽しい”歌枠は滞在が伸びます。</li></ul>
+<p class="callout callout--warn"><span class="callout__label">著作権(必ず)</span><span class="callout__body">使ってよいのは、①商用楽曲ライブラリ(CML)の認証曲 ②規約OKのフリーBGM ③自作曲 のみ。CD音源などを無断で流すのはLIVEでも著作権侵害になります。さらに<b>楽曲の速度変更・リミックス・歌詞の改変も禁止</b>です。許諾範囲は変わることがあるので、迷ったら公式のガイドラインと事務所で確認を。</span></p>
+</div>
+
+<div class="block"><div class="block__head"><h3>3. ゲーム枠 ── “実況”で無言をつくらない</h3></div>
+<p>ゲーム枠でいちばんやりがちな失敗が、プレイに集中して無言になってしまうこと。画面が動いていても、声が止まると初見はスワイプします。ゲームは“見せもの”ではなく“実況とセット”で成立する、と考えましょう。</p>
+<ul class="clist"><li><b>集中しても常に実況する</b> どんなにゲームに集中していても、口は止めない。今なにを狙っているか、なぜその操作をしたか──実況が途切れないだけで枠の空気は保てます。</li>
+<li><b>本編15〜30分で理解できる構成に</b> 初見が15〜30分見れば「何のゲームで、今どういう状況か」が分かる構成に。長い前置きや内輪ルールで置いていかない。</li>
+<li><b>タイトルにゲーム名＋内容</b> タイトルは「◯◯(ゲーム名)を初見プレイ」のように、ゲーム名と今やる内容をセットで。検索でも見つけてもらいやすくなります。</li>
+<li><b>「参加型」「初心者歓迎」＋終了条件を掲示</b> 画面に「参加型」「初心者歓迎」と、終了条件(例:フォロワー+◯人で終了)を掲示。ゴールが見えると応援が集まりやすくなります。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>4. 雑談枠 ── コメントを拾うテンポで“居場所”に</h3></div>
+<p>雑談枠は一番ハードルが低い反面、“ただ喋っているだけ”になると差がつきません。カギは、コメントを拾うテンポと、飽きさせない仕掛け。点(単発の返し)を線(会話)に変えていくのが上手い人が伸びます。</p>
+<ul class="clist"><li><b>挨拶の型＋質問コーナー</b> 入室時の挨拶をパターン化し、質問コーナーを用意してコメントを拾うテンポを保つ。テンポの良さがそのまま“居心地”になります。</li>
+<li><b>コメント返しは“共感＋質問”</b> コメントへの返しは「共感」＋「質問」の最低2要素で。共感で受けとめ、質問で返すことで、単発の点が会話の線に変わります。</li>
+<li><b>会話ルーレットでゲーム感覚に</b> 会話ルーレットなどでテーマを決めると、雑談がゲーム感覚になり、初見も入りやすくなります。「次は何のテーマ？」という期待が滞在に効きます。</li>
+<li><b>曜日ごとにテーマを決める</b> 月曜は◯◯、水曜は△△…と曜日ごとにテーマを固定。毎回同じ雑談になるのを防ぎ、「今日は何の日か」でリピートの理由もつくれます。</li></ul>
+</div>
+
+<div class="block"><div class="block__head"><h3>5. 顔出しなし ── 声・企画・世界観で勝負する</h3></div>
+<p>顔を出さなくても伸ばせます。Vライバーやラジオ配信は、顔以外の武器で戦う枠。“顔の代わりに何で感情を伝えるか”を設計できれば、顔出しと同じ土俵に立てます。</p>
+<div class="cardgrid"><div class="tcard"><h4 class="tcard__h">Vライバー＝“生きてる感”</h4><p class="tcard__b">フェイストラッキングで自分の表情をアバターに<span class="hl">リアルタイム反映</span>。アバターでも“生きてる感”が出て、感情が伝わります。</p></div>
+<div class="tcard"><h4 class="tcard__h">口パク＋感情モーション</h4><p class="tcard__b">アバターでも口パクに加え、<span class="hl">喜怒哀楽のモーション</span>をつける。動きで感情を伝えると、顔がなくても表情豊かに見えます。</p></div>
+<div class="tcard"><h4 class="tcard__h">声・参加型・世界観で勝負</h4><p class="tcard__b">顔出しなしは<span class="hl">声・参加型企画・世界観</span>の3つが武器。この3つが揃えば、顔がなくても“また来たい枠”になります。</p></div>
+<div class="tcard"><h4 class="tcard__h">ジャンルで居場所をつくる</h4><p class="tcard__b">料理配信やラジオ配信など、<span class="hl">手元や声</span>が主役のジャンルと相性抜群。顔を出さない前提で成立する枠を選ぶのがコツ。</p></div></div>
+</div>
+
+<div class="block"><div class="block__head"><h3>6. 作業耐久型で滞在を伸ばす</h3></div>
+<p>作業や勉強を一緒にする“作業耐久型”は、リスナーが繋ぎっぱなしにしやすく、平均視聴時間を伸ばしやすいジャンルです。ポイントは、リズムと世界観、そして“無人配信”と誤判定されない工夫です。</p>
+<ul class="clist"><li><b>30分集中→5分休憩を繰り返す</b> 30分作業→5分休憩のリズムを繰り返すと、配信がBGM化して、リスナーが繋ぎっぱなしになります。結果として平均視聴時間が伸びます。</li>
+<li><b>待機画面・背景で世界観を統一</b> 配信の待機画面や背景で世界観を統一し、その世界観に合うタグを複数設定する。統一感のある枠は、新規に“見つけて選ばれる”入口になります。</li>
+<li><b>静止画配信は“動き”を足す</b> 静止画・画像メインの配信は、揺れ・光・キラキラのエフェクトを足す。これは、AIに<b>“無人配信”と誤判定されて警告される</b>のを防ぐためにも大切です。</li></ul>
+<p class="point"><span class="point__label">POINT</span>作業耐久型は「盛り上げる枠」ではなく「居続けてもらう枠」。動きのある画面と一定のリズムで、“ずっと点けていたくなる空気”をつくりましょう。</p>
+</div>
+
+<div class="block"><div class="block__head"><h3>7. 海外・グローバル対応</h3></div>
+<p>TikTok LIVEは海外の視聴者にも届きます。言葉が完璧でなくても、伝え方を工夫すれば海外リスナーは楽しんでくれますし、視聴維持が伸びればアルゴリズム的にも有利です。“万国共通”の武器を使いましょう。</p>
+<ul class="clist"><li><b>リアクション・ジェスチャーを大きく</b> 喜び・驚き・感謝は万国共通。言葉が通じなくても、大きなリアクションとジェスチャーなら伝わります。海外リスナー向けには表現を少しオーバー気味に。</li>
+<li><b>簡単な語彙・短いフレーズで</b> 複雑な表現を避け、簡単な単語と短いフレーズで話す。凝った言い回しより、シンプルで伝わる言葉を選ぶのがコツ。</li>
+<li><b>自動キャプション前提でゆっくり</b> 自動キャプション(複数言語対応)が付く前提で、いつもよりゆっくりめに話す。聞き取りやすさが翻訳精度にもつながります。</li>
+<li><b>ショート・配信に英語字幕</b> ショートや配信に英語字幕をつけると、海外の視聴維持が上がり、アルゴリズム的に有利になります。海外に届けたいなら字幕はかなり効きます。</li>
+<li><b>ノイズ除去で音質を上げる</b> ノイズ除去機能をONにして音質を上げる。騒がしい環境でも聞き取りやすくなり、言葉が通じにくい相手ほど“クリアな音”が効きます。</li></ul>
+</div>
+
+<p class="src">参考：@liver_textbook／DeNA Creator Links 育成ナレッジ。音源・著作権は許諾範囲を公式で確認。数値・条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch9">← 前の章<span class="sub">メンタル・継続</span></button><button data-target="ch11">次の章 →<span class="sub">機能ガイド</span></button></nav>
+</section>
+
+  <section class="view chapter" id="ch11" style="--accent:#3D6FB8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 11</span><h2 class="chapter__title">機能ガイド ── 使える機能を、使いこなす</h2><p class="chapter__lead">TikTok LIVEの機能を「何ができる／どう活かすか」でまとめました。全部使う必要はありません。今の弱点に効くものを1つずつ。</p></div>
+
+<div class="block"><div class="block__head"><h3>この章の読み方</h3></div><p class="headline">機能は、<span class="hl">目的から逆引き</span>で。</p><p class="callout callout--tip"><span class="callout__body">「集客が弱い→トピック設定・ショート」「換金が弱い→LIVEゴール・ガーディアン」のように、<b>いま困っていることに効く機能を1つ</b>選んで試すのがコツ。仕様・数値は変わるので、最終は必ずアプリ内と公式の最新情報で確認してください。</span></p></div>
+
+<div class="block"><div class="block__head"><h3>① 目標を見せる</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>LIVEゴール</b></td><td>配信中に目標を設定して進捗バーを表示。4時間で自動終了。</td><td>高さより“松竹梅の合計”で。達成直後は3秒“間”をおいて大リアクション。前回達成のスクショを残すと次の心理ハードルが下がる。</td></tr>
+<tr><td><b>ギフトカウンター／実況</b></td><td>盛り上がりや貢献を画面・声で可視化する。</td><td>「みんなが応援してる」を見せる＝社会的証明。順位や現在地を実況して“あと少し”を共有（催促でなく目標共有で）。</td></tr>
+<tr><td><b>ギフギャラ（ギフトギャラリー）</b></td><td>週替わりのギフト種をコンプでボーナス。</td><td>「あと◯個！」を宣言して一緒に集める。進捗はスタッフに共有し、コンプはスクショで記録。</td></tr>
+</tbody></table></div></div>
+
+<div class="block"><div class="block__head"><h3>② ファン化・換金</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>ハートミー</b></td><td>1日1回送れるチームギフト。初回で“入団”扱い。</td><td>大きく歓迎して仲間化の起点に。取りこぼさず毎回拾う。</td></tr>
+<tr><td><b>ファンクラブ</b></td><td>ハートミーで参加。レベルでバッジの色が変わる。</td><td>「入ると何があるか」を伝えるだけ（催促はしない）。バッジ色を“みんなの目標”に。</td></tr>
+<tr><td><b>ガーディアン</b></td><td>週ごとに最多ギフターが就任。限定バッジ・角フレーム・入室スポットライト等の特典。</td><td>“見せ場”にして大口の健全な競争を作る。いつでもオン/オフ・解除できるので荒れ防止に管理を。</td></tr>
+<tr><td><b>スーパーファン</b></td><td>ライブ中の★ボタンから登録できる月額の応援。専用バッジ・入室演出・限定ライブ。</td><td>常連に案内して特別感を。価値（何が得られるか）を本人が理解して伝える。</td></tr>
+<tr><td><b>サブスク（月額購読）</b></td><td>限定エモート（最大15）・継続月数で色が変わるバッジ・登録者限定チャット/ビデオ。</td><td>特典は“オンライン完結・毎回無理なく回せる”もので設計＝工数から逆算して赤字にしない。</td></tr>
+<tr><td><b>ギフターレベル</b></td><td>応援の積み重ねでリスナーのレベルが上がる（少人数枠では到達が自動表示されることも）。</td><td>レベル到達を個別に祝う＝常連の“階段”を可視化。</td></tr>
+</tbody></table></div><p class="src">※還元率・報酬は公式非公表で変動します。本人の目標は円換算でなく<b>ダイヤ単位</b>で握りましょう。</p></div>
+
+<div class="block"><div class="block__head"><h3>③ 対戦・コラボ</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>PKバトル（LIVE Match）</b></td><td>相手とギフトポイントを競う対戦（1v1／マルチ3〜4人／2v2チーム／ランダム／フレンド）。</td><td>目的で形式を選ぶ。相手はフォロワー・ギフト量が同格を選び、事前に枠を1回見てから繋ぐ（もらいBAN回避）。</td></tr>
+<tr><td><b>クイックマッチ</b></td><td>気軽な飛び込み対戦。視聴者にグローブを獲得してもらえる。</td><td>S0期の“バトル慣れ”に。勝ち負けより参加体験を作る。</td></tr>
+<tr><td><b>バトルアイテム</b></td><td>グローブ（約30%で5倍計上）／ボーナスタイム（+10秒）／ミスト・ハンマー（妨害）。</td><td>グローブは“ボーナス30秒”に集中投下（効果は重複しない）。常連とタイミングを合わせる。</td></tr>
+<tr><td><b>スピードチャレンジ</b></td><td>一定時間ポイントが倍増するタイム。</td><td>倍率チャンス（2〜5倍）に応援を集中。ミッション達成でボーナスを取りに行く。</td></tr>
+<tr><td><b>コラボ配信／マルチゲスト</b></td><td>最大6人で同時配信。レイアウト（グリッド/パネル/固定）や参加可否を制御。</td><td>ゲストは10〜15分で交代し全員に見せ場を。“凸（飛び込み）”で新規相手も開拓。相手選びは素行も見る。</td></tr>
+</tbody></table></div></div>
+
+<div class="block"><div class="block__head"><h3>④ コメント・秩序を守る</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>スターコメント／ピン留め</b></td><td>今日の話題・目標をコメント欄の上部に固定。良い回答を後から昇格も。</td><td>無音でスクロール中の初見にも内容が伝わる。モデに配置を任せてもよい。</td></tr>
+<tr><td><b>リクエスト機能</b></td><td>視聴者から曲・企画のリクエストを受ける。</td><td>“自分のために応えてくれた”特別感でフォロー率UP（歌枠と相性◎）。</td></tr>
+<tr><td><b>モデレーター</b></td><td>コメントのミュート・ブロック、話題のピン留めなどを代行してもらう。</td><td>役割（初見歓迎/荒らし対応/話題パス）を先に明文化して依頼。熱心×冷静な人を選ぶ。</td></tr>
+<tr><td><b>NGワードフィルター</b></td><td>指定した語を含むコメントを自動で弾く。</td><td>コメント欄ルールと合わせて事前設定＝荒らし予防。</td></tr>
+<tr><td><b>招待オフ</b></td><td>不要なコラボ・バトル申請を受け付けない設定。</td><td>楽しくない相手は無理に受けない。集中したい枠で使う。</td></tr>
+</tbody></table></div><p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">AIが健全なコメントを誤って弾く/BAN判定することもあります。外部ツール（読み上げ・翻訳・コメント表示）を使う場合、その出力にも配信者責任がある前提で管理を。</span></p></div>
+
+<div class="block"><div class="block__head"><h3>⑤ 画面・演出</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>ウェルカムメッセージ</b></td><td>入室者に自動で歓迎表示。紹介文を設定できる。</td><td>初参加を“入団+フォロー”の起点に。取りこぼしを防ぐ。</td></tr>
+<tr><td><b>効果音</b></td><td>場面ごとに音を鳴らす。</td><td>勝利＝ファンファーレ／コメントに“ピンポーン”／拍手・歓声で臨場感。投げてもらった時の“決め音”も。</td></tr>
+<tr><td><b>サムネ・タイトル</b></td><td>配信のサムネと表題を設定。タイトルはフォロワー通知にも反映。</td><td>「誰向け・内容・惹き」＋検索語を1つに。1秒未満で視聴を判断される前提で。</td></tr>
+<tr><td><b>トピック設定</b></td><td>カテゴリを設定して“興味のある層”に露出。</td><td>ジャンルと一致させて設定＝おすすめ流入の質が上がる。</td></tr>
+<tr><td><b>加工・フィルター</b></td><td>美顔・明るさ・エフェクトで映りを整える。</td><td>盛りすぎず“清潔感”と第一印象を上げる程度に。</td></tr>
+</tbody></table></div></div>
+
+<div class="block"><div class="block__head"><h3>⑥ リーグ・ランキング</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>クリエイターリーグ</b></td><td>毎日配信で昇格していく段階制。画面上部から現在位置・予測ダイヤを確認。</td><td>まず昇格→慣れたらリーグ内上位を狙う。上位リーグの配信を観察して学ぶ。</td></tr>
+<tr><td><b>かけら／シールド</b></td><td>かけら＝昇格ポイント（上位%で増・未配信日は−1）。シールドは喪失を肩代わり（保持に上限）。</td><td>毎日24時までに1回配信してかけら減少を防ぐ。休配日はシールドで設計。</td></tr>
+<tr><td><b>日間ランキング／殿堂</b></td><td>その日の応援が反映。上位（殿堂）に特典、1位は全LIVEにウェルカムアナウンス。</td><td>週1回“勝負枠”を作って日間上位を狙う（ゴールデン19〜23時＋ショートがバズった直後）。</td></tr>
+<tr><td><b>人気ランキング</b></td><td>チームギフトがポイント化（1視聴者→1日あたり上限あり）。</td><td>大口1人でなく“人数”が効く。多くの人に届ける枠づくりを。</td></tr>
+</tbody></table></div></div>
+
+<div class="block"><div class="block__head"><h3>⑦ 上級・PC配信</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>TikTok LIVE Studio</b></td><td>公式のPC配信ソフト。カメラ・画像・テキスト・ゲーム画面・チャットを自由に配置して高画質配信。</td><td>シーン（OP／メイン／休憩／ED）を事前に組んで切り替え。テロップ＋目標＋コメントのレイアウトを作り込む。</td></tr>
+<tr><td><b>デュアルカメラ</b></td><td>2つの映像を同時に見せる。</td><td>“リアクション＋手元/ゲーム”を同時に。ゲーム・作業配信で効く。</td></tr>
+<tr><td><b>フレアカード</b></td><td>インプレッション（露出）ブースト。入手から一定日数で失効。</td><td>“人が増える時間帯・勝負枠”で使う。溜め込まず計画的に。入手経路は事務所配布。</td></tr>
+<tr><td><b>リプレイ／切り抜き</b></td><td>配信後のアーカイブ。一定期間で消える前提。</td><td>直後30分で“盛り上がったシーン”をショート化して投稿＝新規の入口＋再来のきっかけ。残したいものは早めに保存。</td></tr>
+</tbody></table></div></div>
+
+<div class="block"><div class="block__head"><h3>⑧ 2026年の新機能（要アプリ内確認）</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
+<tr><td><b>ノイズ除去</b></td><td>背景ノイズをAIで抑える。</td><td>騒がしい環境でONにして音質を上げる＝離脱を防ぐ。</td></tr>
+<tr><td><b>自動キャプション（多言語）</b></td><td>話した内容を字幕化・翻訳（複数言語対応）。</td><td>海外リスナーが付く枠は前提でONに。簡単な語彙でゆっくりめに話す。</td></tr>
+<tr><td><b>プレイリスト化</b></td><td>過去のLIVEをテーマ別にまとめる。</td><td>神回・歌枠などを“初見の入口”として残す。</td></tr>
+<tr><td><b>ローカルフィード</b></td><td>地域の視聴者に優先的に表示される枠。</td><td>地域性（方言・地元ネタ）を出す枠は地元導線を意識（提供状況は要確認）。</td></tr>
+<tr><td><b>マルチカメラ／新演出</b></td><td>複数カメラや新しい配信演出。</td><td>企画に合うものだけ取り入れる。使いこなしより“伝わるか”を優先。</td></tr>
+</tbody></table></div><p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">新機能は“出たら全部使う”より、いまの弱点に1つ効くものを試すのが結局いちばん伸びます。仕様は変わるので最終は公式・アプリ内で確認を。</span></p></div>
+
+<p class="src">参考：TikTok LIVE 機能まとめ（現場検証）／@liver_textbook／DeNA Creator Links 育成ナレッジ。機能・仕様・数値は改訂されるため、最終は公式の最新情報で確認してください。</p>
+<nav class="chnav"><button data-target="ch10">← 前の章<span class="sub">ジャンル別攻略</span></button><button data-target="ch12">次の章 →<span class="sub">やりがちNG→改善</span></button></nav></section>
+
+  <section class="view chapter" id="ch12" style="--accent:#B4400E"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 12</span><h2 class="chapter__title">やりがちNG→改善 ── つい陥る“逆効果”を、一手で直す</h2><p class="chapter__lead">よかれと思ってやりがちなNGを ❌→✅ で。当てはまったら、その一手だけ変えてみてください。</p></div>
+
+<div class="block"><div class="block__head"><h3>この章の読み方</h3></div>
+<p class="headline">NGの多くは、<span class="hl">“よかれと思って”</span>やってしまうこと。</p>
+<p class="callout"><span class="callout__label">読み方</span><span class="callout__body">NGの多くは「応援してほしい」「盛り上げたい」という善意から生まれます。相手（初見・常連・アルゴリズム）から見えている像に、一手だけ寄せる、という読み方で。左の❌に心当たりがあれば、右の✅を今週ひとつだけ試してみてください。</span></p></div>
+
+<div class="block"><div class="block__head"><h3>土台・継続 ── まず“枠”を固定する</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>気分で配信・時間帯がバラバラ</li><li>頑張った翌日に休んで枠が消える（バースト型）</li><li>配信が不定期で見つけてもらえない</li><li>固定客が付く前に「伸びない」と辞める</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>毎日同じ時間に配信して“枠”を固定</li><li>単発より一定ペース＋計画的な休養日</li><li>決まった曜日・時間で習慣化</li><li>付くまで時間がかかる前提で続ける（メンタル）</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>クオリティ ── “見る気が失せる”を消す</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>音・画角・照明に無頓着（見る気が失せる）</li><li>無音で間が持たない</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>配信前チェック（機材／照明／画角／音）</li><li>BGMを流して滞在率を上げる</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>アルゴリズム・集客 ── 冒頭とシェアで拾う</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>いいね連打だけ狙う（視聴維持・会話が薄い）</li><li>開始直後が静かで盛り上がりシグナルが立たない</li><li>初見を「探す／名指し」して緊張させる</li><li>初見に話しかけすぎる（ながら見を邪魔）</li><li>シェアを一切促さない</li><li>深夜早朝や強豪と被る時間に配信</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>冒頭30秒で今日やること予告＋質問で会話を伸ばす</li><li>冒頭からエンゲージを取りに行く（5コメ設計）</li><li>探さない・入りやすい空気を作る</li><li>様子見できる空気を残す</li><li>配信中1回は「面白かったらシェアしてな」</li><li>視聴者が動く時間を選び競合とずらす</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>トーク・過疎沈黙 ── 受け身をやめる</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>コメントを待って沈黙（受け身）</li><li>コメントを拾って終わり（会話が続かない）</li><li>ネタ切れでフリーズ</li><li>0人だと落ち込んで無言／配信をやめる</li><li>沈黙を焦って取り繕い早口</li><li>1人語りが長い・単調</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>0人でも独り言で回す・先にリアクション</li><li>質問で返す＋相槌・共感で深掘り</li><li>ネタ帳にストック＋トピック設定機能を使う</li><li>音を止めず独り言／BGM、0でも成立する準備</li><li>正体を明かす→二択→リスナーに振る、で立て直す</li><li>5W1Hで広げつつ必ずリスナーに振る／コラボ・企画で変化</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>定着・churn ── 常連が離れない一手</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>常連に毎回ギフトを期待して“気負い疲れ”させる</li><li>ROM専／潜りを責める</li><li>自分の話ばかりで聞かない</li><li>毎回同じ内容で飽きさせる</li><li>「またね」だけで終わる（次に来る理由が無い）</li><li>言った約束を守らない</li><li>古参の内輪ノリで新規が入れない</li><li>告知・宣伝が多すぎて萎える</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>「来てくれるだけで嬉しい」と伝える</li><li>「見てるだけでも嬉しい」と歓迎する</li><li>リスナーの話を聞く・相槌で受ける</li><li>変化・成長（新企画／目標更新）を見せる</li><li>締めに感謝＋次回予告＋常連へ一言</li><li>予告した約束は必ず次回までに実行</li><li>配信者がハブになり全員を繋ぐ／古参に新規歓迎を頼む</li><li>告知はコンパクト、普段は雑談メイン</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>換金・大口 ── “応援したい”を生む</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>「応援して」と直接お願いする（義務感／集金感）</li><li>ギフトを“催促”する（催促は逆効果）</li><li>大口1人依存（一強枠）</li><li>大口を特別扱いしすぎ／期待を裏切る（アンチ化）</li><li>少額ギフターを軽視・えこひいき</li><li>初ギフトを雑に流す</li><li>ギフトへのリアクションが薄い／毎回同じ</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>楽しませて「応援したい」を作る</li><li>「〇〇で△△する」と参加型の達成条件にする</li><li>週1で偏りチェック→2人目の常連ギフター候補を探す</li><li>距離感と期待管理／動機に合う見せ場を作る</li><li>少額でも即お礼・全員平等</li><li>初めてのギフターに特に大きくお礼</li><li>ギフト名＋送り主名＋決めポーズの「型」で返す</li></ul></div></div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">「くれたら〇〇」の催促はNG。「みんなで達成する目標」トーンに置き換えると、義務感なく参加が生まれます。売上・数値は口にするなら“目安”にとどめ、条件や還元は公式・事務所で確認を。</span></p></div>
+
+<div class="block"><div class="block__head"><h3>バトル ── 少人数・相手選び</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>少人数なのにバトル連発（視聴者が離れる）</li><li>ラストの差し込み頼み</li><li>リスナー目線で楽しくないバトルを受ける</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>頻度と相手選び・少人数は行きすぎない</li><li>事前に団結・「いつ／どう応援するか」を共有</li><li>楽しくない相手は断る／招待オフ設定</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>コミュニティ・安全 ── 荒れさせない</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>リスナー間の揉めに肩入れ</li><li>みんなの前でリスナーを叱る／晒す</li><li>他のクリエイターを下げる／批判する</li><li>枠ルールが無く荒れる</li><li>特定リスナーの依存／独占に飲まれる</li><li>ギフト金額／頻度でリスナー同士がマウンティング</li><li>荒らしと論争して場が荒れる</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>中立を保ち「私に向けて楽しんで」</li><li>公開叱責しない</li><li>下げない</li><li>ルールを明示＋NGワードフィルター</li><li>全員に公平・健全な距離感</li><li>「金額で比べない・少額も同じ歓迎」＋ルール明文化</li><li>論争せず淡々と削除／ミュート／タイムアウト</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>メンタル・距離感 ── 比較と近づきすぎ</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>他ライバーと比べて落ち込む</li><li>配信者自身が楽しめてない（義務感）</li><li>コメント反応がほぼゼロ／親しみが無い</li><li>距離が近すぎて離れられた</li><li>ガチ恋を曖昧に放置（トラブルの芽）</li><li>人気上昇で古参への態度が変わる</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>“学ぶ対象”にして比較を成長に変える</li><li>まず自分が心から楽しむ（技術より気持ち）</li><li>冒頭から反応・名前呼びで親近感</li><li>「来てくれるだけで嬉しい」スタンス</li><li>配信内で毅然と線引き</li><li>初期と同じトーン＋古参へのリアクションを定期的に</li></ul></div></div></div>
+
+<div class="block"><div class="block__head"><h3>ジャンル設計・境界線 ── 何の枠か／線引き</h3></div>
+<div class="cols"><div class="col col--ng"><div class="col__head">❌ やりがち</div><ul class="col__list"><li>毎回ジャンルがバラバラで何の枠か伝わらない</li><li>歌枠で著作権に無頓着（BAN／停止リスク）</li><li>特定リスナーとDM・アプリ外移行に応じる</li><li>全員に個別対応しようとして疲弊＆えこひいき化</li><li>背景に個人特定情報が映っている</li></ul></div><div class="col col--ok"><div class="col__head">✅ こう変える</div><ul class="col__list"><li>ジャンルを1つに絞りプロフ／アイコン／固定投稿を統一</li><li>許諾範囲の音源・アプリ内機能を使う</li><li>個人情報・オフ会・アプリ外は線引き、やんわり断りフレーズを常備</li><li>「全部は返せない・みんな平等」を前置き</li><li>郵便物／窓／表札等が映らないか毎回確認</li></ul></div></div></div>
+
+<p class="src">参考：TikTok LIVE 現場知見（NG逆算）／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式・事務所で確認を。</p>
+<nav class="chnav"><button data-target="ch11">← 前の章<span class="sub">機能ガイド</span></button><button data-target="glossary">用語へ →<span class="sub">用語・早見</span></button></nav>
+</section>
+
+  <section class="view chapter" id="glossary" style="--accent:#6B7280"><div class="chapter__intro"><span class="chapter__kicker">APPENDIX</span><h2 class="chapter__title">用語・早見 ── わからない言葉が出たらここへ</h2><p class="chapter__lead">配信でよく使う用語と、ギフトの早見表。</p></div>
+<div class="block"><div class="block__head"><h3>配信用語集</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody><tr><td>初見</td><td>初めてその枠に来たリスナー</td></tr><tr><td>同接</td><td>同時接続数＝今LIVEを見ている人数</td></tr><tr><td>投げる／投げ銭</td><td>ギフト（有料スタンプ）を送ること</td></tr><tr><td>ROM専／潜り</td><td>コメントせず見るだけのリスナー</td></tr><tr><td>太客</td><td>高額を継続してくれる大口ギフター</td></tr><tr><td>コール</td><td>決まった掛け声・応援の合いの手（枠の共通言語）</td></tr><tr><td>定期</td><td>リスナーが毎回書き込む決まったコメント</td></tr><tr><td>いつメン</td><td>参加率の高い常連メンバー</td></tr><tr><td>かけら</td><td>クリエイターリーグの昇格ポイント（未配信日−1）</td></tr><tr><td>ガーディアン</td><td>週最多ギフターが就く&quot;応援団長&quot;。限定バッジ/フレーム等</td></tr><tr><td>ハートミー</td><td>1日1回送れるチームギフト。初回で&quot;入団&quot;扱い</td></tr><tr><td>ギフギャラ</td><td>ギフトギャラリー。週替わりのギフト種コンプでボーナス</td></tr><tr><td>グローブ</td><td>バトル用アイテム。約30%でギフトを5倍計上</td></tr><tr><td>差し込み</td><td>コラボバトルの終了間際にギフトを贈ること</td></tr><tr><td>凸る</td><td>事前連絡なしで配信中に他ライバーへコラボ申請する行為</td></tr><tr><td>ランオフ</td><td>ランキング/レベルを非表示にする設定</td></tr><tr><td>スターコメント</td><td>コメントを上部に固定表示するモデ機能</td></tr><tr><td>ポータル</td><td>他配信から&quot;宝箱&quot;経由で視聴者が来訪する仕組み</td></tr><tr><td>枠</td><td>一回のライブ配信、またはその場そのもの</td></tr><tr><td>生誕</td><td>誕生日/記念日イベント配信</td></tr></tbody></table></div></div>
+<div class="block"><div class="block__head"><h3>ギフト早見</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>帯</th><th>コイン範囲</th><th>リアクションの目安</th></tr></thead><tbody><tr><td>手軽</td><td>1〜250</td><td>名前呼び＋一言お礼</td></tr><tr><td>中額</td><td>299〜899</td><td>決めリアクションを1つ</td></tr><tr><td>高額</td><td>999〜4,888</td><td>特別リアクション＋実況</td></tr><tr><td>最上位</td><td>5,000〜44,999</td><td>全力の特別演出を用意</td></tr></tbody></table></div><p class="callout"><span class="callout__label">メモ</span><span class="callout__body">1コイン≈2.5円。本人の目標は円でなくダイヤ単位で握る。個別ギフト名×価格の正本＝Notion「ギフト一覧🎁」。金額・還元は改訂前提で断定しない。</span></p></div>
+<p class="src">参考：DeNA Creator Links 育成ナレッジ・ハブ／@liver_textbook。用語は俗称を含む（公式表記と併記推奨）。</p>
+<nav class="chnav"><button data-target="ch12">← 前の章<span class="sub">やりがちNG→改善</span></button><button data-target="home">目次へ →<span class="sub">トップ</span></button></nav></section>
+</main>
+
+<div class="foot">
+  <b>ライバー攻略ブック</b> ／ 発行：DeNA Creator Links<br>
+  育成ナレッジ・ハブ＋現場知見の蒸留。数値・条件は変わるため公式で最終確認してください。
+</div>
+
+<script>
+  (function(){
+    var tabs=[].slice.call(document.querySelectorAll('.tab'));
+    var views={}; [].slice.call(document.querySelectorAll('.view')).forEach(function(v){views[v.id]=v});
+    function show(id){
+      Object.keys(views).forEach(function(k){views[k].classList.toggle('active',k===id)});
+      tabs.forEach(function(t){t.setAttribute('aria-selected', t.dataset.target===id?'true':'false')});
+      var t=document.querySelector('.tab[data-target="'+id+'"]'); if(t&&t.scrollIntoView)t.scrollIntoView({inline:'center',block:'nearest'});
+      window.scrollTo({top:0});
+    }
+    document.addEventListener('click',function(e){
+      var el=e.target.closest('[data-target]'); if(!el)return; show(el.dataset.target);
+    });
+    // BAN checklist
+    var checks=[].slice.call(document.querySelectorAll('#checks .check'));
+    var cnt=document.getElementById('cnt'),fill=document.getElementById('fill'),banner=document.getElementById('banner');
+    function upd(){var d=checks.filter(function(c){return c.classList.contains('done')}).length;
+      if(cnt)cnt.textContent=d; if(fill)fill.style.width=(d/checks.length*100)+'%'; if(banner)banner.classList.toggle('show',d===checks.length);}
+    checks.forEach(function(c){c.addEventListener('click',function(){var on=c.classList.toggle('done');c.setAttribute('aria-pressed',on?'true':'false');upd();});});
+  })();
+</script>

@@ -10,7 +10,7 @@
     --blue:#5566E8; --blue-tint:#ECEEFF;
     --amber:#E8892B; --amber-deep:#B4400E; --amber-tint:#FCEBD9;
     --ok:#12B0C4;
-    --brand-1:#7B5CFC; --brand-2:#E8479B;
+    --brand-1:#7B5CFC; --brand-2:#E8479B; --brand-3:#9B54E8;
     --brand:linear-gradient(120deg,var(--brand-1),var(--brand-2));
     --accent:#7B5CFC; /* per-chapter override */
     --shadow:0 2px 6px rgba(84,60,158,.06),0 18px 40px -20px rgba(96,64,184,.34);
@@ -80,16 +80,23 @@
     radial-gradient(90% 85% at 0% 0,color-mix(in srgb,var(--brand-1) 24%,transparent) 0,transparent 58%),
     radial-gradient(85% 85% at 100% 100%,color-mix(in srgb,var(--brand-2) 22%,transparent) 0,transparent 58%);opacity:.9}
   .home-hero>*{position:relative}
-  .home-hero .eye{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:.76rem;
+  .home-hero .eye{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-d);font-weight:700;font-size:.76rem;
     letter-spacing:.14em;color:var(--muted)}
+  .home-hero .eye::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand);flex:0 0 auto}
   .home-hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(1.9rem,6.6vw,3rem);
-    line-height:1.24;margin:12px 0 10px;text-wrap:balance}
-  .home-hero h1 .hl{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+    line-height:1.24;margin:14px 0 12px;text-wrap:balance}
+  .home-hero h1 .v1{color:var(--brand-1)}
+  .home-hero h1 .v2{color:var(--brand-2)}
+  .home-hero h1 .v3{color:var(--brand-3)}
+  .home-hero h1 .sep{color:var(--hair);font-weight:700;margin:0 .05em}
+  .home-hero .hbar{width:64px;height:4px;border-radius:3px;background:var(--brand);margin:2px 0 16px}
   .home-hero p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
   .use{display:grid;gap:10px;grid-template-columns:1fr;margin:22px 0 26px}
   @media(min-width:620px){.use{grid-template-columns:repeat(3,1fr)}}
-  .use div{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);padding:13px 15px;font-size:.9rem}
-  .use b{font-family:var(--font-d)}
+  .use div{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);
+    padding:14px 15px 14px 18px;font-size:.88rem;color:var(--muted);box-shadow:var(--shadow-sm)}
+  .use div::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand)}
+  .use b{font-family:var(--font-d);display:block;margin-bottom:4px;color:var(--ink);font-size:.95rem}
   .toc{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:620px){.toc{grid-template-columns:1fr 1fr}}
   .toc-card{--accent:var(--danger);text-align:left;background:var(--surface);border:1px solid var(--hair);
@@ -306,7 +313,8 @@
   <section class="view active home" id="home">
     <div class="home-hero">
       <span class="eye">TikTok LIVE 育成ナレッジ</span>
-      <h1>伸びる・<span class="hl">稼ぐ</span>・続ける、<br>ぜんぶ1冊に。</h1>
+      <h1><span class="v1">伸びる</span><span class="sep">・</span><span class="v2">稼ぐ</span><span class="sep">・</span><span class="v3">続ける</span>、<br>ぜんぶ1冊に。</h1>
+      <div class="hbar"></div>
       <p>配信のコツ・BAN対策・トーク・ギフト・バトル・リスナーとの関係・メンタルまで。現場で貯めた知見を、初心者からわかるようにまとめました。</p>
     </div>
     <div class="use">

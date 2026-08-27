@@ -4,38 +4,40 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
   :root{
-    --ground:#F4F6FA; --surface:#FFFFFF; --surface-2:#FAFBFE;
-    --ink:#1B2650; --muted:#5B6484; --hair:#E6E8F1;
-    --danger:#E8446E; --danger-ink:#C22551; --danger-tint:#FCE6EC;
-    --blue:#2E5BD6; --blue-tint:#E9EFFF;
+    --ground:#ECEAFB; --ground-2:#F5F3FE; --surface:#FFFFFF; --surface-2:#F7F5FE;
+    --ink:#241C46; --muted:#6C6890; --hair:#E7E2F4;
+    --danger:#E23D6D; --danger-ink:#C22551; --danger-tint:#FBE4EC;
+    --blue:#5566E8; --blue-tint:#ECEEFF;
     --amber:#E8892B; --amber-deep:#B4400E; --amber-tint:#FCEBD9;
-    --ok:#1E9E6A;
-    --accent:#E8446E; /* per-chapter override */
-    --shadow:0 1px 2px rgba(27,38,80,.05),0 12px 34px -20px rgba(27,38,80,.30);
-    --shadow-sm:0 1px 2px rgba(27,38,80,.06);
-    --r:18px; --r-sm:12px;
+    --ok:#12B0C4;
+    --brand-1:#7B5CFC; --brand-2:#E8479B;
+    --brand:linear-gradient(120deg,var(--brand-1),var(--brand-2));
+    --accent:#7B5CFC; /* per-chapter override */
+    --shadow:0 2px 6px rgba(84,60,158,.06),0 18px 40px -20px rgba(96,64,184,.34);
+    --shadow-sm:0 1px 3px rgba(84,60,158,.09);
+    --r:20px; --r-sm:14px;
     --font-d:"Zen Kaku Gothic New",system-ui,sans-serif;
     --font-b:"Noto Sans JP",system-ui,sans-serif;
   }
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-    --ground:#0D0F1C; --surface:#161A2C; --surface-2:#1B2036;
-    --ink:#EBEDF8; --muted:#9AA2C0; --hair:#2A2F4A;
-    --danger:#FF5C86; --danger-ink:#FF89A8; --danger-tint:#2A1420;
-    --blue:#7FA2FF; --blue-tint:#182142;
+    --ground:#131120; --ground-2:#181528; --surface:#1E1A2E; --surface-2:#241F38;
+    --ink:#ECEAF8; --muted:#A79FC6; --hair:#332C4A;
+    --danger:#FF6E96; --danger-ink:#FF9DB6; --danger-tint:#2E1622;
+    --blue:#94A0FF; --blue-tint:#1B1E3E;
     --amber:#F0A24E; --amber-deep:#F0743E; --amber-tint:#2A1C10;
-    --ok:#4FD39C;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 44px -22px rgba(0,0,0,.72);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --ok:#3DD0DE;
+    --shadow:0 2px 8px rgba(0,0,0,.45),0 22px 46px -22px rgba(0,0,0,.78);
+    --shadow-sm:0 1px 3px rgba(0,0,0,.5);
   }}
   :root[data-theme="dark"]{
-    --ground:#0D0F1C; --surface:#161A2C; --surface-2:#1B2036;
-    --ink:#EBEDF8; --muted:#9AA2C0; --hair:#2A2F4A;
-    --danger:#FF5C86; --danger-ink:#FF89A8; --danger-tint:#2A1420;
-    --blue:#7FA2FF; --blue-tint:#182142;
+    --ground:#131120; --ground-2:#181528; --surface:#1E1A2E; --surface-2:#241F38;
+    --ink:#ECEAF8; --muted:#A79FC6; --hair:#332C4A;
+    --danger:#FF6E96; --danger-ink:#FF9DB6; --danger-tint:#2E1622;
+    --blue:#94A0FF; --blue-tint:#1B1E3E;
     --amber:#F0A24E; --amber-deep:#F0743E; --amber-tint:#2A1C10;
-    --ok:#4FD39C;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 44px -22px rgba(0,0,0,.72);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --ok:#3DD0DE;
+    --shadow:0 2px 8px rgba(0,0,0,.45),0 22px 46px -22px rgba(0,0,0,.78);
+    --shadow-sm:0 1px 3px rgba(0,0,0,.5);
   }
   /* derived accent tints (adapt to theme via color-mix) */
   .chapter,.home{
@@ -46,7 +48,7 @@
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-b);
+  body{margin:0;background:linear-gradient(180deg,var(--ground-2),var(--ground)) fixed;color:var(--ink);font-family:var(--font-b);
     line-height:1.75;font-feature-settings:"palt" 1;-webkit-font-smoothing:antialiased}
 
   /* ---------- TOP BAR + TABS ---------- */
@@ -54,7 +56,7 @@
     backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
   .topbar__row{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:11px 16px}
   .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-weight:900;font-size:1rem;letter-spacing:.01em}
-  .logo svg{width:20px;height:20px;color:var(--danger)}
+  .logo svg{width:20px;height:20px;color:var(--brand-1)}
   .logo small{font-family:var(--font-b);font-weight:500;font-size:.66rem;color:var(--muted);letter-spacing:.04em}
   .tabs{max-width:860px;margin:0 auto;display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
@@ -62,7 +64,7 @@
     font-family:var(--font-d);font-weight:700;font-size:.82rem;padding:7px 13px;border-radius:999px;
     cursor:pointer;white-space:nowrap;transition:all .16s}
   .tab:hover{color:var(--ink);border-color:var(--muted)}
-  .tab[aria-selected="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--brand);color:#fff;border-color:transparent;box-shadow:0 6px 16px -7px rgba(123,92,252,.65)}
   .tab .no{font-variant-numeric:tabular-nums;opacity:.6;margin-right:5px}
 
   .wrap{max-width:860px;margin:0 auto;padding:26px 18px 80px}
@@ -75,14 +77,14 @@
   .home-hero{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);
     box-shadow:var(--shadow);padding:34px 26px;overflow:hidden;margin-bottom:24px}
   .home-hero::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(90% 80% at 0% 0,var(--danger-tint) 0,transparent 55%),
-    radial-gradient(80% 80% at 100% 100%,var(--blue-tint) 0,transparent 55%);opacity:.7}
+    radial-gradient(90% 85% at 0% 0,color-mix(in srgb,var(--brand-1) 24%,transparent) 0,transparent 58%),
+    radial-gradient(85% 85% at 100% 100%,color-mix(in srgb,var(--brand-2) 22%,transparent) 0,transparent 58%);opacity:.9}
   .home-hero>*{position:relative}
   .home-hero .eye{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:.76rem;
     letter-spacing:.14em;color:var(--muted)}
   .home-hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(1.9rem,6.6vw,3rem);
     line-height:1.24;margin:12px 0 10px;text-wrap:balance}
-  .home-hero h1 .hl{color:var(--danger)}
+  .home-hero h1 .hl{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
   .home-hero p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
   .use{display:grid;gap:10px;grid-template-columns:1fr;margin:22px 0 26px}
   @media(min-width:620px){.use{grid-template-columns:repeat(3,1fr)}}
@@ -96,8 +98,9 @@
     --a-tint:color-mix(in srgb,var(--accent) 14%,var(--surface));--a-ink:color-mix(in srgb,var(--accent) 72%,var(--ink))}
   .toc-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--accent)}
   .toc-card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-  .toc-card .no{flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:var(--a-tint);color:var(--a-ink);
-    font-family:var(--font-d);font-weight:900;font-size:1.15rem;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+  .toc-card .no{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--accent);color:#fff;
+    font-family:var(--font-d);font-weight:900;font-size:1.15rem;display:grid;place-items:center;font-variant-numeric:tabular-nums;
+    box-shadow:0 6px 14px -7px color-mix(in srgb,var(--accent) 80%,transparent)}
   .toc-card h3{font-family:var(--font-d);font-weight:900;margin:2px 0 3px;font-size:1.05rem}
   .toc-card p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.55}
 
@@ -200,7 +203,7 @@
   .clist{list-style:none;margin:14px 0;padding:0;display:flex;flex-direction:column;gap:8px}
   .clist li{position:relative;padding-left:30px;font-size:.92rem;line-height:1.6}
   .clist li::before{content:"";position:absolute;left:0;top:.28em;width:19px;height:19px;border-radius:6px;background:var(--a-tint);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23E8446E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%237B5CFC' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
   .clist li b{font-family:var(--font-d)}
 
   /* table */
@@ -218,6 +221,10 @@
   /* source note */
   .src{margin:16px 0 0;font-size:.78rem;color:var(--muted);line-height:1.6}
   .src b{color:var(--ink)}
+
+  /* manual deep-links (Notion) */
+  .chapter a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;font-weight:600}
+  .chapter a:hover{opacity:.72}
 
   /* chapter footer nav */
   .chnav{display:flex;justify-content:space-between;gap:10px;margin-top:34px;padding-top:18px;border-top:1px solid var(--hair)}
@@ -307,24 +314,24 @@
       <div><b>⚠️ 数字は目安</b><br>報酬・条件は変わります。最終は公式で確認を。</div>
     </div>
     <div class="toc" id="toc">
-      <button class="toc-card" data-target="ch1" style="--accent:#E8446E"><span class="no">1</span><div><h3>BAN・コンプラ</h3><p>やりがちな落とし穴・AI音声禁止・もらいBAN・著作権と、配信前チェック。</p></div></button>
-      <button class="toc-card" data-target="ch2" style="--accent:#0E9AA0"><span class="no">2</span><div><h3>配信の土台</h3><p>配信量・リーグ・枠固定・機材と画角・ゴールデンタイム。</p></div></button>
-      <button class="toc-card" data-target="ch3" style="--accent:#1E9E6A"><span class="no">3</span><div><h3>集客・伸ばす</h3><p>2026アルゴリズム・初見の入り・ショート・最初の30日設計。</p></div></button>
-      <button class="toc-card" data-target="ch4" style="--accent:#4B45C2"><span class="no">4</span><div><h3>トーク・場作り</h3><p>0人でも回す・会話を線に・沈黙の立て直し・トーク練習・企画ストック。</p></div></button>
-      <button class="toc-card" data-target="ch5" style="--accent:#B0479E"><span class="no">5</span><div><h3>定着・常連を育てる</h3><p>最初の5分と5日・カルテ・温度・共通言語・段階別ロードマップ。</p></div></button>
-      <button class="toc-card" data-target="ch6" style="--accent:#D98A1F"><span class="no">6</span><div><h3>ギフト・換金</h3><p>なぜ投げるか5原則・大口の心理・サブスク設計・ガーディアン。</p></div></button>
-      <button class="toc-card" data-target="ch7" style="--accent:#7A54D6"><span class="no">7</span><div><h3>バトル・イベント</h3><p>バトルの装置化・アイテム・生誕祭進行・100万への階段。</p></div></button>
-      <button class="toc-card" data-target="ch8" style="--accent:#CC5A3C"><span class="no">8</span><div><h3>リスナー・距離感・トラブル</h3><p>やっかい5タイプ・闇落ち6段階・神対応の型・ガチ恋の線引き。</p></div></button>
-      <button class="toc-card" data-target="ch9" style="--accent:#5566A8"><span class="no">9</span><div><h3>メンタル・継続</h3><p>対等な関係・3ヶ月の壁・休止という選択・燃え尽き予防の習慣。</p></div></button>
-      <button class="toc-card" data-target="ch10" style="--accent:#2C8C7A"><span class="no">10</span><div><h3>ジャンル別攻略</h3><p>歌枠・ゲーム枠・雑談枠・顔出しなし・作業耐久・海外対応。</p></div></button>
-      <button class="toc-card" data-target="ch11" style="--accent:#3D6FB8"><span class="no">11</span><div><h3>機能ガイド</h3><p>LIVEゴール・ガーディアン・リーグ・コラボ・モデ機能の使い方。</p></div></button>
-      <button class="toc-card" data-target="ch12" style="--accent:#B4400E"><span class="no">📈</span><div><h3>やりがちNG→改善</h3><p>つい陥るNGを ❌→✅ に。土台・トーク・換金・定着の一手。</p></div></button>
-      <button class="toc-card" data-target="glossary" style="--accent:#6B7280"><span class="no">📖</span><div><h3>用語・早見</h3><p>配信用語集とギフト早見。わからない言葉が出たらここへ。</p></div></button>
+      <button class="toc-card" data-target="ch1" style="--accent:#E24A73"><span class="no">1</span><div><h3>BAN・コンプラ</h3><p>やりがちな落とし穴・AI音声禁止・もらいBAN・著作権と、配信前チェック。</p></div></button>
+      <button class="toc-card" data-target="ch2" style="--accent:#7B5CFC"><span class="no">2</span><div><h3>配信の土台</h3><p>配信量・リーグ・枠固定・機材と画角・ゴールデンタイム。</p></div></button>
+      <button class="toc-card" data-target="ch3" style="--accent:#8B5CF6"><span class="no">3</span><div><h3>集客・伸ばす</h3><p>2026アルゴリズム・初見の入り・ショート・最初の30日設計。</p></div></button>
+      <button class="toc-card" data-target="ch4" style="--accent:#9B54E8"><span class="no">4</span><div><h3>トーク・場作り</h3><p>0人でも回す・会話を線に・沈黙の立て直し・トーク練習・企画ストック。</p></div></button>
+      <button class="toc-card" data-target="ch5" style="--accent:#B84AD0"><span class="no">5</span><div><h3>定着・常連を育てる</h3><p>最初の5分と5日・カルテ・温度・共通言語・段階別ロードマップ。</p></div></button>
+      <button class="toc-card" data-target="ch6" style="--accent:#D64AAF"><span class="no">6</span><div><h3>ギフト・換金</h3><p>なぜ投げるか5原則・大口の心理・サブスク設計・ガーディアン。</p></div></button>
+      <button class="toc-card" data-target="ch7" style="--accent:#7C4DEC"><span class="no">7</span><div><h3>バトル・イベント</h3><p>バトルの装置化・アイテム・生誕祭進行・100万への階段。</p></div></button>
+      <button class="toc-card" data-target="ch8" style="--accent:#C04AC4"><span class="no">8</span><div><h3>リスナー・距離感・トラブル</h3><p>やっかい5タイプ・闇落ち6段階・神対応の型・ガチ恋の線引き。</p></div></button>
+      <button class="toc-card" data-target="ch9" style="--accent:#6E63E6"><span class="no">9</span><div><h3>メンタル・継続</h3><p>対等な関係・3ヶ月の壁・休止という選択・燃え尽き予防の習慣。</p></div></button>
+      <button class="toc-card" data-target="ch10" style="--accent:#A94FDE"><span class="no">10</span><div><h3>ジャンル別攻略</h3><p>歌枠・ゲーム枠・雑談枠・顔出しなし・作業耐久・海外対応。</p></div></button>
+      <button class="toc-card" data-target="ch11" style="--accent:#5B6EF0"><span class="no">11</span><div><h3>機能ガイド</h3><p>LIVEゴール・ガーディアン・リーグ・コラボ・モデ機能の使い方。</p></div></button>
+      <button class="toc-card" data-target="ch12" style="--accent:#E0538A"><span class="no">📈</span><div><h3>やりがちNG→改善</h3><p>つい陥るNGを ❌→✅ に。土台・トーク・換金・定着の一手。</p></div></button>
+      <button class="toc-card" data-target="glossary" style="--accent:#8A7FC0"><span class="no">📖</span><div><h3>用語・早見</h3><p>配信用語集とギフト早見。わからない言葉が出たらここへ。</p></div></button>
     </div>
     <p class="src">出典：DeNA Creator Links 育成ナレッジ・ハブ／TikTok LIVE 現場知見の蒸留（参考発信：@liver_textbook・@answer42.do.not.panic・UNICORN ほか、各章に明記）。<br>※本書は育成の考え方をまとめたもの。報酬・還元率・イベント条件・機能仕様は変更されるため、最終判断は必ず公式の最新情報で確認してください。</p>
   </section>
 
-    <section class="view chapter" id="ch1" style="--accent:#E8446E">
+    <section class="view chapter" id="ch1" style="--accent:#E24A73">
     <div class="chapter__intro">
       <span class="chapter__kicker">CHAPTER 1</span>
       <h2 class="chapter__title">BAN・コンプラ ── その油断が、BANにつながる</h2>
@@ -433,13 +440,14 @@
         </div>
         <div class="banner" id="banner">🎬 全部クリア！安心して配信スタート</div>
       </div>
-      <p class="src">参考：DeNA Creator Links 育成マニュアル（Notion）／TikTok <b>@liver_textbook</b>（ライバーの教科書）・<b>@humedia</b> の発信より再構成。※審査基準・停止期間は変わることがあります。公式ガイドラインで最終確認を。</p>
+      <div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2eaba32c1d9c80279d9bc8ba9c86ff01" target="_blank" rel="noopener">NGワードを知って、アカウント停止を回避する</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c8003b2aafd3aa3113ccd" target="_blank" rel="noopener">NG行為</a></li><li><a href="https://app.notion.com/p/333ba32c1d9c809c85e2fdf59c24a934" target="_blank" rel="noopener">Live配信中におけるNG行為</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c804da6c0d294d40839a0" target="_blank" rel="noopener">身バレ防止</a></li></ul></div>
+  <p class="src">参考：DeNA Creator Links 育成マニュアル（Notion）／TikTok <b>@liver_textbook</b>（ライバーの教科書）・<b>@humedia</b> の発信より再構成。※審査基準・停止期間は変わることがあります。公式ガイドラインで最終確認を。</p>
     </div>
 
     <nav class="chnav"><button disabled>&nbsp;</button><button data-target="ch2">次の章 →<span class="sub">配信の土台</span></button></nav>
   </section>
 
-  <section class="view chapter" id="ch2" style="--accent:#0E9AA0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 2</span><h2 class="chapter__title">配信の土台 ── 配信量が、すべてのはじまり</h2><p class="chapter__lead">集客も換金も、まず“出る量”があってこそ。土台となる配信量・続け方・配信環境をまとめました。</p></div>
+  <section class="view chapter" id="ch2" style="--accent:#7B5CFC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 2</span><h2 class="chapter__title">配信の土台 ── 配信量が、すべてのはじまり</h2><p class="chapter__lead">集客も換金も、まず“出る量”があってこそ。土台となる配信量・続け方・配信環境をまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>まず“出る量”を確保する</h3></div>
 <p class="headline">才能より先に効くのは、<span class="hl">出続けた回数</span>。</p>
@@ -559,11 +567,12 @@
 <p class="callout"><span class="callout__label">重要</span><span class="callout__body">強い世界観は“確立した後”の武器。初心者はまず傾聴で信頼と団結を積み、そのうえで本音の軸を貫くほうが、結局いちばん強い枠になります。</span></p>
 </div>
 
-<p class="src">参考：@liver_textbook（ライバーの教科書）／@answer42.do.not.panic／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式で確認を。</p>
+<div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2eaba32c1d9c80b0a214d344e78d27c6" target="_blank" rel="noopener">配信環境の準備</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c8017b335e21a43458413" target="_blank" rel="noopener">プロライバーの身だしなみ</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c80b88e83ffea24296f3e" target="_blank" rel="noopener">配信ボタンを始める</a></li></ul></div>
+  <p class="src">参考：@liver_textbook（ライバーの教科書）／@answer42.do.not.panic／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式で確認を。</p>
 <nav class="chnav"><button data-target="ch1">← 前の章<span class="sub">BAN・コンプラ</span></button><button data-target="ch3">次の章 →<span class="sub">集客・伸ばす</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch3" style="--accent:#1E9E6A">
+  <section class="view chapter" id="ch3" style="--accent:#8B5CF6">
     <div class="chapter__intro">
       <span class="chapter__kicker">CHAPTER 3</span>
       <h2 class="chapter__title">集客・伸ばす ── 見つけてもらう→入ってもらう→また来てもらう</h2>
@@ -697,7 +706,7 @@
     <nav class="chnav"><button data-target="ch2">← 前の章<span class="sub">配信の土台</span></button><button data-target="ch4">次の章 →<span class="sub">トーク・場作り</span></button></nav>
   </section>
 
-  <section class="view chapter" id="ch4" style="--accent:#4B45C2"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 4</span><h2 class="chapter__title">トーク・場作り ── 会話を“点”で終わらせない</h2><p class="chapter__lead">コメントを拾って終わりでなく、質問で返して“線”にする。0人でも過疎でも回すコツを。</p></div>
+  <section class="view chapter" id="ch4" style="--accent:#9B54E8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 4</span><h2 class="chapter__title">トーク・場作り ── 会話を“点”で終わらせない</h2><p class="chapter__lead">コメントを拾って終わりでなく、質問で返して“線”にする。0人でも過疎でも回すコツを。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. 0人でも、音を止めない</h3></div>
 <p class="headline">無音は<span class="hl">即離脱</span>を生む。0人の時間こそ、あとで来る人のための“助走”。</p>
@@ -788,11 +797,12 @@
 <p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">質問を立て続けにすると“尋問”になる。1問→受け止め→次、のリズムで。住所・勤務先など特定につながる深掘りはしない。</span></p>
 </div>
 
-<p class="src">参考：@liver_textbook／DeNA Creator Links 育成ナレッジ／DeNA Creator Links 育成マニュアル(Notion)／TikTok @liver_textbook・@humedia。数値・条件は変わるため公式・事務所で確認を。</p>
+<div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2eeba32c1d9c80c893defd3d2cd58199" target="_blank" rel="noopener">名前を呼ぶ魔法で、コメントをもらおう</a></li><li><a href="https://app.notion.com/p/354ba32c1d9c80a5a255db3773f9d4f3" target="_blank" rel="noopener">コメントが止まった時の「あるある対策」4選</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c804494dacd03cdfa86b9" target="_blank" rel="noopener">リアクションの『魔法の3ステップ』</a></li><li><a href="https://app.notion.com/p/2eeba32c1d9c8065a2b9dca74ba11db8" target="_blank" rel="noopener">会話の広げ方</a></li></ul></div>
+  <p class="src">参考：@liver_textbook／DeNA Creator Links 育成ナレッジ／DeNA Creator Links 育成マニュアル(Notion)／TikTok @liver_textbook・@humedia。数値・条件は変わるため公式・事務所で確認を。</p>
 <nav class="chnav"><button data-target="ch3">← 前の章<span class="sub">集客・伸ばす</span></button><button data-target="ch5">次の章 →<span class="sub">定着・常連</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch5" style="--accent:#B0479E"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 5</span><h2 class="chapter__title">定着・常連を育てる ── 稼ぎの8割は&ldquo;いつもの人&rdquo;から</h2><p class="chapter__lead">常連は狙って作るより&ldquo;育つ&rdquo;もの。初見が通う理由をつくり、覚えて、居場所にする流れをまとめました。</p></div>
+  <section class="view chapter" id="ch5" style="--accent:#B84AD0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 5</span><h2 class="chapter__title">定着・常連を育てる ── 稼ぎの8割は&ldquo;いつもの人&rdquo;から</h2><p class="chapter__lead">常連は狙って作るより&ldquo;育つ&rdquo;もの。初見が通う理由をつくり、覚えて、居場所にする流れをまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. 常連は&ldquo;作る&rdquo;でなく&ldquo;育つ&rdquo;</h3></div>
 <p class="headline">常連は&ldquo;作る&rdquo;ものでなく、通いやすい枠にして<span class="hl">&ldquo;育てる&rdquo;</span>もの。</p>
@@ -854,11 +864,12 @@
 <ul class="clist"><li><b>感謝を言葉にする</b> 古参に日頃の感謝をきちんと言葉で伝える。大切にされている古参がいる枠は空気が良く、その空気こそが新規を定着させる。新規が定着しない原因は、しばしば新規側でなく&ldquo;古参との接し方&rdquo;にある。</li><li><b>古参に&ldquo;役割&rdquo;を渡す</b> 初見への声かけ役・盛り上げ役をお願いする。役割があると居場所が強くなり、新規は&ldquo;先輩リスナー&rdquo;に迎えられて馴染みやすくなる。</li><li><b>気負い疲れをケアする</b> 常連の「盛り上げなきゃ」という&ldquo;気負い疲れ&rdquo;に気づく。無理をさせず「いてくれるだけで嬉しい」を伝える＝古参が居心地よく振る舞える枠は、新規にも優しい枠になる。</li></ul>
 </div>
 
-<p class="src">参考：@answer42.do.not.panic／UNICORN／DeNA Creator Links 育成ナレッジ／DeNA Creator Links 育成マニュアル（Notion）／TikTok @10000000jpy・@liver_textbook。数値・条件は変わるため公式・事務所で確認を。</p>
+<div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2edba32c1d9c80359007e962b6fecb30" target="_blank" rel="noopener">課金リスナーを見分けて、ギフトを増やす（ギフトレベル層別）</a></li><li><a href="https://app.notion.com/p/2eeba32c1d9c8052aa75f446e592fa41" target="_blank" rel="noopener">『推し』になるまでの5ステップ</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c80fe9f79c22720a1a706" target="_blank" rel="noopener">ファンクラブ</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c80cdafced7a651715903" target="_blank" rel="noopener">モデレーター</a></li></ul></div>
+  <p class="src">参考：@answer42.do.not.panic／UNICORN／DeNA Creator Links 育成ナレッジ／DeNA Creator Links 育成マニュアル（Notion）／TikTok @10000000jpy・@liver_textbook。数値・条件は変わるため公式・事務所で確認を。</p>
 <nav class="chnav"><button data-target="ch4">← 前の章<span class="sub">トーク・場作り</span></button><button data-target="ch6">次の章 →<span class="sub">ギフト・換金</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch6" style="--accent:#D98A1F">
+  <section class="view chapter" id="ch6" style="--accent:#D64AAF">
   <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 6</span><h2 class="chapter__title">ギフト・換金 ── お金でなく“感情が動いた結果”</h2><p class="chapter__lead">なぜ人はギフトを送るのか。催促でなく応援を生む考え方と、換金の“階段”をまとめました。</p></div>
 
   <div class="block">
@@ -1036,11 +1047,12 @@
     <p class="point"><span class="point__label">POINT</span>依存させる関わりは一時的に数字を作っても、健全な応援者を遠ざけます。予算・距離感を尊重し、純粋に応援できる場を守ることが、長く続く換金の土台です。</p>
   </div>
 
+  <div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2f0ba32c1d9c80db83c6dd69ad95b27a" target="_blank" rel="noopener">LIVEゴールで、ギフトを増やす</a></li><li><a href="https://app.notion.com/p/2eaba32c1d9c80dc8ea7e3927ef81a8b" target="_blank" rel="noopener">手作りボードで、ギフトを増やす</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c80718163d65e3677988f" target="_blank" rel="noopener">ギフトギャラリー</a></li><li><a href="https://app.notion.com/p/313ba32c1d9c802e82c1c611715b2e2d" target="_blank" rel="noopener">ギフト一覧🎁</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c8079a5b9edaf6a05ee86" target="_blank" rel="noopener">ダイヤの換金方法</a></li><li><a href="https://app.notion.com/p/2f6ba32c1d9c800a9a3ef313403a36a2" target="_blank" rel="noopener">配信時間は頑張っているのに、収益が伸び悩んでいる</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c807f9069cf927266e837" target="_blank" rel="noopener">クリエイターリーグ</a></li></ul></div>
   <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／<b>@10000000jpy</b>／DeNA Creator Links 育成マニュアル（Notion）・育成ナレッジ・Notion正本より再構成。※本人の目標はダイヤ単位で。還元率・仕様は変わるため断定せず、最終確認は公式・事務所で。</p>
   <nav class="chnav"><button data-target="ch5">← 前の章<span class="sub">定着・常連</span></button><button data-target="ch7">次の章 →<span class="sub">バトル・イベント</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch7" style="--accent:#7A54D6"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 7</span><h2 class="chapter__title">バトル・イベント ── 熱量を&ldquo;設計&rdquo;する</h2><p class="chapter__lead">バトルは使い方次第で強力な装置。イベントの出方と、上を目指す階段をまとめました。</p></div>
+  <section class="view chapter" id="ch7" style="--accent:#7C4DEC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 7</span><h2 class="chapter__title">バトル・イベント ── 熱量を&ldquo;設計&rdquo;する</h2><p class="chapter__lead">バトルは使い方次第で強力な装置。イベントの出方と、上を目指す階段をまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. バトルはギフト営業を&ldquo;5分&rdquo;に圧縮する装置</h3></div>
 <p class="headline">普段は雑談・企画、<span class="hl">勝負の5分だけ全員で集中</span>する。</p>
@@ -1127,11 +1139,12 @@
 <div class="flow"><div class="flow__item"><span class="flow__n">30</span><p class="flow__t"><b>残り30分</b> 感情を動かす。「最後まで一緒に走ろう！」で気持ちを一つに。</p></div><div class="flow__item"><span class="flow__n">15</span><p class="flow__t"><b>残り15分</b> 気合を宣言。「ここから本気でいく」と現在地を共有。</p></div><div class="flow__item"><span class="flow__n">5</span><p class="flow__t"><b>残り5分</b> ラストスパート。BGMや歌で枠の温度を最高潮に。</p></div><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>残り1分</b> 最後のお願い。「大きな応援は、このタイミングで！」と一点集中。</p></div></div>
 <p class="point"><span class="point__label">POINT</span>イベントの条件・締め時間・仕様は変わります。必ず公式カレンダー・事務所で最新を確認してください。</p>
 </div>
-<p class="src">参考：@liver_textbook／@answer42.do.not.panic／@humedia／@10000000jpy／DeNA Creator Links 育成ナレッジ・育成マニュアル（Notion）。数値・イベント条件は変わるため公式・事務所で確認を。</p>
+<div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2edba32c1d9c80f7a11bf6e105e32cf2" target="_blank" rel="noopener">バトルとは？</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c8058b72dff7ba9f4f5e6" target="_blank" rel="noopener">バトル・PK（収益化フェーズ）</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c8084b28fe34bbc691e51" target="_blank" rel="noopener">バトルの戦略</a></li><li><a href="https://app.notion.com/p/2edba32c1d9c802cb4a5df7b028b1dff" target="_blank" rel="noopener">バトル相手の見つけ方</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c8012be42f35e8173c35f" target="_blank" rel="noopener">バトルに勝った時/負けた時のフレーズ集</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c808094fafd36baefb0a5" target="_blank" rel="noopener">バトルのきっかけフレーズ/コメント集</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c80058e89ced6a84be79f" target="_blank" rel="noopener">バトルの特殊ルール/アイテム</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c802286e7e5c8696d2c24" target="_blank" rel="noopener">バトル前にやるべき3つの準備</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c804084e9cf1993f5a42d" target="_blank" rel="noopener">初心者向けバトル台本</a></li><li><a href="https://app.notion.com/p/2edba32c1d9c808f9101c80846123e78" target="_blank" rel="noopener">イベントとは？</a></li><li><a href="https://app.notion.com/p/2f6ba32c1d9c806a8131fcc1fe5447cc" target="_blank" rel="noopener">イベントの事前準備</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c80e3ab7dff2de32e1552" target="_blank" rel="noopener">イベント中の戦略</a></li></ul></div>
+  <p class="src">参考：@liver_textbook／@answer42.do.not.panic／@humedia／@10000000jpy／DeNA Creator Links 育成ナレッジ・育成マニュアル（Notion）。数値・イベント条件は変わるため公式・事務所で確認を。</p>
 <nav class="chnav"><button data-target="ch6">← 前の章<span class="sub">ギフト・換金</span></button><button data-target="ch8">次の章 →<span class="sub">リスナー・距離感</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch8" style="--accent:#CC5A3C">
+  <section class="view chapter" id="ch8" style="--accent:#C04AC4">
   <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 8</span><h2 class="chapter__title">リスナー・距離感・トラブル ── 関係の質が、すべて</h2><p class="chapter__lead">近すぎても遠すぎても枠は縮む。ちょうどいい距離と、こじれる前の見立て方をまとめました。</p></div>
 
   <div class="block">
@@ -1289,11 +1302,12 @@
     <p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">ガチ恋は、期待が裏切られたと感じた瞬間に<b>ストーカーやアンチへエスカレートするリスク</b>があります。だからこそ、いつ誰に見られても恥ずかしくない言動を心がけてください。そして<b>身の危険を感じたら、必ず警察へ相談し、事務所にも共有する</b>こと。一人で抱え込まないのが最優先です。</span></p>
   </div>
 
+  <div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2f7ba32c1d9c8018a0dcd879131bd5dc" target="_blank" rel="noopener">ガチ恋リスナーの対処法</a></li><li><a href="https://app.notion.com/p/2f7ba32c1d9c80c7abcdd2787c45497d" target="_blank" rel="noopener">DMやフォローバックってしないといけない？</a></li></ul></div>
   <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／DeNA Creator Links 育成ナレッジ／DeNA Creator Links 育成マニュアル(Notion)より再構成。※対応の線引き・ペナルティの基準は変わることがあります。重度トラブルは一人で判断せず、公式・事務所に相談を。</p>
   <nav class="chnav"><button data-target="ch7">← 前の章<span class="sub">バトル・イベント</span></button><button data-target="ch9">次の章 →<span class="sub">メンタル・継続</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch9" style="--accent:#5566A8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 9</span><h2 class="chapter__title">メンタル・継続 ── 続けられる人が、いちばん強い</h2><p class="chapter__lead">伸びるまでは時間がかかる前提。折れずに続けるための考え方と、心を守る習慣をまとめました。</p></div>
+  <section class="view chapter" id="ch9" style="--accent:#6E63E6"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 9</span><h2 class="chapter__title">メンタル・継続 ── 続けられる人が、いちばん強い</h2><p class="chapter__lead">伸びるまでは時間がかかる前提。折れずに続けるための考え方と、心を守る習慣をまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. モチベは波があって当然</h3></div>
 <p class="headline">モチベは常に高く保つものじゃない。<span class="hl">下がる日があって普通</span>。</p>
@@ -1357,7 +1371,7 @@
 <nav class="chnav"><button data-target="ch8">← 前の章<span class="sub">リスナー・距離感</span></button><button data-target="ch10">次の章 →<span class="sub">ジャンル別攻略</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch10" style="--accent:#2C8C7A"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 10</span><h2 class="chapter__title">ジャンル別攻略 ── “何の枠か”で伸ばし方は変わる</h2><p class="chapter__lead">歌・ゲーム・雑談・顔出しなし・作業耐久。ジャンルごとの伸ばし方と、海外リスナーへの対応を。</p></div>
+  <section class="view chapter" id="ch10" style="--accent:#A94FDE"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 10</span><h2 class="chapter__title">ジャンル別攻略 ── “何の枠か”で伸ばし方は変わる</h2><p class="chapter__lead">歌・ゲーム・雑談・顔出しなし・作業耐久。ジャンルごとの伸ばし方と、海外リスナーへの対応を。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. まずジャンルを1つに絞る</h3></div>
 <p class="headline">枠が伸びる第一歩は、才能でも運でもなく<span class="hl">“何の枠か”を1つに決めること</span>。</p>
@@ -1443,7 +1457,7 @@
 <nav class="chnav"><button data-target="ch9">← 前の章<span class="sub">メンタル・継続</span></button><button data-target="ch11">次の章 →<span class="sub">機能ガイド</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch11" style="--accent:#3D6FB8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 11</span><h2 class="chapter__title">機能ガイド ── 使える機能を、使いこなす</h2><p class="chapter__lead">TikTok LIVEの機能を「何ができる／どう活かすか」でまとめました。全部使う必要はありません。今の弱点に効くものを1つずつ。</p></div>
+  <section class="view chapter" id="ch11" style="--accent:#5B6EF0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 11</span><h2 class="chapter__title">機能ガイド ── 使える機能を、使いこなす</h2><p class="chapter__lead">TikTok LIVEの機能を「何ができる／どう活かすか」でまとめました。全部使う必要はありません。今の弱点に効くものを1つずつ。</p></div>
 
 <div class="block"><div class="block__head"><h3>この章の読み方</h3></div><p class="headline">機能は、<span class="hl">目的から逆引き</span>で。</p><p class="callout callout--tip"><span class="callout__body">「集客が弱い→トピック設定・ショート」「換金が弱い→LIVEゴール・ガーディアン」のように、<b>いま困っていることに効く機能を1つ</b>選んで試すのがコツ。仕様・数値は変わるので、最終は必ずアプリ内と公式の最新情報で確認してください。</span></p></div>
 
@@ -1460,7 +1474,8 @@
 <tr><td><b>スーパーファン</b></td><td>TikTok LIVE専用の月額サブスク（2025年秋〜／料金は目安）。専用バッジ／ハートミーのレベル優遇（送らなくても凍結しない）／ファンクラブ自動加入／限定ギフト等のポイント優遇／限定エモート・専用チャット。</td><td>動画向けサブスクとは別枠。常連に案内し、特典の価値を本人が理解して伝える。</td></tr>
 <tr><td><b>サブスク（月額購読）</b></td><td>限定エモート・継続月数で色が変わるバッジ・登録者限定チャット/ビデオ。</td><td>特典は“オンライン完結・毎回無理なく回せる”もので設計＝工数から逆算して赤字にしない。</td></tr>
 <tr><td><b>ギフターレベル</b></td><td>応援の積み重ねでリスナーのレベルが上がる（少人数枠では到達が自動表示されることも）。</td><td>レベル到達を個別に祝う＝常連の“階段”を可視化。</td></tr>
-</tbody></table></div><p class="src">※還元率・報酬は公式非公表で変動します。本人の目標は円換算でなく<b>ダイヤ単位</b>で握りましょう。</p></div>
+</tbody></table></div><div class="block doclinks"><div class="block__head"><h3>📎 公式マニュアルで詳しく</h3></div><p class="callout callout--tip"><span class="callout__label">リンク</span><span class="callout__body">この章の内容は、DeNA Creator Links の公式マニュアル（Notion）に個別ページがあります。<b>閲覧には事務所のNotionログインが必要</b>です。</span></p><ul class="clist"><li><a href="https://app.notion.com/p/2f0ba32c1d9c800dbb0bd388e2863b9b" target="_blank" rel="noopener">配信の設定</a></li><li><a href="https://app.notion.com/p/2efba32c1d9c80f1b779e6f858483c63" target="_blank" rel="noopener">コメントの固定/削除の方法</a></li><li><a href="https://app.notion.com/p/2f0ba32c1d9c8083849dfdfce779ba4f" target="_blank" rel="noopener">配信画面に画像を挿入する方法</a></li><li><a href="https://app.notion.com/p/2fcba32c1d9c801e8a9be2098e7d331b" target="_blank" rel="noopener">ミキサーって何？</a></li></ul></div>
+  <p class="src">※還元率・報酬は公式非公表で変動します。本人の目標は円換算でなく<b>ダイヤ単位</b>で握りましょう。</p></div>
 
 <div class="block"><div class="block__head"><h3>③ 対戦・コラボ</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
 <tr><td><b>PKバトル（LIVE Match）</b></td><td>相手とギフトポイントを競う対戦（1v1／マルチ3〜4人／2v2チーム／ランダム／フレンド）。</td><td>目的で形式を選ぶ。相手はフォロワー・ギフト量が同格を選び、事前に枠を1回見てから繋ぐ（もらいBAN回避）。</td></tr>
@@ -1511,7 +1526,7 @@
 <p class="src">参考：TikTok LIVE 機能まとめ（現場検証）／@liver_textbook／DeNA Creator Links 育成ナレッジ。機能・仕様・数値は改訂されるため、最終は公式の最新情報で確認してください。</p>
 <nav class="chnav"><button data-target="ch10">← 前の章<span class="sub">ジャンル別攻略</span></button><button data-target="ch12">次の章 →<span class="sub">やりがちNG→改善</span></button></nav></section>
 
-  <section class="view chapter" id="ch12" style="--accent:#B4400E"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 12</span><h2 class="chapter__title">やりがちNG→改善 ── つい陥る“逆効果”を、一手で直す</h2><p class="chapter__lead">よかれと思ってやりがちなNGを ❌→✅ で。当てはまったら、その一手だけ変えてみてください。</p></div>
+  <section class="view chapter" id="ch12" style="--accent:#E0538A"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 12</span><h2 class="chapter__title">やりがちNG→改善 ── つい陥る“逆効果”を、一手で直す</h2><p class="chapter__lead">よかれと思ってやりがちなNGを ❌→✅ で。当てはまったら、その一手だけ変えてみてください。</p></div>
 
 <div class="block"><div class="block__head"><h3>この章の読み方</h3></div>
 <p class="headline">NGの多くは、<span class="hl">“よかれと思って”</span>やってしまうこと。</p>
@@ -1552,7 +1567,7 @@
 <nav class="chnav"><button data-target="ch11">← 前の章<span class="sub">機能ガイド</span></button><button data-target="glossary">用語へ →<span class="sub">用語・早見</span></button></nav>
 </section>
 
-  <section class="view chapter" id="glossary" style="--accent:#6B7280"><div class="chapter__intro"><span class="chapter__kicker">APPENDIX</span><h2 class="chapter__title">用語・早見 ── わからない言葉が出たらここへ</h2><p class="chapter__lead">配信でよく使う用語と、ギフトの早見表。</p></div>
+  <section class="view chapter" id="glossary" style="--accent:#8A7FC0"><div class="chapter__intro"><span class="chapter__kicker">APPENDIX</span><h2 class="chapter__title">用語・早見 ── わからない言葉が出たらここへ</h2><p class="chapter__lead">配信でよく使う用語と、ギフトの早見表。</p></div>
 <div class="block"><div class="block__head"><h3>配信用語集</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody><tr><td>初見</td><td>初めてその枠に来たリスナー</td></tr><tr><td>同接</td><td>同時接続数＝今LIVEを見ている人数</td></tr><tr><td>投げる／投げ銭</td><td>ギフト（有料スタンプ）を送ること</td></tr><tr><td>ROM専／潜り</td><td>コメントせず見るだけのリスナー</td></tr><tr><td>太客</td><td>高額を継続してくれる大口ギフター</td></tr><tr><td>コール</td><td>決まった掛け声・応援の合いの手（枠の共通言語）</td></tr><tr><td>定期</td><td>リスナーが毎回書き込む決まったコメント</td></tr><tr><td>いつメン</td><td>参加率の高い常連メンバー</td></tr><tr><td>かけら</td><td>クリエイターリーグの昇格ポイント（未配信日−1）</td></tr><tr><td>ガーディアン</td><td>週最多ギフターが就く&quot;応援団長&quot;。限定バッジ/フレーム等</td></tr><tr><td>ハートミー</td><td>1日1回送れるチームギフト。初回で&quot;入団&quot;扱い</td></tr><tr><td>ギフギャラ</td><td>ギフトギャラリー。週替わりのギフト種コンプでボーナス</td></tr><tr><td>グローブ</td><td>バトル用アイテム。約30%でギフトを5倍計上</td></tr><tr><td>差し込み</td><td>コラボバトルの終了間際にギフトを贈ること</td></tr><tr><td>凸る</td><td>事前連絡なしで配信中に他ライバーへコラボ申請する行為</td></tr><tr><td>ランオフ</td><td>ランキング/レベルを非表示にする設定</td></tr><tr><td>スターコメント</td><td>視聴者がコインを払って一定秒数だけ強調表示するコメント（モデのピン留めとは別）</td></tr><tr><td>ポータル</td><td>他配信から&quot;宝箱&quot;経由で視聴者が来訪する仕組み</td></tr><tr><td>枠</td><td>一回のライブ配信、またはその場そのもの</td></tr><tr><td>生誕</td><td>誕生日/記念日イベント配信</td></tr></tbody></table></div></div>
 <div class="block"><div class="block__head"><h3>ギフト早見</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>帯</th><th>コイン範囲</th><th>リアクションの目安</th></tr></thead><tbody><tr><td>手軽</td><td>1〜250</td><td>名前呼び＋一言お礼</td></tr><tr><td>中額</td><td>299〜899</td><td>決めリアクションを1つ</td></tr><tr><td>高額</td><td>999〜4,888</td><td>特別リアクション＋実況</td></tr><tr><td>最上位</td><td>5,000〜44,999</td><td>全力の特別演出を用意</td></tr></tbody></table></div><p class="callout"><span class="callout__label">メモ</span><span class="callout__body">1コイン≈1.6〜2.5円（購入経路で変動：Web購入は安め）。本人の目標は円でなくダイヤ単位で握る。個別ギフト名×価格の正本＝Notion「ギフト一覧🎁」。金額・還元は改訂前提で断定しない。</span></p></div>
 <div class="block"><div class="block__head"><h3>運用ワード・隠れ機能（補遺）</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody>

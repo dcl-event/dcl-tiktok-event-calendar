@@ -233,6 +233,33 @@
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
   .tag{background:var(--a-tint);color:var(--a-ink);font-family:var(--font-d);font-weight:700;font-size:.8rem;padding:5px 11px;border-radius:999px}
 
+  /* content diagrams (theme + accent aware, inline SVG) */
+  .fig{margin:18px 0;border:1px solid var(--hair);border-radius:var(--r-sm);background:var(--surface-2);padding:16px 14px 12px}
+  .fig svg{display:block;width:100%;height:auto;max-width:560px;margin:0 auto;color:var(--muted)}
+  .fig figcaption{margin:11px auto 0;max-width:52ch;font-family:var(--font-b);font-size:.8rem;color:var(--muted);text-align:center;line-height:1.6}
+  .fig figcaption b{color:var(--ink)}
+  .fig text{font-family:var(--font-d);font-weight:700;fill:var(--ink)}
+  .fig .t{font-size:13px}
+  .fig .ts{font-size:11px;font-weight:400;font-family:var(--font-b);fill:var(--muted)}
+  .fig .tw{fill:#fff}
+  .fig .f-ac{fill:var(--accent)}
+  .fig .f-acs{stroke:var(--accent)}
+  .fig .f-tint{fill:var(--a-tint)}
+  .fig .f-ink{fill:var(--ink)}
+  .fig .f-inks{stroke:var(--ink)}
+  .fig .f-mut{fill:var(--muted)}
+  .fig .f-muts{stroke:var(--muted)}
+  .fig .f-surf{fill:var(--surface)}
+  .fig .f-hair{stroke:var(--hair)}
+  .fig .f-warn{fill:var(--amber)}
+  .fig .f-warns{stroke:var(--amber)}
+  .fig .f-ok{fill:var(--blue)}
+  .fig .f-oks{stroke:var(--blue)}
+  .fig .f-ng{fill:var(--danger)}
+  .fig .f-ngs{stroke:var(--danger)}
+  .fig .fill-none{fill:none}
+  .fig .tw{fill:#fff}
+
   /* source note */
   .src{margin:16px 0 0;font-size:.78rem;color:var(--muted);line-height:1.6}
   .src b{color:var(--ink)}
@@ -380,7 +407,7 @@
       </div>
     </div>
 
-    <div class="block"><div class="block__head"><h3><a href="https://app.notion.com/p/333ba32c1d9c809c85e2fdf59c24a934" target="_blank" rel="noopener">【2026年改定】配信中の「AI音声」は禁止に</a></h3></div><p class="callout callout--warn"><span class="callout__label">最重要</span><span class="callout__body">2026年7月のガイドライン改定で、<b>ライブ配信でのAI合成音声</b>が禁止対象になったと解説されています。違反は「配信機能の一時停止 → 露出激減 → 繰り返しで永久停止」と段階的に。</span></p><div class="cols"><div class="col col--ng"><div class="col__head">やってはいけない</div><ul class="col__list"><li>テキスト読み上げ（TTS）で自動ナレーション配信</li><li>音声クローンの無断使用</li><li>アバター音声を使った“無人ライブ”</li></ul></div><div class="col col--ok"><div class="col__head">これはOK</div><ul class="col__list"><li>AIで企画・台本・分析を作る</li><li>その台本を“本人が読み上げる”</li><li>配信中の声はあなた自身で出す</li></ul></div></div><p class="point"><span class="point__label">POINT</span>AIは“準備（上流）”で使うのはOK。配信中の声は自分で。読み上げ任せ・無人放置はアカウントごと危険です。（制度は改訂前提＝最終は公式で確認）</p></div>
+    <div class="block"><div class="block__head"><h3><a href="https://app.notion.com/p/333ba32c1d9c809c85e2fdf59c24a934" target="_blank" rel="noopener">【2026年改定】配信中の「AI音声」は禁止に</a></h3></div><p class="callout callout--warn"><span class="callout__label">最重要</span><span class="callout__body">2026年7月のガイドライン改定で、<b>ライブ配信でのAI合成音声</b>が禁止対象になったと解説されています。違反は「配信機能の一時停止 → 露出激減 → 繰り返しで永久停止」と段階的に。</span></p><figure class="fig"><svg viewBox="0 0 560 300" role="img" aria-label="AIは準備（企画・台本・分析）で使うのはOK。配信中の声は自分で話すのがOKで、AI合成音声での配信や無人放置はNG。"><text class="ts" x="280" y="30" text-anchor="middle">配信の境界</text><line class="f-inks" x1="280" y1="40" x2="280" y2="298" stroke-dasharray="5 4" stroke-width="1.5"/><text class="t" x="140" y="62" text-anchor="middle">準備（上流）</text><text class="t" x="420" y="62" text-anchor="middle">配信中</text><rect class="f-surf f-hair" x="24" y="76" width="232" height="154" rx="12"/><text class="t" x="140" y="118" text-anchor="middle">企画・台本・分析</text><text class="ts" x="140" y="140" text-anchor="middle">配信前にAIで下ごしらえ</text><circle class="f-ok" cx="108" cy="180" r="14"/><polyline class="fill-none" points="101,180 106,185 116,173" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><text class="ts" x="130" y="185" text-anchor="start">AIで作るのはOK</text><rect class="f-surf f-hair" x="304" y="76" width="232" height="96" rx="12"/><text class="t" x="420" y="112" text-anchor="middle">配信中の声は自分で話す</text><circle class="f-ok" cx="352" cy="142" r="13"/><polyline class="fill-none" points="345,142 350,147 360,135" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><text class="ts" x="372" y="147" text-anchor="start">自分の声＝OK</text><rect class="f-surf f-ngs" x="304" y="184" width="232" height="96" rx="12"/><text class="t" x="420" y="210" text-anchor="middle">AI合成音声で配信</text><text class="ts" x="420" y="230" text-anchor="middle">読み上げ任せ・無人放置</text><line class="f-ngs" x1="345" y1="248" x2="360" y2="263" stroke-width="2.8" stroke-linecap="round"/><line class="f-ngs" x1="360" y1="248" x2="345" y2="263" stroke-width="2.8" stroke-linecap="round"/><text class="ts" x="372" y="260" text-anchor="start">アカBAN対象</text></svg><figcaption>AIは<b>準備（企画・台本・分析）で使うのはOK</b>。配信中の声は自分で。読み上げ任せ・無人放置はアカウントごと危険。（制度は改訂前提＝公式で確認）</figcaption></figure><div class="cols"><div class="col col--ng"><div class="col__head">やってはいけない</div><ul class="col__list"><li>テキスト読み上げ（TTS）で自動ナレーション配信</li><li>音声クローンの無断使用</li><li>アバター音声を使った“無人ライブ”</li></ul></div><div class="col col--ok"><div class="col__head">これはOK</div><ul class="col__list"><li>AIで企画・台本・分析を作る</li><li>その台本を“本人が読み上げる”</li><li>配信中の声はあなた自身で出す</li></ul></div></div><p class="point"><span class="point__label">POINT</span>AIは“準備（上流）”で使うのはOK。配信中の声は自分で。読み上げ任せ・無人放置はアカウントごと危険です。（制度は改訂前提＝最終は公式で確認）</p></div>
 
     <div class="block"><div class="block__head"><h3>“もらいBAN”に注意（コラボ相手の違反で自分も飛ぶ）</h3></div><p class="callout"><span class="callout__label">仕組み</span><span class="callout__body">コラボ配信中に<b>相手が違反行為</b>をすると、こちら側もBAN対象になり得ます（＝もらいBAN）。おおむね1週間ほどLIVE不可になるケースが報告されています。</span></p><ul class="clist"><li><b>相手は事前に枠を1回見てから繋ぐ</b> 実力だけでなく“素行”も見る。荒れ枠・露出過多枠との連結はリスク。</li><li><b>誤BANもある</b> 飲酒・喫煙は缶や瓶が映っただけ、モデルガンは危険行為判定など、AI誤認識の例も。</li><li><b>BANされたら自己判断で消さない</b> 「設定とプライバシー → ヘルプセンター → フィードバックを送信」で異議申し立て＋事務所にすぐ共有。</li></ul></div>
 
@@ -466,6 +493,7 @@
 
 <div class="block"><div class="block__head"><h3>まず“出る量”を確保する</h3></div>
 <p class="headline">才能より先に効くのは、<span class="hl">出続けた回数</span>。</p>
+<figure class="fig"><svg viewBox="0 0 440 210" role="img" aria-label="配信量を土台に、その上へ集客・換金が積み上がる3段ピラミッド"><polygon points="93,133 307,133 360,190 40,190" class="f-ac"/><polygon points="147,77 253,77 307,133 93,133" class="f-tint"/><polygon points="200,20 147,77 253,77" class="f-surf f-hair" stroke-width="1.5"/><text x="200" y="167" text-anchor="middle" class="t tw">①配信量（土台）</text><text x="200" y="110" text-anchor="middle" class="t">②集客</text><text x="200" y="64" text-anchor="middle" class="t">③換金</text><line x1="395" y1="186" x2="395" y2="42" class="f-acs" stroke-width="2"/><polygon points="389,48 395,34 401,48" class="f-ac"/><text x="422" y="115" text-anchor="middle" class="ts" transform="rotate(-90 422 115)">積み上がる</text></svg><figcaption><b>土台の配信量</b>がないと、その上の集客・換金は積み上がらない。まず量、次に集客と換金。</figcaption></figure>
 <p>TikTokのアルゴリズムは「アクティブに配信している人」を押し出す傾向があります。逆に言えば、量が土台に乗るまでは集客テクも換金テクも空回りしがち。まずは“毎日ここにいる”を作りましょう。</p>
 <ul class="clist">
 <li><b>配信量の目安</b> 立ち上げ期は1日3時間／慣れてきたら1日4時間（月80h相当）を目安に。週5本のペースで習慣にする。</li>
@@ -693,6 +721,26 @@
     <div class="block">
       <div class="block__head"><h3>ショート・切り抜きからLIVEへ送客する</h3></div>
       <p class="headline">集客の最強ワザは、<span class="hl">ショート動画・LIVEの切り抜きからLIVEへ送客する</span>こと。外に入口を増やすほど伸びます。</p>
+      <figure class="fig"><svg viewBox="0 0 560 200" role="img" aria-label="ショート・切り抜きで広く見つけてもらい、冒頭のフックでLIVEへ、そして常連へと送客するファネル">
+        <polygon points="20,25 250,75 250,125 20,175" class="f-tint f-hair"/>
+        <circle cx="55" cy="118" r="3.5" class="f-mut"/>
+        <circle cx="88" cy="130" r="3.5" class="f-mut"/>
+        <circle cx="120" cy="122" r="3.5" class="f-mut"/>
+        <circle cx="150" cy="128" r="3.5" class="f-mut"/>
+        <circle cx="72" cy="150" r="3.5" class="f-mut"/>
+        <circle cx="106" cy="156" r="3.5" class="f-mut"/>
+        <circle cx="140" cy="148" r="3.5" class="f-mut"/>
+        <text x="120" y="72" class="t" text-anchor="middle">ショート・切り抜き</text>
+        <text x="120" y="92" class="ts" text-anchor="middle">広く見つけてもらう</text>
+        <text x="250" y="55" class="ts" text-anchor="middle">冒頭2〜3秒のフック</text>
+        <line x1="255" y1="100" x2="345" y2="100" class="f-muts" stroke-width="2"/>
+        <polygon points="345,93 358,100 345,107" class="f-ac"/>
+        <rect x="362" y="70" width="80" height="60" class="f-ac"/>
+        <text x="402" y="105" class="t tw" text-anchor="middle">LIVE</text>
+        <line x1="442" y1="100" x2="498" y2="100" class="f-muts" stroke-width="2"/>
+        <polygon points="498,93 511,100 498,107" class="f-ac"/>
+        <text x="530" y="105" class="t" text-anchor="middle">常連</text>
+      </svg><figcaption>ショート・切り抜きで<b>見つけてもらい</b>、冒頭のフックでLIVEへ送客する。LIVE単体で待つより入口が増える。</figcaption></figure>
       <ul class="clist">
         <li><b>盛り上がった瞬間を短尺に切り抜く</b> LIVEで一番沸いた場面を切り出して投稿。名場面がそのままLIVEの予告編になり、初見の呼び水になる。</li>
         <li><b>冒頭2〜3秒に強いフックを置く</b> 結論・意外性・問いのどれかを頭に。「え、なにこれ？」で指を止めてもらうのが最初の関門。</li>
@@ -783,6 +831,7 @@
 
 <div class="block"><div class="block__head"><h3>10-2. 初見対応は“名前を呼ぶ”で終わらせない ── 例文と、返事が来ない時</h3></div>
 <p class="headline">名前を呼ぶのは第一歩。その後に<span class="hl">「名前＋歓迎＋簡単な質問」で会話の入口</span>を作ると、初見が安心して一言を返しやすくなる。</p>
+<figure class="fig"><svg viewBox="0 0 560 152" role="img" aria-label="初見対応の流れ。名前を呼び、歓迎と簡単な質問で会話の入口を作り、返事が来たら読む・リアクション・一つ広げる・全体へ戻すの4ステップで枠全体へ広げる。"><text x="8" y="14" class="ts">① 入口をつくる</text><rect x="8" y="22" width="130" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="73" y="49" text-anchor="middle" class="t">入室</text><rect x="215" y="22" width="130" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="280" y="49" text-anchor="middle" class="t">歓迎</text><rect x="422" y="22" width="130" height="44" rx="10" class="f-ac"/><text x="487" y="49" text-anchor="middle" class="t tw">質問</text><text x="176" y="36" text-anchor="middle" class="ts">名前を呼ぶ</text><line x1="146" y1="44" x2="200" y2="44" class="f-acs" stroke-width="1.5"/><polygon points="201,38 213,44 201,50" class="f-ac"/><line x1="353" y1="44" x2="407" y2="44" class="f-acs" stroke-width="1.5"/><polygon points="408,38 420,44 408,50" class="f-ac"/><text x="8" y="90" class="ts">② 返事が来たら、会話を広げる</text><rect x="8" y="98" width="118" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="67" y="125" text-anchor="middle" class="t">読む</text><rect x="150" y="98" width="118" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="209" y="125" text-anchor="middle" class="t">リアクション</text><rect x="292" y="98" width="118" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="351" y="125" text-anchor="middle" class="t">一つ広げる</text><rect x="434" y="98" width="118" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="493" y="125" text-anchor="middle" class="t">全体へ戻す</text><line x1="130" y1="120" x2="137" y2="120" class="f-acs" stroke-width="1.5"/><polygon points="138,114 148,120 138,126" class="f-ac"/><line x1="272" y1="120" x2="279" y2="120" class="f-acs" stroke-width="1.5"/><polygon points="280,114 290,120 280,126" class="f-ac"/><line x1="414" y1="120" x2="421" y2="120" class="f-acs" stroke-width="1.5"/><polygon points="422,114 432,120 422,126" class="f-ac"/></svg><figcaption>名前を呼ぶ<b>だけで終わらせず</b>、歓迎＋簡単な質問で会話の入口を作る。返事が来たら4ステップで枠全体へ広げる。</figcaption></figure>
 <p>「〇〇さん、いらっしゃい！」で終わると、認識はされても“次に何をすればいいか”が相手に分からない。名前で迎えたら、そのまま歓迎の一言と、答えやすい小さな質問までを一息でつなごう。ただし質問は「良い質問」であることが前提。次の5条件を満たすものを選ぶ。</p>
 <ul class="clist"><li><b>答えやすい</b> はい／いいえ、または一言で返せる。</li><li><b>短く返せる</b> 打つのに時間がかからない。初見のハードルを下げる。</li><li><b>深く聞かない</b> 住所・勤務先・年齢など個人情報に踏み込まない。</li><li><b>今の話題とつながる</b> 配信中の流れから自然に出す。唐突な質問にしない。</li><li><b>正解がない</b> どう答えても受け止められる。間違いを気にせず返せる。</li></ul>
 <p>そのまま使えるあいさつ例文を4系統。<b>〇〇＝相手の名前</b>に置き換えて、その日の時間帯や話題に合わせて選ぼう。</p>
@@ -842,6 +891,7 @@
 
 <div class="block"><div class="block__head"><h3>&ldquo;初見が来る&rdquo;≠&ldquo;常連が増える&rdquo; ── 再訪の4つの土台</h3></div>
 <p class="headline">初見を増やすことと<span class="hl">&ldquo;また来たい&rdquo;を作ること</span>は別の課題。常連は一回でできず、小さな再訪の積み重ねで信頼が育つ。</p>
+<figure class="fig"><svg viewBox="0 0 560 128" role="img" aria-label="初見は、軸・入りやすさ・また来たい体験・次回の理由の4つの土台を通って常連になる。どれかが欠けるとそこで離れる。"><line x1="82" y1="52" x2="486" y2="52" class="f-muts" stroke-width="2"/><polygon points="486,46 498,52 486,58" class="f-ac"/><rect x="6" y="30" width="74" height="44" rx="10" class="f-surf f-hair" stroke-width="1.5"/><text x="43" y="57" text-anchor="middle" class="t">初見</text><g text-anchor="middle"><circle cx="150" cy="52" r="19" class="f-ac"/><text x="150" y="57" class="t tw">1</text><text x="150" y="92" class="ts">軸</text><circle cx="255" cy="52" r="19" class="f-ac"/><text x="255" y="57" class="t tw">2</text><text x="255" y="92" class="ts">入りやすさ</text><circle cx="360" cy="52" r="19" class="f-ac"/><text x="360" y="57" class="t tw">3</text><text x="360" y="92" class="ts">また来たい体験</text><circle cx="455" cy="52" r="19" class="f-ac"/><text x="455" y="57" class="t tw">4</text><text x="455" y="92" class="ts">次回の理由</text></g><rect x="500" y="30" width="56" height="44" rx="10" class="f-ac"/><text x="528" y="57" text-anchor="middle" class="t tw">常連</text></svg><figcaption>初見は<b>4つの土台</b>を通って常連になる。どれかが欠けると、そこで静かに離れていく。</figcaption></figure>
 <div class="cols"><div class="col col--ng"><div class="col__head">よくある誤解</div><ul class="col__list"><li>初見が多ければ自然に常連も増える</li><li>一度来た人は次も来てくれる</li><li>常連化のため強く距離を縮める</li></ul></div><div class="col col--ok"><div class="col__head">正しい捉え方</div><ul class="col__list"><li>見つけてもらう工夫（初見）と、また来たい理由づくり（再訪）は別々に打つ</li><li>小さな再訪を積み重ねる</li><li>距離は相手のペースで縮める</li></ul></div></div>
 <div class="cardgrid cols3"><div class="tcard"><h4 class="tcard__h">①軸（何のLIVEか覚えられる）</h4><p class="tcard__b">毎回テーマがバラバラだと印象に残らない。<span class="hl">自分のLIVEの軸を一言で</span>置く。例「ゆるっと雑談で一緒にリフレッシュ」「歌で元気になれる時間」「初心者と一緒に成長する配信」。</p></div><div class="tcard"><h4 class="tcard__h">②初見でも入りやすい</h4><p class="tcard__b"><span class="hl">内輪話にしない・コメントなくても居やすい</span>・途中入室でも今の話題が分かる。&ldquo;すでに知ってる人だけの場&rdquo;に見えないようにする。</p></div><div class="tcard"><h4 class="tcard__h">③「また来たい」体験</h4><p class="tcard__b">話を聞いてもらえた・自然に会話へ入れた・配信者を少し知れた・落ち着いて見られた。特別な演出より<span class="hl">心に残る小さな体験</span>が効く。</p></div><div class="tcard"><h4 class="tcard__h">④次回を見る理由</h4><p class="tcard__b">次回テーマ・時間帯や頻度を伝える。ただし「絶対来て！」等の<span class="hl">プレッシャーはNG</span>。&ldquo;楽しみになる情報&rdquo;として自然に渡す。</p></div></div>
 <p class="point"><span class="point__label">POINT</span>診断に使えます。伸び悩みを感じたら、まず疑うのは&ldquo;新規集め&rdquo;ではなく<b>&ldquo;再訪&rdquo;（4土台のどれかのつまずき）</b>。軸が曖昧／初見が入りにくい／また来たい体験が薄い／次回の理由が無い、のどこで詰まっているかを見ます。</p>
@@ -998,6 +1048,48 @@
     <p class="callout"><span class="callout__label">診断</span><span class="callout__body">換金が伸びない時は、<b>“階段のどこで止まっているか”</b>を見ます。初ギフトを祝う → レベル到達を祝う → 役割（ガーディアン／モデ）を渡す、と一段ずつ引き上げると、大口は後から育ちます。</span></p>
   </div>
 
+  <figure class="fig">
+    <svg viewBox="0 0 560 262" role="img" aria-label="みんなを見る枠は全リスナーとつながるが、大口だけを見る枠では他のリスナーが静かに離れていく">
+      <line class="f-hair" x1="280" y1="44" x2="280" y2="250"/>
+      <text class="ts" x="135" y="28" text-anchor="middle">みんなを見る枠</text>
+      <text class="ts" x="415" y="28" text-anchor="middle">大口だけ見る枠</text>
+
+      <!-- 左：全員とつながる -->
+      <line class="f-muts" x1="135" y1="145" x2="135" y2="63"/>
+      <line class="f-muts" x1="135" y1="145" x2="213" y2="118"/>
+      <line class="f-muts" x1="135" y1="145" x2="183" y2="212"/>
+      <line class="f-muts" x1="135" y1="145" x2="87" y2="212"/>
+      <line class="f-muts" x1="135" y1="145" x2="57" y2="118"/>
+      <circle class="f-mut" cx="135" cy="63" r="8"/>
+      <circle class="f-mut" cx="213" cy="118" r="8"/>
+      <circle class="f-mut" cx="183" cy="212" r="8"/>
+      <circle class="f-mut" cx="87" cy="212" r="8"/>
+      <circle class="f-mut" cx="57" cy="118" r="8"/>
+      <circle class="f-ac" cx="135" cy="145" r="27"/>
+      <text class="ts tw" x="135" y="149" text-anchor="middle">ライバー</text>
+
+      <!-- 右：大口だけを見る -->
+      <line class="f-acs" x1="415" y1="145" x2="345" y2="88" stroke-width="4"/>
+      <circle class="f-ac" cx="335" cy="80" r="22"/>
+      <text class="t tw" x="335" y="85" text-anchor="middle">大口</text>
+      <circle class="f-ac" cx="415" cy="145" r="27"/>
+      <text class="ts tw" x="415" y="149" text-anchor="middle">ライバー</text>
+
+      <!-- 離れていく他リスナー（薄い円＋外向き破線矢印） -->
+      <circle class="f-hair fill-none" cx="475" cy="200" r="7"/>
+      <line class="f-muts" x1="475" y1="200" x2="502" y2="222" stroke-dasharray="4 3"/>
+      <polygon class="f-mut" points="507,226 497,224 502,217"/>
+      <circle class="f-hair fill-none" cx="415" cy="222" r="7"/>
+      <line class="f-muts" x1="415" y1="222" x2="415" y2="245" stroke-dasharray="4 3"/>
+      <polygon class="f-mut" points="415,250 411,242 419,242"/>
+      <circle class="f-hair fill-none" cx="498" cy="148" r="7"/>
+      <line class="f-muts" x1="498" y1="148" x2="525" y2="148" stroke-dasharray="4 3"/>
+      <polygon class="f-mut" points="530,148 522,144 522,152"/>
+      <text class="ts" x="470" y="176" text-anchor="middle">私いらないよね…</text>
+    </svg>
+    <figcaption>大口だけを見た瞬間、他のリスナーは<b>“私いらないよね”</b>と、何も言わず静かに離れていく。</figcaption>
+  </figure>
+
   <div class="block">
     <div class="block__head"><h3>大口との付き合い方</h3></div>
     <div class="cardgrid cols3">
@@ -1005,7 +1097,33 @@
       <div class="tcard"><h4 class="tcard__h">ギフトは契約でない</h4><p class="tcard__b">同じ投げでも動機で関係が変わる。<span class="hl">見返り期待（支配型）より、感謝・応援（勇気づけ型）</span>を育てる関わりを。</p></div>
       <div class="tcard"><h4 class="tcard__h">期待の管理</h4><p class="tcard__b">回収されない期待は<span class="hl">“敵意”に反転</span>しやすい。特別扱いしすぎず、日頃の感謝を明確に言葉で示すことが予防になります。</p></div>
     </div>
+    <p class="callout callout--warn"><span class="callout__label">静かな崩壊</span><span class="callout__body">爆投げに寄りかかると、大口が来た瞬間から<b>他リスナーが見えなくなります</b>。そのコメントばかり読む・名前を何度も呼ぶ・特別扱い、小ギフトには「あ、ありがとう」／大口には全力。すると他リスナーは「私いらないよね」と感じ、<b>そういう人ほど何も言わず静かに消えていく</b>（コメントが減り、滞在が短くなり、ある日来なくなる）。本人は「今日も盛り上がった」と気づかないまま、枠が静かに痩せていきます。</span></p>
+    <p class="callout callout--tip"><span class="callout__label">救いの一言</span><span class="callout__body">「初見さんありがとう」「いつも来てくれる皆ありがとう」「コメントだけでも嬉しいよ」。目の前の一人でなく<b>画面の向こうの全員</b>を見るための合図です。最後まで残るのは“ギフトが飛ぶ枠”でなく、<b>“笑顔が飛び交う居心地の良い枠”</b>だから。</span></p>
     <p class="point"><span class="point__label">POINT</span>応援には“重み”があります。生活の中で何かを制約して応援している人も多い＝軽視しない・感謝を示す。同じ人に何度も期待する“乱獲”を避け、無理をさせず裾野を広げましょう。</p>
+  </div>
+
+  <div class="block">
+    <div class="block__head"><h3>大口を遠ざける“良かれ”NG3</h3></div>
+    <p class="headline">大口（ギフレベの高い人）ほど、<span class="hl">プロ意識のある対応</span>を評価します。よかれと思ってやりがちで、逆に距離を置かれてしまう3つ。</p>
+    <div class="cols">
+      <div class="col col--ng">
+        <div class="col__head">やりがちなNG</div>
+        <ul class="col__list">
+          <li><b>仕事の質問をする</b>（どんな仕事？年収は？）→現実を思い出させてしまう。</li>
+          <li><b>他のクリエイターを下げて自分を上げる</b>→「人を下げる人」の悪印象＋「自分もいつか言われるかも」。</li>
+          <li><b>自分の話ばかりする</b>→ライブ配信こそ相手の話を聞くことが大事。自分語りだけではプロのトークに負ける。</li>
+        </ul>
+      </div>
+      <div class="col col--ok">
+        <div class="col__head">こう変える</div>
+        <ul class="col__list">
+          <li>好きなアニメ・家族・趣味の話に。仕事の話は相手が自分から振ってきた時だけ。</li>
+          <li>ライバルを褒める・お互いの良さを認める（素直で謙虚）。</li>
+          <li>聞く8：話す2くらいの意識で。</li>
+        </ul>
+      </div>
+    </div>
+    <p class="point"><span class="point__label">POINT</span>リスナーは現実を忘れて、楽しみ・癒しに来ています。傾聴と謙虚さが、結果的に大口に長く応援される土台になります。</p>
   </div>
 
   <div class="block">
@@ -1078,7 +1196,7 @@
     <p class="point"><span class="point__label">POINT</span>むりに依存させる関わりは、その時の数字は作れても、気持ちよく応援してくれる人を遠ざけます。相手の予算や距離感を大切にし、純粋に応援できる場を守ることが、長く続く土台です。</p>
   </div>
 
-  <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／<b>@10000000jpy</b>／DeNA Creator Links 育成マニュアル（Notion）・育成ナレッジ・Notion正本より再構成。※本人の目標はダイヤ単位で。還元率・仕様は変わるため断定せず、最終確認は公式・事務所で。</p>
+  <p class="src">参考：TikTok <b>@answer42.do.not.panic</b>／<b>UNICORN</b>／<b>@unicorn_japan_</b>／<b>@gqueen141akira</b>／<b>@10000000jpy</b>／DeNA Creator Links 育成マニュアル（Notion）・育成ナレッジ・Notion正本より再構成。※本人の目標はダイヤ単位で。還元率・仕様は変わるため断定せず、最終確認は公式・事務所で。</p>
   <nav class="chnav"><button data-target="ch5">← 前の章<span class="sub">定着・常連</span></button><button data-target="ch7">次の章 →<span class="sub">バトル・イベント</span></button></nav>
 </section>
 
@@ -1147,6 +1265,7 @@
 <div class="block"><div class="block__head"><h3>新人は「予約バトルのトーナメント」を目標に</h3></div><ul class="clist"><li><b>月末は“ポイント勝負”でなく「予約バトル」形式の新人戦</b>を目標に。まず配信時間・バトルダイヤを積んで上位に入り、トーナメント出場“権利”を自分で取りにいく。</li><li><b>バトルが不安なら毎日の練習マッチで慣れる。</b>事務所のランダム/練習マッチに気軽に参加＝場数がそのまま自信になる（出る/出ないは自由でOK）。</li><li><b>“権利を勝ち取る→本番”の設計</b>にすると、応援する側も物語に乗りやすい。</li></ul><p class="point"><span class="point__label">POINT</span>いきなり大型でなく「まず出られる権利を取る」小目標から。開催条件は事務所で確認を。</p></div>
 <div class="block"><div class="block__head"><h3>10. バトル本番の<a href="https://app.notion.com/p/2f0ba32c1d9c8084b28fe34bbc691e51" target="_blank" rel="noopener">標準フロー</a>（そのまま使える<a href="https://app.notion.com/p/2efba32c1d9c804084e9cf1993f5a42d" target="_blank" rel="noopener">セリフ</a>付き）</h3></div>
 <p class="headline">流れを<span class="hl">型で持っておく</span>と、本番で迷わず<a href="https://app.notion.com/p/2efba32c1d9c808094fafd36baefb0a5" target="_blank" rel="noopener">声かけ</a>できる。</p>
+<figure class="fig"><svg viewBox="0 0 560 122" role="img" aria-label="バトルはタップ誘導から感謝まで6段階の決まった流れで進む"><line class="f-muts" x1="40" y1="58" x2="512" y2="58"/><polygon class="f-ac" points="512,52 530,58 512,64"/><text class="ts" x="402" y="20" text-anchor="middle">残り30〜15秒</text><rect class="f-warn" x="378" y="26" width="48" height="14" rx="7"/><text class="ts tw" x="402" y="36" text-anchor="middle">勝負所</text><circle class="f-ac" cx="50" cy="58" r="13"/><circle class="f-ac" cx="138" cy="58" r="13"/><circle class="f-ac" cx="226" cy="58" r="13"/><circle class="f-ac" cx="314" cy="58" r="13"/><circle class="f-warn" cx="402" cy="58" r="13"/><circle class="f-ac" cx="490" cy="58" r="13"/><text class="t tw" x="50" y="62" text-anchor="middle">1</text><text class="t tw" x="138" y="62" text-anchor="middle">2</text><text class="t tw" x="226" y="62" text-anchor="middle">3</text><text class="t tw" x="314" y="62" text-anchor="middle">4</text><text class="t tw" x="402" y="62" text-anchor="middle">5</text><text class="t tw" x="490" y="62" text-anchor="middle">6</text><text class="ts" x="50" y="92" text-anchor="middle">タップ</text><text class="ts" x="138" y="92" text-anchor="middle">初回</text><text class="ts" x="226" y="92" text-anchor="middle">スピチャレ</text><text class="ts" x="314" y="92" text-anchor="middle">アイテム</text><text class="ts" x="402" y="92" text-anchor="middle">差し込み</text><text class="ts" x="490" y="92" text-anchor="middle">感謝</text></svg><figcaption>バトルは<b>流れが決まっている</b>。タップで無料ポイント→初回ボーナス→倍率タイム→アイテム→ラスト差し込み→感謝。</figcaption></figure>
 <div class="flow"><div class="flow__item"><span class="flow__n">1</span><p class="flow__t"><b>バトル開始</b> 相手と挨拶し、枠の空気を「よし、行こう！」で一段上げる。</p></div><div class="flow__item"><span class="flow__n">2</span><p class="flow__t"><b>タップ誘導</b> タップは無料でポイントになる（1アカウント1回・連打で反映＝目安、仕様は変わる）。「1人◯タップお願い！」と全員に配ってもらう。</p></div><div class="flow__item"><span class="flow__n">3</span><p class="flow__t"><b>初回ボーナスを活かす</b> 最初のギフトは倍率が上がる仕組みのことがある（目安）。強めのギフトを持っている人に「最初のギフト、強いのお願い！」と立ち上がりを一緒に作る。</p></div><div class="flow__item"><span class="flow__n">4</span><p class="flow__t"><b>スピード系ミッションを必達</b> 短時間ミッションはボーナスの入口。「今から10秒集中！」でタイミングを合わせ、ボーナス中に厚く重ねる。</p></div><div class="flow__item"><span class="flow__n">5</span><p class="flow__t"><b>アイテム投入</b> グローブなどを倍率タイムに合わせて入れる（次のブロック参照）。</p></div><div class="flow__item"><span class="flow__n">6</span><p class="flow__t"><b>最後の差し込み</b> 残り時間わずかで一気に。「ここが勝負、いける人お願い！」と現在地を実況する。</p></div><div class="flow__item"><span class="flow__n">7</span><p class="flow__t"><b>感謝</b> 勝敗に関わらず、参加してくれた全員に「一緒に戦ってくれてありがとう」を返す。</p></div></div>
 <p class="point"><span class="point__label">POINT</span>倍率・タップ回数・初回ボーナスなどの仕様は変わります。数字は目安として持ち、実際の挙動はアプリ内・公式で確認を。声かけは&ldquo;お願い&rdquo;でなく&ldquo;一緒に勝とう&rdquo;のトーンで。</p>
 </div>
@@ -1189,6 +1308,23 @@
   <div class="block">
     <div class="block__head"><h3>理想の距離感＝「カフェの常連客と店員」</h3></div>
     <p class="headline">目指すのは<span class="hl">「親しみやすさ×節度」のバランス</span>。交流は“配信という公の場”に限定するのがコツです。</p>
+    <figure class="fig">
+      <svg viewBox="0 0 560 150" role="img" aria-label="近すぎず遠すぎず、相手のペースを尊重するちょうどいい距離が長続きする関係をつくる">
+        <rect class="f-ng f-ngs" x="24" y="26" width="171" height="52" fill-opacity="0.15"/>
+        <rect class="f-ac" x="195" y="26" width="170" height="52"/>
+        <rect class="f-mut f-muts" x="365" y="26" width="171" height="52" fill-opacity="0.18"/>
+        <text class="t" x="110" y="49" text-anchor="middle">近すぎ</text>
+        <text class="tw" x="280" y="47" text-anchor="middle">ちょうどいい</text>
+        <text class="tw ts" x="280" y="66" text-anchor="middle">相手のペース・感謝・線引き</text>
+        <text class="t" x="450" y="49" text-anchor="middle">遠すぎ</text>
+        <text class="ts" x="110" y="97" text-anchor="middle">依存・ガチ恋・DM過多</text>
+        <text class="ts" x="450" y="97" text-anchor="middle">無関心・冷たい</text>
+        <line class="f-muts" x1="24" y1="110" x2="536" y2="110"/>
+        <polygon class="f-ac" points="280,116 272,130 288,130"/>
+        <text class="f-ac" x="280" y="146" text-anchor="middle">ここ</text>
+      </svg>
+      <figcaption><b>近すぎず遠すぎず</b>。相手のペースを尊重する“ちょうどいい距離”が、長く続く関係をつくる。</figcaption>
+    </figure>
     <div class="cols">
       <div class="col col--ng">
         <div class="col__head">近すぎ（縮む）</div>
@@ -1532,7 +1668,7 @@
 <tr><td><b><a href="https://app.notion.com/p/2f0ba32c1d9c80718163d65e3677988f" target="_blank" rel="noopener">ギフギャラ（ギフトギャラリー）</a></b></td><td>週替わりの指定ギフトを一定数送ると“点灯”。期間中いちばん送った人が「タイトルギフター（称号）」に。毎週月曜0:00リセット。</td><td>“報酬”でなく“称号・盛り上がり”。「あと◯個で点灯！」と一緒に目指し、点灯させた人を称える。</td></tr>
 </tbody></table></div></div>
 
-<div class="block"><div class="block__head"><h3>LIVEモーメント ── 生誕・周年を“イベント化”する</h3></div><p class="headline">LIVEモーメントは、<span class="hl">誕生日・周年・復帰記念を“配信イベント”にして盛り上げる機能</span>。使うだけで終わらせず、準備して使うほど効きます。</p><p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">利用できる条件（<b>ダイヤ実績の下限（例：50万ダイヤ〜が目安）</b>など）があり、仕様・条件は変わります。最終は必ずアプリ内・公式の最新情報で確認してください。</span></p><div class="flow"><div class="flow__item"><span class="flow__n">①</span><span class="flow__t"><b>早めに告知</b>：当日だけでなく事前に。配信日・何のお祝いか・予定を空けてほしいことを、動画やストーリーでも伝えておく。</span></div><div class="flow__item"><span class="flow__n">②</span><span class="flow__t"><b>数字の目標を決める</b>：なんとなくより、目標があるほうが盛り上がります。例＝配信時間／ダイヤ目標／限定ギフトを集める／お祝いコメントを集める。※ダイヤ単位で握り、催促ではなく“みんなで達成する目標”として。</span></div><div class="flow__item"><span class="flow__n">③</span><span class="flow__t"><b>当日の流れを作る</b>：開始＝今日の目的を伝える→中盤＝目標までの進捗を共有→山場＝みんなで盛り上げる→最後＝感謝を伝える。</span></div><div class="flow__item"><span class="flow__n">④</span><span class="flow__t"><b>特別感を出す</b>：背景を少し変える／衣装・メイク／固定コメント／“ありがとうタイム”／スクショタイム、など普段と違う一手を。</span></div></div><p class="point"><span class="point__label">POINT</span>生誕・周年は“一年で最大の見せ場”。取引ではなく「一緒に祝う日」にしましょう。</p></div>
+<div class="block"><div class="block__head"><h3>LIVEモーメント ── 生誕・周年を“イベント化”する</h3></div><p class="headline">LIVEモーメントは、<span class="hl">誕生日・周年・復帰記念を“配信イベント”にして盛り上げる機能</span>。使うだけで終わらせず、準備して使うほど効きます。</p><p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">利用できる条件（<b>ダイヤ実績の下限（例：50万ダイヤ〜が目安）</b>など）があり、仕様・条件は変わります。最終は必ずアプリ内・公式の最新情報で確認してください。</span></p><div class="flow"><div class="flow__item"><span class="flow__n">①</span><span class="flow__t"><b>早めに告知</b>：当日だけでなく事前に。配信日・何のお祝いか・予定を空けてほしいことを、動画やストーリーでも伝えておく。</span></div><div class="flow__item"><span class="flow__n">②</span><span class="flow__t"><b>数字の目標を決める</b>：なんとなくより、目標があるほうが盛り上がります。例＝配信時間／ダイヤ目標／限定ギフトを集める／お祝いコメントを集める。※ダイヤ単位で握り、催促ではなく“みんなで達成する目標”として。</span></div><div class="flow__item"><span class="flow__n">③</span><span class="flow__t"><b>当日の流れを作る</b>：開始＝今日の目的を伝える→中盤＝目標までの進捗を共有→山場＝みんなで盛り上げる→最後＝感謝を伝える。</span></div><div class="flow__item"><span class="flow__n">④</span><span class="flow__t"><b>特別感を出す</b>：背景を少し変える／衣装・メイク／固定コメント／“ありがとうタイム”／スクショタイム、など普段と違う一手を。</span></div></div><figure class="fig"><svg viewBox="0 0 560 210" role="img" aria-label="LIVEモーメント当日の流れは、目的→進捗共有→山場→感謝の山型で設計する"><line class="f-hair" x1="40" y1="188" x2="512" y2="188"/><polygon class="f-mut" points="512,184 522,188 512,192"/><text class="ts f-muts" x="70" y="205" text-anchor="middle">開始</text><text class="ts f-muts" x="490" y="205" text-anchor="middle">終わり</text><polyline class="fill-none f-acs" stroke-width="2.5" points="70,150 210,115 350,58 490,125"/><circle class="f-ac" cx="70" cy="150" r="5"/><circle class="f-ac" cx="210" cy="115" r="5"/><circle class="f-ac" cx="350" cy="58" r="8.5"/><circle class="f-ac" cx="490" cy="125" r="5"/><text class="t f-ink" x="70" y="138" text-anchor="middle">開始</text><text class="ts f-muts" x="70" y="171" text-anchor="middle">目的を伝える</text><text class="t f-ink" x="210" y="103" text-anchor="middle">中盤</text><text class="ts f-muts" x="210" y="136" text-anchor="middle">進捗共有</text><text class="t f-ac" x="350" y="42" text-anchor="middle">山場</text><text class="ts f-acs" x="350" y="84" text-anchor="middle">みんなで盛り上げ</text><text class="t f-ink" x="490" y="113" text-anchor="middle">最後</text><text class="ts f-muts" x="490" y="146" text-anchor="middle">感謝を伝える</text></svg><figcaption>LIVEモーメントは<b>当日の流れを設計</b>すると効く。目的→進捗共有→山場→感謝、で一緒に祝う。</figcaption></figure><p class="point"><span class="point__label">POINT</span>生誕・周年は“一年で最大の見せ場”。取引ではなく「一緒に祝う日」にしましょう。</p></div>
 
 <div class="block"><div class="block__head"><h3>② ファン化・換金</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
 <tr><td><b>ハートミー</b></td><td>送ると頭上にハート＝チームギフト（1コイン〜／宝箱で無料入手も）。送るとファンクラブに自動加入。</td><td>“入団”の起点。大きく歓迎して仲間化に。取りこぼさず毎回拾う。</td></tr>

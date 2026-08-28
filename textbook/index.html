@@ -51,6 +51,18 @@
   body{margin:0;background:linear-gradient(180deg,var(--ground-2),var(--ground)) fixed;color:var(--ink);font-family:var(--font-b);
     line-height:1.75;font-feature-settings:"palt" 1;-webkit-font-smoothing:antialiased}
 
+  /* ambient animated background (subtle drifting brand blobs; auto-still on reduced-motion) */
+  .bg-fx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .bg-fx span{position:absolute;border-radius:50%;filter:blur(64px);opacity:.42;will-change:transform}
+  .bg-fx .b1{width:46vw;height:46vw;left:-9vw;top:-8vh;background:radial-gradient(circle,var(--brand-1),transparent 68%);animation:drift1 32s ease-in-out infinite alternate}
+  .bg-fx .b2{width:42vw;height:42vw;right:-11vw;top:10vh;background:radial-gradient(circle,var(--brand-2),transparent 68%);animation:drift2 40s ease-in-out infinite alternate}
+  .bg-fx .b3{width:40vw;height:40vw;left:18vw;bottom:-16vh;background:radial-gradient(circle,var(--brand-3),transparent 68%);animation:drift3 36s ease-in-out infinite alternate}
+  :root:not([data-theme="light"]) .bg-fx span{opacity:.5}
+  :root[data-theme="dark"] .bg-fx span{opacity:.5}
+  @keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(9vw,7vh) scale(1.16)}}
+  @keyframes drift2{from{transform:translate(0,0) scale(1)}to{transform:translate(-8vw,5vh) scale(1.1)}}
+  @keyframes drift3{from{transform:translate(0,0) scale(1.05)}to{transform:translate(6vw,-7vh) scale(.94)}}
+
   /* ---------- TOP BAR + TABS ---------- */
   .topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
     backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
@@ -317,6 +329,8 @@
   .banner.show{opacity:1;transform:none}
 </style>
 
+
+<div class="bg-fx" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
 <header class="topbar">
   <div class="topbar__row">

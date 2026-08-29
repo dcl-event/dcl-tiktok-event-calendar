@@ -98,7 +98,7 @@
     letter-spacing:.14em;color:var(--muted)}
   .home-hero .eye::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand);flex:0 0 auto}
   .home-hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(1.9rem,6.6vw,3rem);
-    line-height:1.24;margin:14px 0 12px;text-wrap:balance}
+    line-height:1.24;margin:14px 0 12px;text-wrap:balance;word-break:normal;overflow-wrap:break-word;line-break:strict}
   .home-hero h1 .v1{color:var(--brand-1)}
   .home-hero h1 .v2{color:var(--brand-2)}
   .home-hero h1 .v3{color:var(--brand-3)}
@@ -136,7 +136,8 @@
   .chapter__kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-weight:900;font-size:.78rem;letter-spacing:.14em;color:var(--a-ink)}
   .chapter__kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:0 0 auto}
   .chapter__title{font-family:var(--font-d);font-weight:900;font-size:clamp(1.6rem,5.4vw,2.2rem);
-    line-height:1.3;margin:8px 0 8px;text-wrap:balance}
+    line-height:1.3;margin:8px 0 8px;text-wrap:balance;word-break:keep-all;overflow-wrap:normal;line-break:strict}
+  .chapter__title wbr{display:inline}
   .chapter__lead{margin:0;color:var(--muted);font-size:.98rem;max-width:52ch}
 
   /* ---------- BLOCK ---------- */
@@ -146,7 +147,12 @@
     box-shadow:var(--shadow-sm);padding:12px 16px}
   .block__head::before{content:"";width:5px;height:22px;border-radius:3px;flex:0 0 auto;
     background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,transparent))}
-  .block__head h3{font-family:var(--font-d);font-weight:900;margin:0;font-size:1.2rem;letter-spacing:.01em}
+  .block__head h3{font-family:var(--font-d);font-weight:900;margin:0;font-size:1.2rem;letter-spacing:.01em;
+    word-break:normal;overflow-wrap:break-word;line-break:strict}
+  /* Chromium: phrase-aware wrapping only for sentence-style headings (NOT titles — it fights keep-all there) */
+  @supports (word-break:auto-phrase){
+    .headline,.block__head h3{word-break:auto-phrase}
+  }
 
   /* prose paragraphs — boxed so the animated background reads only in the gaps */
   .chapter .block>p:not([class]){background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);
@@ -154,7 +160,8 @@
 
   /* headline statement */
   .headline{font-family:var(--font-d);font-weight:900;font-size:clamp(1.15rem,4vw,1.5rem);line-height:1.5;
-    margin:14px 0;text-wrap:balance;background:var(--surface);border:1px solid var(--hair);
+    margin:14px 0;text-wrap:balance;word-break:normal;overflow-wrap:break-word;line-break:strict;
+    background:var(--surface);border:1px solid var(--hair);
     border-left:4px solid var(--accent);border-radius:var(--r-sm);box-shadow:var(--shadow-sm);padding:15px 18px}
   .headline .hl{color:var(--accent)}
 
@@ -404,7 +411,7 @@
     <section class="view chapter" id="ch1" style="--accent:#E24A73">
     <div class="chapter__intro">
       <span class="chapter__kicker">CHAPTER 1</span>
-      <h2 class="chapter__title">BAN・コンプラ ── その油断が、BANにつながる</h2>
+      <h2 class="chapter__title">BAN・<wbr>コンプラ ── その油断が、BANにつながる</h2>
       <p class="chapter__lead">「これくらい大丈夫」——最近のTikTok LIVE審査はかなり厳しい。やりがちな7つ＋2026年の新ルール（AI音声・もらいBAN・著作権）と、配信前チェックをまとめました。</p>
     </div>
 
@@ -483,7 +490,7 @@
       <div class="block__head"><h3><a href="https://app.notion.com/p/2eaba32c1d9c804da6c0d294d40839a0" target="_blank" rel="noopener">身バレを防ぐ7つの習慣</a></h3></div>
       <p class="headline">個人情報は<span class="hl">一度出たら消せない</span>。小さな油断の積み重ねで特定される。</p>
       <ul class="clist">
-        <li><b>DMは極力しない</b> どうしても必要なときはファミリーや複数体制で。「事務所への報告が必要なんです」と一言添えると、無理な要求への予防線になる。</li>
+        <li><b>DMは極力しない</b> どうしても必要なときはモデレーターや複数体制で。「事務所への報告が必要なんです」と一言添えると、無理な要求への予防線になる。</li>
         <li><b>外配信はしない</b> 背景の建物・看板・駅名から生活圏が割れやすい。屋内の“決めた場所”だけで配信する。</li>
         <li><b>家の情報を映さない・話さない</b> 壁紙・間取り・ドアの色なども手がかりに。配信する場所と角度を毎回固定しておくと安全。</li>
         <li><b>SNS投稿はリアルタイムにしない</b> 「今ここにいる」が分かると危険。時間をあけて、場所が特定されない形で投稿する。</li>
@@ -645,7 +652,7 @@
   <section class="view chapter" id="ch3" style="--accent:#8B5CF6">
     <div class="chapter__intro">
       <span class="chapter__kicker">CHAPTER 3</span>
-      <h2 class="chapter__title">集客・伸ばす ── 見つけてもらう→入ってもらう→また来てもらう</h2>
+      <h2 class="chapter__title">集客・<wbr>伸ばす ── 見つけてもらう→<wbr>入ってもらう→<wbr>また来てもらう</h2>
       <p class="chapter__lead">新しい人に届き、入りやすくして、また来たくなる。その順番で設計します。</p>
     </div>
 
@@ -812,7 +819,7 @@
     <nav class="chnav"><button data-target="ch2">← 前の章<span class="sub">配信の土台</span></button><button data-target="ch4">次の章 →<span class="sub">トーク・場作り</span></button></nav>
   </section>
 
-  <section class="view chapter" id="ch4" style="--accent:#9B54E8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 4</span><h2 class="chapter__title">トーク・場作り ── 会話を“点”で終わらせない</h2><p class="chapter__lead">コメントを拾って終わりでなく、質問で返して“線”にする。0人でも過疎でも回すコツを。</p></div>
+  <section class="view chapter" id="ch4" style="--accent:#9B54E8"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 4</span><h2 class="chapter__title">トーク・<wbr>場作り ── 会話を“点”で終わらせない</h2><p class="chapter__lead">コメントを拾って終わりでなく、質問で返して“線”にする。0人でも過疎でも回すコツを。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. 0人でも、音を止めない</h3></div>
 <p class="headline">無音は<span class="hl">即離脱</span>を生む。0人の時間こそ、あとで来る人のための“助走”。</p>
@@ -921,7 +928,7 @@
 <nav class="chnav"><button data-target="ch3">← 前の章<span class="sub">集客・伸ばす</span></button><button data-target="ch5">次の章 →<span class="sub">定着・常連</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch5" style="--accent:#B84AD0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 5</span><h2 class="chapter__title">定着・常連を育てる ── 稼ぎの8割は&ldquo;いつもの人&rdquo;から</h2><p class="chapter__lead">常連は狙って作るより&ldquo;育つ&rdquo;もの。初見が通う理由をつくり、覚えて、居場所にする流れをまとめました。</p></div>
+  <section class="view chapter" id="ch5" style="--accent:#B84AD0"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 5</span><h2 class="chapter__title">定着・<wbr>常連を育てる ── 稼ぎの8割は&ldquo;いつもの人&rdquo;から</h2><p class="chapter__lead">常連は狙って作るより&ldquo;育つ&rdquo;もの。初見が通う理由をつくり、覚えて、居場所にする流れをまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. 常連は&ldquo;作る&rdquo;でなく&ldquo;育つ&rdquo;</h3></div>
 <p class="headline">常連は&ldquo;作る&rdquo;ものでなく、通いやすい枠にして<span class="hl">&ldquo;育てる&rdquo;</span>もの。</p>
@@ -997,7 +1004,7 @@
 </section>
 
   <section class="view chapter" id="ch6" style="--accent:#D64AAF">
-  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 6</span><h2 class="chapter__title">ギフト・換金 ── お金でなく“感情が動いた結果”</h2><p class="chapter__lead">なぜ人はギフトを送るのか。催促でなく応援を生む考え方と、換金の“階段”をまとめました。</p></div>
+  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 6</span><h2 class="chapter__title">ギフト・<wbr>換金 ── お金でなく“感情が動いた結果”</h2><p class="chapter__lead">なぜ人はギフトを送るのか。催促でなく応援を生む考え方と、換金の“階段”をまとめました。</p></div>
 
   <div class="block">
     <div class="block__head"><h3>なぜ人はギフトを送るのか</h3></div>
@@ -1272,7 +1279,7 @@
   <nav class="chnav"><button data-target="ch5">← 前の章<span class="sub">定着・常連</span></button><button data-target="ch7">次の章 →<span class="sub">バトル・イベント</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch7" style="--accent:#7C4DEC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 7</span><h2 class="chapter__title">バトル・イベント ── 熱量を&ldquo;設計&rdquo;する</h2><p class="chapter__lead">バトルは使い方次第で強力な装置。イベントの出方と、上を目指す階段をまとめました。</p></div>
+  <section class="view chapter" id="ch7" style="--accent:#7C4DEC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 7</span><h2 class="chapter__title">バトル・<wbr>イベント ── 熱量を&ldquo;設計&rdquo;する</h2><p class="chapter__lead">バトルは使い方次第で強力な装置。イベントの出方と、上を目指す階段をまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3><a href="https://app.notion.com/p/2edba32c1d9c80f7a11bf6e105e32cf2" target="_blank" rel="noopener">1. バトルはギフト営業を&ldquo;5分&rdquo;に圧縮する装置</a></h3></div>
 <p class="headline">普段は雑談・企画、<span class="hl">勝負の5分だけ全員で集中</span>する。</p>
@@ -1376,7 +1383,7 @@
 </section>
 
   <section class="view chapter" id="ch8" style="--accent:#C04AC4">
-  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 8</span><h2 class="chapter__title">リスナー・距離感・トラブル ── 関係の質が、すべて</h2><p class="chapter__lead">近すぎても遠すぎても枠は縮む。ちょうどいい距離と、こじれる前の見立て方をまとめました。</p></div>
+  <div class="chapter__intro"><span class="chapter__kicker">CHAPTER 8</span><h2 class="chapter__title">リスナー・<wbr>距離感・<wbr>トラブル ── 関係の質が、すべて</h2><p class="chapter__lead">近すぎても遠すぎても枠は縮む。ちょうどいい距離と、こじれる前の見立て方をまとめました。</p></div>
 
   <div class="block">
     <div class="block__head"><h3>理想の距離感＝「カフェの常連客と店員」</h3></div>
@@ -1601,7 +1608,7 @@
   <nav class="chnav"><button data-target="ch7">← 前の章<span class="sub">バトル・イベント</span></button><button data-target="ch9">次の章 →<span class="sub">メンタル・継続</span></button></nav>
 </section>
 
-  <section class="view chapter" id="ch9" style="--accent:#6E63E6"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 9</span><h2 class="chapter__title">メンタル・継続 ── 続けられる人が、いちばん強い</h2><p class="chapter__lead">伸びるまでは時間がかかる前提。折れずに続けるための考え方と、心を守る習慣をまとめました。</p></div>
+  <section class="view chapter" id="ch9" style="--accent:#6E63E6"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 9</span><h2 class="chapter__title">メンタル・<wbr>継続 ── 続けられる人が、いちばん強い</h2><p class="chapter__lead">伸びるまでは時間がかかる前提。折れずに続けるための考え方と、心を守る習慣をまとめました。</p></div>
 
 <div class="block"><div class="block__head"><h3>1. モチベは波があって当然</h3></div>
 <p class="headline">モチベは常に高く保つものじゃない。<span class="hl">下がる日があって普通</span>。</p>
@@ -1667,8 +1674,8 @@
 </div>
 
 <div class="block"><div class="block__head"><h3>7. 「引退」より先に「休止」</h3></div>
-<p class="callout"><span class="callout__label">選択肢</span><span class="callout__body">辞める前に、まず<b>「休止」</b>という選択肢を持ってください。休止なら、気持ちが整えばまた戻れる安心を残せます。事務所に相談して一時的に配信を代行してもらう、といった方法もあります。「引退」は最後の手段。その前にできることがあります。</span></p>
-<p class="point"><span class="point__label">POINT</span>質が落ちた配信を続ける方が、短期の休配よりファン離れを招きます。＝休む勇気を。そして、しんどい時は一人で抱え込まないこと。ファミリー・マネージャー・仲間ライバーに打ち明けてください。“味方がいる”状態をつくるのも、続けるためのスキルです。</p>
+<p class="callout"><span class="callout__label">選択肢</span><span class="callout__body">辞める前に、まず<b>「休止」</b>という選択肢を持ってください。休止なら、気持ちが整えばまた戻れる安心を残せます。ペースを落とす・お休み期間を事務所に相談するなど、いきなり辞めない調整もできます。「引退」は最後の手段。その前にできることがあります。</span></p>
+<p class="point"><span class="point__label">POINT</span>質が落ちた配信を続ける方が、短期の休配よりファン離れを招きます。＝休む勇気を。そして、しんどい時は一人で抱え込まないこと。事務所・マネージャー・仲間ライバーに打ち明けてください。“味方がいる”状態をつくるのも、続けるためのスキルです。</p>
 </div>
 
 <div class="block"><div class="block__head"><h3>8. 過程を“資産”にする</h3></div>
@@ -1783,12 +1790,12 @@
 
 <div class="block"><div class="block__head"><h3>LIVEモーメント ── 生誕・周年を“イベント化”する</h3></div><p class="headline">LIVEモーメントは、<span class="hl">誕生日・周年・復帰記念を“配信イベント”にして盛り上げる機能</span>。使うだけで終わらせず、準備して使うほど効きます。</p><p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">利用できる条件（<b>ダイヤ実績の下限（例：50万ダイヤ〜が目安）</b>など）があり、仕様・条件は変わります。最終は必ずアプリ内・公式の最新情報で確認してください。</span></p><div class="flow"><div class="flow__item"><span class="flow__n">①</span><span class="flow__t"><b>早めに告知</b>：当日だけでなく事前に。配信日・何のお祝いか・予定を空けてほしいことを、動画やストーリーでも伝えておく。</span></div><div class="flow__item"><span class="flow__n">②</span><span class="flow__t"><b>数字の目標を決める</b>：なんとなくより、目標があるほうが盛り上がります。例＝配信時間／ダイヤ目標／限定ギフトを集める／お祝いコメントを集める。※ダイヤ単位で握り、催促ではなく“みんなで達成する目標”として。</span></div><div class="flow__item"><span class="flow__n">③</span><span class="flow__t"><b>当日の流れを作る</b>：開始＝今日の目的を伝える→中盤＝目標までの進捗を共有→山場＝みんなで盛り上げる→最後＝感謝を伝える。</span></div><div class="flow__item"><span class="flow__n">④</span><span class="flow__t"><b>特別感を出す</b>：背景を少し変える／衣装・メイク／固定コメント／“ありがとうタイム”／スクショタイム、など普段と違う一手を。</span></div></div><figure class="fig"><svg viewBox="0 0 560 210" role="img" aria-label="LIVEモーメント当日の流れは、目的→進捗共有→山場→感謝の山型で設計する"><line class="f-hair" x1="40" y1="188" x2="512" y2="188"/><polygon class="f-mut" points="512,184 522,188 512,192"/><text class="ts f-muts" x="70" y="205" text-anchor="middle">開始</text><text class="ts f-muts" x="490" y="205" text-anchor="middle">終わり</text><polyline class="fill-none f-acs" stroke-width="2.5" points="70,150 210,115 350,58 490,125"/><circle class="f-ac" cx="70" cy="150" r="5"/><circle class="f-ac" cx="210" cy="115" r="5"/><circle class="f-ac" cx="350" cy="58" r="8.5"/><circle class="f-ac" cx="490" cy="125" r="5"/><text class="t f-ink" x="70" y="138" text-anchor="middle">開始</text><text class="ts f-muts" x="70" y="171" text-anchor="middle">目的を伝える</text><text class="t f-ink" x="210" y="103" text-anchor="middle">中盤</text><text class="ts f-muts" x="210" y="136" text-anchor="middle">進捗共有</text><text class="t f-ac" x="350" y="42" text-anchor="middle">山場</text><text class="ts f-acs" x="350" y="84" text-anchor="middle">みんなで盛り上げ</text><text class="t f-ink" x="490" y="113" text-anchor="middle">最後</text><text class="ts f-muts" x="490" y="146" text-anchor="middle">感謝を伝える</text></svg><figcaption>LIVEモーメントは<b>当日の流れを設計</b>すると効く。目的→進捗共有→山場→感謝、で一緒に祝う。</figcaption></figure><p class="point"><span class="point__label">POINT</span>生誕・周年は“一年で最大の見せ場”。取引ではなく「一緒に祝う日」にしましょう。</p></div>
 
-<figure class="fig"><svg viewBox="0 0 560 205" role="img" aria-label="機能はファン化の階段としてつながり、ハートミーで入団→ファンクラブで育て→ガーディアン/スーパーファンで太客・安定に至る"><line class="f-hair" x1="122" y1="100" x2="160" y2="100"/><polygon class="f-ac" points="160,96 166,100 160,104"/><line class="f-acs" x1="284" y1="90" x2="406" y2="55"/><polygon class="f-ac" points="404,49 412,53 402,59"/><line class="f-acs" x1="284" y1="110" x2="406" y2="145"/><polygon class="f-ac" points="402,141 412,147 404,151"/><rect class="f-surf f-hair" x="6" y="76" width="116" height="48" rx="10"/><text class="t f-ink" x="64" y="97" text-anchor="middle">ハートミー</text><text class="ts f-muts" x="64" y="113" text-anchor="middle">送ると入団</text><rect class="f-surf f-hair" x="166" y="76" width="118" height="48" rx="10"/><text class="t f-ink" x="225" y="97" text-anchor="middle">ファンクラブ</text><text class="ts f-muts" x="225" y="113" text-anchor="middle">レベルでバッジ色UP</text><rect class="f-surf f-acs" x="414" y="26" width="140" height="48" rx="10"/><text class="t f-ac" x="484" y="47" text-anchor="middle">ガーディアン</text><text class="ts f-acs" x="484" y="63" text-anchor="middle">週最多ギフター</text><rect class="f-surf f-acs" x="414" y="126" width="140" height="48" rx="10"/><text class="t f-ac" x="484" y="147" text-anchor="middle">スーパーファン</text><text class="ts f-acs" x="484" y="163" text-anchor="middle">月額サブスク</text><text class="ts f-muts" x="64" y="197" text-anchor="middle">入口</text><text class="ts f-muts" x="225" y="197" text-anchor="middle">常連</text><text class="ts f-muts" x="484" y="197" text-anchor="middle">太客・安定</text></svg><figcaption>機能は<b>ファン化の階段</b>としてつながる。ハートミーで入団→ファンクラブで育て→ガーディアン/スーパーファンで太客・安定へ。</figcaption></figure>
+<figure class="fig"><svg viewBox="0 0 560 205" role="img" aria-label="機能はファン化の階段としてつながり、ハートミーで入団→ファンクラブで育て→ガーディアン/スーパーファンで太客・安定に至る"><line class="f-hair" x1="122" y1="100" x2="160" y2="100"/><polygon class="f-ac" points="160,96 166,100 160,104"/><line class="f-acs" x1="284" y1="90" x2="406" y2="55"/><polygon class="f-ac" points="404,49 412,53 402,59"/><line class="f-acs" x1="284" y1="110" x2="406" y2="145"/><polygon class="f-ac" points="402,141 412,147 404,151"/><rect class="f-surf f-hair" x="6" y="76" width="116" height="48" rx="10"/><text class="t f-ink" x="64" y="97" text-anchor="middle">ハートミー</text><text class="ts f-muts" x="64" y="113" text-anchor="middle">送ると入団</text><rect class="f-surf f-hair" x="166" y="76" width="118" height="48" rx="10"/><text class="t f-ink" x="225" y="97" text-anchor="middle">ファンクラブ</text><text class="ts f-muts" x="225" y="113" text-anchor="middle">レベルでバッジ色UP</text><rect class="f-surf f-acs" x="414" y="26" width="140" height="48" rx="10"/><text class="t f-ac" x="484" y="47" text-anchor="middle">ガーディアン</text><text class="ts f-acs" x="484" y="63" text-anchor="middle">誓い＋週1位</text><rect class="f-surf f-acs" x="414" y="126" width="140" height="48" rx="10"/><text class="t f-ac" x="484" y="147" text-anchor="middle">スーパーファン</text><text class="ts f-acs" x="484" y="163" text-anchor="middle">月額サブスク</text><text class="ts f-muts" x="64" y="197" text-anchor="middle">入口</text><text class="ts f-muts" x="225" y="197" text-anchor="middle">常連</text><text class="ts f-muts" x="484" y="197" text-anchor="middle">太客・安定</text></svg><figcaption>機能は<b>ファン化の階段</b>としてつながる。ハートミーで入団→ファンクラブで育て→ガーディアン/スーパーファンで太客・安定へ。</figcaption></figure>
 
 <div class="block"><div class="block__head"><h3>② ファン化・換金</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>機能</th><th>できること</th><th>活かし方</th></tr></thead><tbody>
 <tr><td><b>ハートミー</b></td><td>送ると頭上にハート＝チームギフト（1コイン〜／宝箱で無料入手も）。送るとファンクラブに自動加入。</td><td>“入団”の起点。大きく歓迎して仲間化に。取りこぼさず毎回拾う。</td></tr>
 <tr><td><b><a href="https://app.notion.com/p/2f0ba32c1d9c80fe9f79c22720a1a706" target="_blank" rel="noopener">ファンクラブ</a></b></td><td>ハートミーで参加。レベルでバッジの色が変わる。</td><td>「入ると何があるか」を伝えるだけ（催促はしない）。バッジ色を“みんなの目標”に。</td></tr>
-<tr><td><b>ガーディアン</b></td><td>週ごとに最多ギフターが就任。限定バッジ・角フレーム・入室スポットライト等の特典。</td><td>“見せ場”にして大口の健全な競争を作る。いつでもオン/オフ・解除できるので荒れ防止に管理を。</td></tr>
+<tr><td><b>ガーディアン</b></td><td>クリエイターにつき1名だけの週間トップサポーター。専用ギフト「ガーディアンの誓い」を贈った上で週間ギフト1位になった人が翌週就任（＝単なる最多ギフターではない）。限定バッジ・入室演出に加え、リーグの順位アップ・維持の応援もできる。</td><td>“誓い”を贈るトップファンの見せ場として健全な競争に。リーグ戦を狙う枠ほど効く（順位アップ・維持の応援が入るため）。</td></tr>
 <tr><td><b>スーパーファン</b></td><td>TikTok LIVE専用の月額サブスク（2025年秋〜／料金は目安）。専用バッジ／ハートミーのレベル優遇（送らなくても凍結しない）／ファンクラブ自動加入／限定ギフト等のポイント優遇／限定エモート・専用チャット。</td><td>動画向けサブスクとは別枠。常連に案内し、特典の価値を本人が理解して伝える。</td></tr>
 <tr><td><b>サブスク（月額購読）</b></td><td>限定エモート・継続月数で色が変わるバッジ・登録者限定チャット/ビデオ。</td><td>特典は“オンライン完結・毎回無理なく回せる”もので設計＝工数から逆算して赤字にしない。</td></tr>
 <tr><td><b>ギフターレベル</b></td><td>応援の積み重ねでリスナーのレベルが上がる（少人数枠では到達が自動表示されることも）。</td><td>レベル到達を個別に祝う＝常連の“階段”を可視化。</td></tr>
@@ -1844,7 +1851,7 @@
 <p class="src">参考：TikTok LIVE 機能まとめ（現場検証）／@liver_textbook／@licore_liver_school／DeNA Creator Links 育成ナレッジ。機能・仕様・数値は改訂されるため、最終は公式の最新情報で確認してください。</p>
 <nav class="chnav"><button data-target="ch10">← 前の章<span class="sub">ジャンル別攻略</span></button><button data-target="ch12">次の章 →<span class="sub">やりがちNG→改善</span></button></nav></section>
 
-  <section class="view chapter" id="ch12" style="--accent:#E0538A"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 12</span><h2 class="chapter__title">やりがちNG→改善 ── つい陥る“逆効果”を、一手で直す</h2><p class="chapter__lead">よかれと思ってやりがちなNGを ❌→✅ で。当てはまったら、その一手だけ変えてみてください。</p></div>
+  <section class="view chapter" id="ch12" style="--accent:#E0538A"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 12</span><h2 class="chapter__title">やりがちNG→<wbr>改善 ── つい陥る“逆効果”を、一手で直す</h2><p class="chapter__lead">よかれと思ってやりがちなNGを ❌→✅ で。当てはまったら、その一手だけ変えてみてください。</p></div>
 
 <div class="block"><div class="block__head"><h3>この章の読み方</h3></div>
 <p class="headline">NGの多くは、<span class="hl">“よかれと思って”</span>やってしまうこと。</p>
@@ -1885,8 +1892,8 @@
 <nav class="chnav"><button data-target="ch11">← 前の章<span class="sub">機能ガイド</span></button><button data-target="glossary">用語へ →<span class="sub">用語・早見</span></button></nav>
 </section>
 
-  <section class="view chapter" id="glossary" style="--accent:#8A7FC0"><div class="chapter__intro"><span class="chapter__kicker">APPENDIX</span><h2 class="chapter__title">用語・早見 ── わからない言葉が出たらここへ</h2><p class="chapter__lead">配信でよく使う用語と、ギフトの早見表。</p></div>
-<div class="block"><div class="block__head"><h3>配信用語集</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody><tr><td>初見</td><td>初めてその枠に来たリスナー</td></tr><tr><td>同接</td><td>同時接続数＝今LIVEを見ている人数</td></tr><tr><td>投げる／投げ銭</td><td>ギフト（有料スタンプ）を送ること</td></tr><tr><td>ROM専／潜り</td><td>コメントせず見るだけのリスナー</td></tr><tr><td>太客</td><td>高額を継続してくれる大口ギフター</td></tr><tr><td>コール</td><td>決まった掛け声・応援の合いの手（枠の共通言語）</td></tr><tr><td>定期</td><td>リスナーが毎回書き込む決まったコメント</td></tr><tr><td>いつメン</td><td>参加率の高い常連メンバー</td></tr><tr><td>かけら</td><td>クリエイターリーグの昇格ポイント（未配信日−1）</td></tr><tr><td>ガーディアン</td><td>週最多ギフターが就く&quot;応援団長&quot;。限定バッジ/フレーム等</td></tr><tr><td>ハートミー</td><td>1日1回送れるチームギフト。初回で&quot;入団&quot;扱い</td></tr><tr><td>ギフギャラ</td><td>ギフトギャラリー。週替わりのギフト種コンプでボーナス</td></tr><tr><td>グローブ</td><td>バトル用アイテム。約30%でギフトを5倍計上</td></tr><tr><td>差し込み</td><td>コラボバトルの終了間際にギフトを贈ること</td></tr><tr><td>凸る</td><td>事前連絡なしで配信中に他ライバーへコラボ申請する行為</td></tr><tr><td>ランオフ</td><td>ランキング/レベルを非表示にする設定</td></tr><tr><td>スターコメント</td><td>視聴者がコインを払って一定秒数だけ強調表示するコメント（モデのピン留めとは別）</td></tr><tr><td>ポータル</td><td>他配信から&quot;宝箱&quot;経由で視聴者が来訪する仕組み</td></tr><tr><td>枠</td><td>一回のライブ配信、またはその場そのもの</td></tr><tr><td>生誕</td><td>誕生日/記念日イベント配信</td></tr></tbody></table></div></div>
+  <section class="view chapter" id="glossary" style="--accent:#8A7FC0"><div class="chapter__intro"><span class="chapter__kicker">APPENDIX</span><h2 class="chapter__title">用語・<wbr>早見 ── わからない言葉が出たらここへ</h2><p class="chapter__lead">配信でよく使う用語と、ギフトの早見表。</p></div>
+<div class="block"><div class="block__head"><h3>配信用語集</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody><tr><td>初見</td><td>初めてその枠に来たリスナー</td></tr><tr><td>同接</td><td>同時接続数＝今LIVEを見ている人数</td></tr><tr><td>投げる／投げ銭</td><td>ギフト（有料スタンプ）を送ること</td></tr><tr><td>ROM専／潜り</td><td>コメントせず見るだけのリスナー</td></tr><tr><td>太客</td><td>高額を継続してくれる大口ギフター</td></tr><tr><td>コール</td><td>決まった掛け声・応援の合いの手（枠の共通言語）</td></tr><tr><td>定期</td><td>リスナーが毎回書き込む決まったコメント</td></tr><tr><td>いつメン</td><td>参加率の高い常連メンバー</td></tr><tr><td>かけら</td><td>クリエイターリーグの昇格ポイント（未配信日−1）</td></tr><tr><td>ガーディアン</td><td>クリエイターに1人の週間No.1サポーター。専用ギフト「ガーディアンの誓い」を贈った上で週間ギフト1位になった人が翌週就任（＝単なる最多投げとは別）。限定バッジ・入室演出やリーグ連動特典も</td></tr><tr><td>ハートミー</td><td>1日1回送れるチームギフト。初回で&quot;入団&quot;扱い</td></tr><tr><td>ギフギャラ</td><td>ギフトギャラリー。週替わりのギフト種コンプでボーナス</td></tr><tr><td>グローブ</td><td>バトル用アイテム。約30%でギフトを5倍計上</td></tr><tr><td>差し込み</td><td>コラボバトルの終了間際にギフトを贈ること</td></tr><tr><td>凸る</td><td>事前連絡なしで配信中に他ライバーへコラボ申請する行為</td></tr><tr><td>ランオフ</td><td>ランキング/レベルを非表示にする設定</td></tr><tr><td>スターコメント</td><td>視聴者がコインを払って一定秒数だけ強調表示するコメント（モデのピン留めとは別）</td></tr><tr><td>ポータル</td><td>他配信から&quot;宝箱&quot;経由で視聴者が来訪する仕組み</td></tr><tr><td>枠</td><td>一回のライブ配信、またはその場そのもの</td></tr><tr><td>生誕</td><td>誕生日/記念日イベント配信</td></tr></tbody></table></div></div>
 <div class="block"><div class="block__head"><h3>ギフト早見</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>帯</th><th>コイン範囲</th><th>リアクションの目安</th></tr></thead><tbody><tr><td>手軽</td><td>1〜250</td><td>名前呼び＋一言お礼</td></tr><tr><td>中額</td><td>299〜899</td><td>決めリアクションを1つ</td></tr><tr><td>高額</td><td>999〜4,888</td><td>特別リアクション＋実況</td></tr><tr><td>最上位</td><td>5,000〜44,999</td><td>全力の特別演出を用意</td></tr></tbody></table></div><p class="callout"><span class="callout__label">メモ</span><span class="callout__body">1コイン≈1.6〜2.5円（購入経路で変動：Web購入は安め）。本人の目標は円でなくダイヤ単位で握る。個別ギフト名×価格の正本＝Notion「ギフト一覧🎁」。金額・還元は改訂前提で断定しない。</span></p></div>
 <div class="block"><div class="block__head"><h3>運用ワード・隠れ機能（補遺）</h3></div><div class="tablewrap"><table class="ttable"><thead><tr><th>用語</th><th>意味</th></tr></thead><tbody>
 <tr><td>ギフリア</td><td>ギフトをもらった時のリアクション（＝ギフト+リアクション。“型”化推奨）</td></tr>

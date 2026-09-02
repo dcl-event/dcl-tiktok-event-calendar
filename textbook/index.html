@@ -253,6 +253,26 @@
   /* ★ = 今すぐ効く実務テク（まずここから） */
   .star{color:var(--amber);font-weight:900;font-size:1.05em;margin-right:.34em;vertical-align:-.02em;cursor:help}
 
+  /* accordion sections (soft-unlock: collapsed by default, tap to open) */
+  .acc-hint{font-size:.82rem;color:var(--muted);margin:2px 2px 14px;display:flex;align-items:center;gap:6px}
+  .acc-hint svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  details.acc{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r-sm);box-shadow:var(--shadow-sm);margin:11px 0;transition:box-shadow .2s}
+  details.acc[open]{box-shadow:var(--shadow)}
+  details.acc>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent}
+  details.acc>summary::-webkit-details-marker{display:none}
+  details.acc>summary::before{content:"";width:5px;height:26px;border-radius:3px;flex:0 0 auto;
+    background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,transparent))}
+  details.acc>summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
+  .acc__h{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+  .acc__t{font-family:var(--font-d);font-weight:900;font-size:1.06rem;line-height:1.35}
+  .acc__teaser{font-family:var(--font-b);font-weight:400;font-size:.82rem;color:var(--muted);line-height:1.45}
+  details.acc[open] .acc__teaser{display:none}
+  .chev{width:20px;height:20px;flex:0 0 auto;color:var(--muted);transition:transform .2s;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  details.acc[open] .chev{transform:rotate(180deg)}
+  .acc__body{padding:0 16px 15px}
+  .acc__body>*:first-child{margin-top:2px}
+  .acc__body .fig{margin-top:12px}
+
   /* table */
   .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--hair);border-radius:var(--r-sm);
     background:var(--surface);box-shadow:var(--shadow-sm)}
@@ -527,127 +547,127 @@
     <nav class="chnav"><button disabled>&nbsp;</button><button data-target="ch2">次の章 →<span class="sub">配信の土台</span></button></nav>
   </section>
 
-  <section class="view chapter" id="ch2" style="--accent:#7B5CFC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 2</span><h2 class="chapter__title">配信の土台 ── 配信量が、すべてのはじまり</h2><p class="chapter__lead">集客も換金も、まず“出る量”があってこそ。土台となる配信量・続け方・配信環境をまとめました。</p></div>
+  <section class="view chapter" id="ch2" style="--accent:#7B5CFC"><div class="chapter__intro"><span class="chapter__kicker">CHAPTER 2</span><h2 class="chapter__title">配信の土台 ── まずは"出る量"から</h2><p class="chapter__lead">集客もお金も、まず"配信する量"があってこそ。続け方と、配信の準備をやさしくまとめました。</p></div>
 
-<div class="block"><div class="block__head"><h3>まず“出る量”を確保する</h3></div>
-<p class="headline">才能より先に効くのは、<span class="hl">出続けた回数</span>。</p>
-<figure class="fig"><svg viewBox="0 0 440 210" role="img" aria-label="配信量を土台に、その上へ集客・換金が積み上がる3段ピラミッド"><polygon points="93,133 307,133 360,190 40,190" class="f-ac"/><polygon points="147,77 253,77 307,133 93,133" class="f-tint"/><polygon points="200,20 147,77 253,77" class="f-surf f-hair" stroke-width="1.5"/><text x="200" y="167" text-anchor="middle" class="t tw">①配信量（土台）</text><text x="200" y="110" text-anchor="middle" class="t">②集客</text><text x="200" y="64" text-anchor="middle" class="t">③換金</text><line x1="395" y1="186" x2="395" y2="42" class="f-acs" stroke-width="2"/><polygon points="389,48 395,34 401,48" class="f-ac"/><text x="422" y="115" text-anchor="middle" class="ts" transform="rotate(-90 422 115)">積み上がる</text></svg><figcaption><b>土台の配信量</b>がないと、その上の集客・換金は積み上がらない。まず量、次に集客と換金。</figcaption></figure>
-<p>TikTokのアルゴリズムは「アクティブに配信している人」を押し出す傾向があります。逆に言えば、量が土台に乗るまでは集客テクも換金テクも空回りしがち。まずは“毎日ここにいる”を作りましょう。</p>
+<p class="acc-hint"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>各トピックはタップで開きます。気になる所からどうぞ。</p>
+
+<details class="acc" open><summary><span class="acc__h"><span class="acc__t">まず"出る量"を確保する</span><span class="acc__teaser">才能より、続けた回数がいちばん効く。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p class="headline">才能より先に効くのは、<span class="hl">続けた回数</span>。</p>
+<figure class="fig"><svg viewBox="0 0 440 210" role="img" aria-label="配信量を土台に、その上へ集客・換金が積み上がる3段ピラミッド"><polygon points="93,133 307,133 360,190 40,190" class="f-ac"/><polygon points="147,77 253,77 307,133 93,133" class="f-tint"/><polygon points="200,20 147,77 253,77" class="f-surf f-hair" stroke-width="1.5"/><text x="200" y="167" text-anchor="middle" class="t tw">①配信量（土台）</text><text x="200" y="110" text-anchor="middle" class="t">②集客</text><text x="200" y="64" text-anchor="middle" class="t">③お金</text><line x1="395" y1="186" x2="395" y2="42" class="f-acs" stroke-width="2"/><polygon points="389,48 395,34 401,48" class="f-ac"/><text x="422" y="115" text-anchor="middle" class="ts" transform="rotate(-90 422 115)">積み上がる</text></svg><figcaption><b>配信量という土台</b>がないと、集客もお金も上に乗りません。まず量、次に集客とお金。</figcaption></figure>
+<p>TikTokは「よく配信している人」を"おすすめ"に押し出します。だからテクニックより先に、<b>「毎日ここにいる」</b>を作るのが近道。土台ができるまで、集客のコツもお金のコツも空回りしがちです。</p>
 <ul class="clist">
-<li><b>配信量の目安</b> 立ち上げ期は1日3時間／慣れてきたら1日4時間（月80h相当）を目安に。週5本のペースで習慣にする。</li>
-<li><b>1回の長さ</b> 1回は最低25分以上（時間ミッション＝最大還元の条件になりやすい）。ダラダラ長時間より「毎回きちんと出る」を優先。</li>
-<li><b>通常枠の基準</b> 通常枠は30〜60分を基準にし、反応が良い日だけ延長する。質を落としてまで伸ばさない。</li>
-<li><span class="star" title="今すぐ効く実務テク（まずここから）">★</span><b>点ける習慣</b> 開始15分前に「タイトル＋話題3つ」を決めるルーティンを持つと、その場のノリを再現できる運用に変わる。</li>
+<li><span class="star" title="今すぐ効く実務テク（まずここから）">★</span><b>点ける習慣</b> 始める15分前に「タイトル＋話題3つ」を決めるだけ。毎回いい入りを再現できます。</li>
+<li><b>時間の目安</b> 最初は1日3時間、慣れたら1日4時間（月80時間くらい）。週5本ペースで。</li>
+<li><b>1回の長さ</b> 1回25分以上。長くやるより「毎回ちゃんと出る」が先。</li>
 </ul>
-<p class="callout callout--warn"><span class="callout__label">注意</span><span class="callout__body">「絶やさない＝無理する」ではありません。しんどい日は5分・10分・あいさつだけでも点けて“流れ”を切らさないこと。完璧な1本より、切れない連続のほうが土台になります。</span></p>
-</div>
+<p class="callout callout--warn"><span class="callout__label">むりしない</span><span class="callout__body">しんどい日は5分でOK。完璧な1本より、<b>切らさない連続</b>が土台になります。</span></p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>知らないと損する“配信時間”の仕組み</h3></div>
-<p>「毎日やってるつもり」でも、TikTok的には「0日」扱いになっていることがあります。カウントの仕組みを知っておくと、同じ努力が無駄になりません。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">配信時間の"数え方"を知る</span><span class="acc__teaser">毎日やってるのに「0日」扱い、あるある。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>「毎日やってるつもり」でも、TikTok的には「0日」になっていることがあります。数え方を知れば、同じ頑張りがムダになりません。</p>
 <div class="cardgrid cols3">
-<div class="tcard"><h4 class="tcard__h">毎日1回は“またぐ”</h4><p class="tcard__b">毎日<span class="hl">24時までに1回</span>配信して、リーグの“かけら”減少（−1）を防ぐ。1日でも空けると翌日に響く。</p></div>
-<div class="tcard"><h4 class="tcard__h">短すぎるとカウント外</h4><p class="tcard__b">1時間未満だと「1日配信した」に<span class="hl">カウントされない</span>ことも。まずは1.5〜2時間を目安に長めの配信を（※「2時間で審査通過」は公式基準でなく目安）。</p></div>
-<div class="tcard"><h4 class="tcard__h">1日の区切り</h4><p class="tcard__b">配信時間・ダイヤの集計は<span class="hl">朝9時区切り</span>とされます（かけら判定の24時とは別）。毎日ここで自分の数字を確認する習慣を。※締め時刻は目安・アプリ内で確認。</p></div>
+<div class="tcard"><h4 class="tcard__h">毎日1回はまたぐ</h4><p class="tcard__b">毎日<span class="hl">24時までに1回</span>配信すると、順位ポイントの減少（−1）を防げます。</p></div>
+<div class="tcard"><h4 class="tcard__h">短すぎると数えない</h4><p class="tcard__b">短い配信は「1日やった」に<span class="hl">数えられない</span>ことも。まずは1.5〜2時間を目安に。</p></div>
+<div class="tcard"><h4 class="tcard__h">1日の区切りは朝9時</h4><p class="tcard__b">時間やダイヤの集計は<span class="hl">朝9時区切り</span>。毎朝ここで自分の数字を確認。</p></div>
 </div>
-<p class="point"><span class="point__label">POINT</span>「昨日は何時間・何ダイヤだったか」を毎朝チェックするだけで、頑張りが“カウントされる形”になっているか見えるようになる。</p>
-</div>
+<p class="point"><span class="point__label">POINT</span>「昨日は何時間・何ダイヤ？」を毎朝見るだけで、頑張りが"数えられる形"になっているか分かります。</p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>リーグ・かけら・シールド</h3></div>
-<p>クリエイターリーグは、配信量と成果がそのまま“順位”に反映される仕組み。用語を押さえておくと、休み方まで設計できます。</p>
-<figure class="fig"><svg viewBox="0 0 520 190" role="img" aria-label="毎日配信で“かけら”が貯まって昇格し、未配信で減り、休配日はシールドが肩代わりするゲージ"><polygon points="26,20 20,32 32,32" class="f-ac"/><text x="40" y="31" text-anchor="start" class="ts">配信した日 ＝ ＋（貯まる）</text><polygon points="284,20 296,20 290,32" class="f-ng"/><text x="304" y="31" text-anchor="start" class="ts">未配信の日 ＝ −1（減る）</text><rect x="40" y="76" width="440" height="30" class="f-tint f-hair" stroke-width="1.5"/><rect x="41" y="77" width="270" height="28" class="f-ac"/><circle cx="311" cy="91" r="11" class="f-ac f-hair" stroke-width="2"/><circle cx="311" cy="91" r="4" class="f-surf"/><text x="40" y="128" text-anchor="start" class="ts">下位</text><text x="311" y="128" text-anchor="middle" class="ts">現在地</text><text x="480" y="128" text-anchor="end" class="ts">昇格</text><polygon points="300,148 324,148 324,162 312,174 300,162" class="f-ok"/><text x="334" y="166" text-anchor="start" class="ts">シールドが −1 を肩代わり</text></svg><figcaption>毎日1回配信すると<b>“かけら”が貯まって昇格</b>、休むと減る。休配日は<b>シールド</b>で守る。（仕様は変わる＝公式で確認）</figcaption></figure>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">リーグ・かけら・シールド</span><span class="acc__teaser">3つの言葉を知ると、休み方まで設計できる。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>クリエイターリーグは、配信量と成果がそのまま"順位"になる仕組み。3つの言葉を押さえると、休む日まで計画できます。</p>
+<figure class="fig"><svg viewBox="0 0 520 190" role="img" aria-label="毎日配信でかけらが貯まって昇格し、休むと減り、休む日はシールドが肩代わりするゲージ"><polygon points="26,20 20,32 32,32" class="f-ac"/><text x="40" y="31" text-anchor="start" class="ts">配信した日 ＝ ＋（貯まる）</text><polygon points="284,20 296,20 290,32" class="f-ng"/><text x="304" y="31" text-anchor="start" class="ts">配信しない日 ＝ −1（減る）</text><rect x="40" y="76" width="440" height="30" class="f-tint f-hair" stroke-width="1.5"/><rect x="41" y="77" width="270" height="28" class="f-ac"/><circle cx="311" cy="91" r="11" class="f-ac f-hair" stroke-width="2"/><circle cx="311" cy="91" r="4" class="f-surf"/><text x="40" y="128" text-anchor="start" class="ts">下位</text><text x="311" y="128" text-anchor="middle" class="ts">今ここ</text><text x="480" y="128" text-anchor="end" class="ts">昇格</text><polygon points="300,148 324,148 324,162 312,174 300,162" class="f-ok"/><text x="334" y="166" text-anchor="start" class="ts">シールドが −1 を肩代わり</text></svg><figcaption>毎日1回配信すると<b>かけらが貯まって昇格</b>、休むと減る。休む日は<b>シールド</b>で守る。</figcaption></figure>
 <div class="cardgrid cols3">
-<div class="tcard"><h4 class="tcard__h">リーグ</h4><p class="tcard__b">約18段階のステージ制。<span class="hl">毎日配信で昇格</span>していく。まずは1つ上への昇格を目標に、慣れたらリーグ内上位を狙う。</p></div>
-<div class="tcard"><h4 class="tcard__h">かけら</h4><p class="tcard__b">昇格のためのポイント。上位%に入ると増え、<span class="hl">未配信の日は−1</span>。「勝負枠」で上位%を取りにいくと貯まりやすい。</p></div>
-<div class="tcard"><h4 class="tcard__h">シールド</h4><p class="tcard__b">かけら喪失を肩代わりしてくれる保険。<span class="hl">最大10個</span>まで保持できる。残数を見て“休配日”を計画に組み込む。</p></div>
+<div class="tcard"><h4 class="tcard__h">リーグ</h4><p class="tcard__b">段階制のステージ。<span class="hl">毎日配信で昇格</span>。まずは1つ上を目標に。</p></div>
+<div class="tcard"><h4 class="tcard__h">かけら</h4><p class="tcard__b">昇格のポイント。<span class="hl">配信しない日は−1</span>。勝負枠で上位に入ると貯まりやすい。</p></div>
+<div class="tcard"><h4 class="tcard__h">シールド</h4><p class="tcard__b">かけら減少を肩代わりする保険。残りを見て<span class="hl">休む日を計画</span>に。</p></div>
 </div>
-<p class="callout"><span class="callout__label">重要</span><span class="callout__body">リーグ・かけら・シールドの段階数や条件は改訂される前提です。数値は目安として捉え、最新の仕様は公式・事務所で確認してください。</span></p>
-</div>
+<p class="callout"><span class="callout__label">注意</span><span class="callout__body">段階数や条件は変わります。数字は目安として、最新はアプリで確認してください。</span></p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>枠を“固定”する</h3></div>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">枠を"固定"する</span><span class="acc__teaser">「いつ来れば会える？」を言えるように。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
 <p class="headline">「いつ来れば会えるか」を、<span class="hl">リスナーが言えるか</span>。</p>
-<p>時間がバラバラだと、来たい人も来られません。固定客が付く前に辞めてしまうのがいちばんもったいないパターン。同じ時間・一定ペースが、信頼をいちばん早く積みます。</p>
+<p>時間がバラバラだと、来たい人も来られません。同じ時間・一定ペースが、信頼をいちばん早く積みます。</p>
 <div class="cols">
-<div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>気分で配信時間がバラバラ</li><li>やる気のある日だけ長時間、あとは無配信のバースト型</li><li>固定客が付く前に「伸びない」と辞めてしまう</li></ul></div>
-<div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>毎日“ほぼ同じ時間”に始める</li><li>一定ペース＋計画的な休養で長く続ける</li><li>反応が薄くても、付くまで続ける前提で臨む</li></ul></div>
+<div class="col col--ng"><div class="col__head">やりがち</div><ul class="col__list"><li>気分で時間がバラバラ</li><li>やる気のある日だけ長時間、あとは無し</li><li>固定客が付く前に「伸びない」と辞める</li></ul></div>
+<div class="col col--ok"><div class="col__head">こうする</div><ul class="col__list"><li>毎日"ほぼ同じ時間"に始める</li><li>一定ペース＋計画的に休む</li><li>反応が薄くても、付くまで続ける前提で</li></ul></div>
 </div>
-<p class="point"><span class="point__label">POINT</span>親近感は「長さ」より「頻度」で育つ。忙しい日は1回を短くしてでも毎日続ける。休むなら「明日は短めにね」と予告して“次への布石”にする。</p>
-</div>
+<p class="point"><span class="point__label">POINT</span>親しみは「長さ」より「頻度」。忙しい日は短くしてでも毎日。休むなら「明日は短めにね」と予告を。</p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3><a href="https://app.notion.com/p/2eaba32c1d9c80b0a214d344e78d27c6" target="_blank" rel="noopener">機材は一度だけ整える（段階導入）</a></h3></div>
-<p>機材は毎回悩むものではなく「一度そろえて放置」でOK。全部いきなり買わず、効果の大きい順に段階導入しましょう。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">機材は一度だけ整える</span><span class="acc__teaser">全部いっぺんに買わない。効く順に。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>機材は毎回悩むものではなく「一度そろえて放置」でOK。効果の大きい順に足していきましょう。</p>
 <ul class="clist">
-<li><span class="star" title="今すぐ効く実務テク（まずここから）">★</span><b>① リングライト</b> まずはこれ。顔映りが一段明るくなり、第一印象が変わる。</li>
-<li><b>② スマホスタンド・三脚</b> 1時間以上の配信を手ブレなく固定。画角も安定する。</li>
-<li><b>③ 外部マイク</b> 慣れてきたら音質アップに。クリアな音声は<span class="hl">離脱率を下げる</span>——「音」で損している枠は意外と多い。</li>
-<li><b>④ 高負荷に耐えるスマホ</b> 処理落ち＝カクつきを回避。長時間・エフェクト多めでも安定する端末を。</li>
-<li><b>⑤ 安定した通信</b> 途切れは視聴体験を大きく損なう。上り回線5Mbps以上を目安に確保する。</li>
+<li><span class="star" title="今すぐ効く実務テク（まずここから）">★</span><b>① リングライト</b> まずこれ。顔が明るくなって第一印象が変わります。</li>
+<li><b>② スマホスタンド・三脚</b> 手ブレを止めて画角を安定させる。</li>
+<li><b>③ 外部マイク</b> 音がクリアだと離脱が減る。"音"で損している枠は意外と多い。</li>
+<li><b>④ 安定した通信</b> 途切れは体験を大きく損なう。上り5Mbps以上を目安に。</li>
 </ul>
-</div>
+<p class="src"><a href="https://app.notion.com/p/2eaba32c1d9c80b0a214d344e78d27c6" target="_blank" rel="noopener">📎 公式マニュアルで詳しく（要ログイン）</a></p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3><a href="https://app.notion.com/p/2eaba32c1d9c8017b335e21a43458413" target="_blank" rel="noopener">画角・第一印象（最初の数秒で決まる）</a></h3></div>
-<p>初見さんは数秒で「見るか離れるか」を判断します。トーク力より先に“映り方”を整えるほうが、効果が早いことも多いです。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">映り方・第一印象</span><span class="acc__teaser">トークより先に"映り"を整えると早い。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>初見さんは数秒で「見るか、離れるか」を決めます。まずは映り方から整えると、効果が早いです。</p>
 <ul class="clist">
-<li><b>カメラはアイレベル</b> 自分の目の高さに置く。見下ろし・見上げは不自然で疲れて見えるためNG。</li>
-<li><b>UI安全帯を空ける</b> 頭上5〜10%、下1/5・左右1/10に余白を確保。画面のボタン類で顔や手元が隠れないようにする。</li>
-<li><b>時々レンズを見る</b> ときどきレンズを見つめて“アイコンタクト”効果を作る。視聴維持が上がり離脱を防ぐ。</li>
-<li><b>メガネの反射対策</b> ライトは斜め上から当てて反射を防ぐ。レンズにライトが映り込まない角度に調整。</li>
-<li><b>背景はシンプル</b> 派手な柄・生活感を避け、観葉植物や間接照明でアクセントを。壁から少し離れると奥行きが出る。</li>
+<li><b>カメラは目の高さ</b> 見下ろし・見上げは疲れて見えるのでNG。</li>
+<li><b>顔まわりに余白</b> 画面のボタンで顔や手元が隠れないように。</li>
+<li><b>時々レンズを見る</b> 目が合う感じが出て、見続けてもらいやすい。</li>
+<li><b>背景はシンプル</b> 生活感を消す。壁から少し離れると奥行きが出ます。</li>
 </ul>
-</div>
+<p class="src"><a href="https://app.notion.com/p/2eaba32c1d9c8017b335e21a43458413" target="_blank" rel="noopener">📎 公式マニュアルで詳しく（要ログイン）</a></p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>配信前チェックリスト</h3></div>
-<p>毎回同じ手順で確認するだけで、事故（通知の映り込み・音割れ・途中で充電切れ）はほぼ防げます。<a href="https://app.notion.com/p/2eaba32c1d9c80b88e83ffea24296f3e" target="_blank" rel="noopener">配信ボタンを押す</a>前に、上から順に。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">配信前チェックリスト</span><span class="acc__teaser">事故（通知の映り込み・音割れ・充電切れ）を防ぐ。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>毎回同じ順で確認するだけ。<a href="https://app.notion.com/p/2eaba32c1d9c80b88e83ffea24296f3e" target="_blank" rel="noopener">配信ボタンを押す</a>前に、上から。</p>
 <ul class="clist">
-<li><b>背景</b> シンプルに整っているか。個人特定につながるもの（郵便物・窓の景色）が映っていないか。</li>
-<li><b>画角</b> 壁から離れて奥行きを確保。アイレベル・余白（UI安全帯）はOKか。</li>
-<li><b>端末</b> 機内モード＋Wi-Fiで通知OFF（配信中の通知の映り込み・着信を防ぐ）。</li>
-<li><b>明るさ・音量</b> 固定して途中で変わらないように。音割れしていないか。</li>
-<li><b>空き容量</b> 十分あるか（不足は録画・切り抜きに響く）。</li>
-<li><b>充電</b> 80%以上、できれば給電しながら。</li>
-<li><b>通信</b> 上り回線5Mbps以上を確保できているか。</li>
+<li><b>背景</b> 郵便物・窓の景色など、家が分かるものが映っていないか。</li>
+<li><b>通知オフ</b> 機内モード＋Wi-Fiで、配信中の通知・着信を防ぐ。</li>
+<li><b>明るさ・音</b> 途中で変わらないよう固定。音割れしていないか。</li>
+<li><b>充電</b> 80%以上、できれば充電しながら。</li>
+<li><b>通信</b> 上り5Mbps以上を確保。</li>
 </ul>
-<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">初配信の前は“練習モード”（非公開）で、機材・画角・各種機能を一通りテストしておくと本番で慌てません。人前に出る前に一度リハーサルを。</span></p>
-</div>
+<p class="callout callout--tip"><span class="callout__label">コツ</span><span class="callout__body">初配信の前は"練習モード"（非公開）で、機材・映り・機能を一度ためしておくと本番で慌てません。</span></p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>ゴールデンタイムを狙う</h3></div>
-<p class="callout"><span class="callout__label">目安</span><span class="callout__body">人が集まりやすいのは夜20〜23時（最大帯は18〜22時）。週末は金・土の夕食後、20時以降が狙い目です。ただし“正解”は人によって違います。</span></p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">人が多い時間を狙う</span><span class="acc__teaser">狙うなら、夜20〜23時。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p class="headline">狙うなら、<span class="hl">夜20〜23時</span>。</p>
+<figure class="fig"><svg viewBox="0 0 480 118" role="img" aria-label="1日の時間帯で視聴者が増えるのは夜、とくに20〜23時が狙い目であることを示す横棒"><text x="40" y="30" text-anchor="start" class="ts">1日のうち、人が多いのは夜</text><rect x="40" y="48" width="400" height="22" rx="5" class="f-tint f-hair" stroke-width="1.5"/><rect x="340" y="48" width="67" height="22" class="f-tint"/><rect x="373" y="46" width="50" height="26" rx="5" class="f-ac"/><text x="398" y="63" text-anchor="middle" class="ts tw">狙い目</text><line x1="40" y1="76" x2="440" y2="76" class="f-hair" stroke-width="1"/><text x="40" y="92" text-anchor="start" class="ts">朝</text><text x="220" y="92" text-anchor="middle" class="ts">昼</text><text x="373" y="92" text-anchor="middle" class="ts">20時</text><text x="423" y="92" text-anchor="middle" class="ts">23時</text><text x="440" y="92" text-anchor="end" class="ts">深夜</text></svg><figcaption>狙うなら<b>夜20〜23時</b>（人が増えるのは18〜22時）。週末は<b>金・土の20時以降</b>が狙い目。</figcaption></figure>
 <ul class="clist">
-<li><b>まず定番の時間に寄せる</b> 迷ったら夜20〜23時から。人が動く時間に配信を合わせるだけで、初見に見つかる確率が上がる。</li>
-<li><b>週末は夕食後</b> 金・土の20時以降は在宅リスナーが多い。イベント前など勝負したい日はここに寄せる。</li>
-<li><b>“自分のゴールデンタイム”を特定</b> インサイトでフォロワーのアクティブ時間帯を確認し、いくつかの時間で数回試して、いちばん反応が良い枠を自分の主戦場に固定する。</li>
+<li><b>まず定番の時間に寄せる</b> 迷ったら夜20〜23時から。人が動く時間に合わせるだけで見つかりやすい。</li>
+<li><b>週末は夕食後</b> 金・土の20時以降は在宅リスナーが多い。勝負したい日はここに。</li>
+<li><b>自分の"当たり時間"を探す</b> アプリの分析でフォロワーの活動時間を見て、何度か試して主戦場を固定。</li>
 </ul>
-</div>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>頑張った“次の日”こそ、つなぎ配信</h3></div>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">頑張った"次の日"こそ軽く出る</span><span class="acc__teaser">燃え尽きた翌日ほど、枠が消える。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
 <p class="headline">燃え尽きた翌日ほど、<span class="hl">枠が消える</span>。</p>
-<p>イベントやバトルで大きく頑張った直後は、達成感で気が抜け、疲れも出て、つい枠を飛ばしがちです。ところがリスナーの来訪リズムは日々の積み重ねで作られるもの。1日空くと「今日はいないかも」と思われ、せっかく上げた勢いがそこで途切れてしまいます。</p>
-<p>大きく張った“次の日”こそ、軽い枠でいいので点けましょう。長く頑張る必要はありません。「昨日はありがとう」の報告と雑談だけでも、流れ（習慣・視聴者の来訪リズム）は切れずに残ります。休んで完全に止めるより、“軽く出る”ほうが伸びを守ります。</p>
-<p class="point"><span class="point__label">POINT</span>頑張った翌日は「短くていい枠」とあらかじめ決めておく。ゼロにしないことが、翌週の集まりを守る。</p>
-</div>
+<p>イベントやバトルで大きく頑張った直後は、つい枠を飛ばしがち。でも、1日空くと「今日はいないかも」と思われ、上げた勢いがそこで切れます。</p>
+<p>大きく張った次の日こそ、軽い枠でいいので点ける。「昨日はありがとう」の報告と雑談だけでも、流れは切れずに残ります。</p>
+<p class="point"><span class="point__label">POINT</span>頑張った翌日は「短くていい枠」と先に決めておく。ゼロにしないことが、翌週の集まりを守ります。</p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>“居心地の良さ”を設計する</h3></div>
-<p>「盛り上げなきゃ」とリスナーに思わせる枠は、じつは疲れさせて離脱を招きます。来た人が肩の力を抜いて居られること＝居心地の良さは、雰囲気任せにせず、次の3点で意図的に設計できます。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">"居心地の良さ"を作る</span><span class="acc__teaser">「盛り上げなきゃ」と思わせない。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>「盛り上げなきゃ」とリスナーに思わせる枠は、じつは疲れさせて離脱を招きます。来た人が肩の力を抜ける枠を、次の3つで作れます。</p>
 <div class="cardgrid cols3">
-<div class="tcard"><h4 class="tcard__h">何もしなくていい</h4><p class="tcard__b">「ただ<span class="hl">居るだけでOK</span>」と口に出して明示する。コメントもギフトも義務にしない空気が、長く居られる枠を作る。</p></div>
-<div class="tcard"><h4 class="tcard__h">置いていかない</h4><p class="tcard__b">内輪の話で盛り上がりすぎず、<span class="hl">初見・無言のリスナー</span>もこまめに拾う。話題の前提を一言添えるだけで疎外感が消える。</p></div>
-<div class="tcard"><h4 class="tcard__h">小さな存在も拾う</h4><p class="tcard__b">少額のギフトも一言のコメントも、<span class="hl">必ず反応</span>して名前を呼ぶ。「見てもらえた」の実感が次の来訪につながる。</p></div>
+<div class="tcard"><h4 class="tcard__h">何もしなくていい</h4><p class="tcard__b">「<span class="hl">居るだけでOK</span>」と口に出す。コメントもギフトも義務にしない空気に。</p></div>
+<div class="tcard"><h4 class="tcard__h">置いていかない</h4><p class="tcard__b">内輪で盛り上がりすぎず、<span class="hl">初見・無言の人</span>もこまめに拾う。</p></div>
+<div class="tcard"><h4 class="tcard__h">小さな存在も拾う</h4><p class="tcard__b">少額のギフトも一言も、<span class="hl">必ず反応</span>して名前を呼ぶ。</p></div>
 </div>
-</div>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>見せ場は“待つ”ではなく“作る”</h3></div>
-<p class="headline">配信が平坦なのは中身の薄さでなく、<span class="hl">波の設計不足</span>。</p>
-<p>「ここぞ」という盛り上がりは、自然に訪れるのを待つものではなく、自分で作るものです。ずっと同じテンションで話していると、内容が良くても平坦に見えて記憶に残りません。原因は多くの場合トークの質ではなく、緩急（波）を置いていないことにあります。</p>
-<p>前半で「あとで◯◯やります」と仕込み、中盤で企画やトークの山を作り、締めで余韻を残す——このように起伏を意図的に配置しましょう。1枠のなかに小さな山をいくつか置くだけで、「なんとなく面白い枠」に変わります。</p>
-</div>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">見せ場は"作る"</span><span class="acc__teaser">平坦なのは中身でなく"波"の不足。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p class="headline">配信が平坦なのは中身でなく、<span class="hl">波の設計不足</span>。</p>
+<p>ずっと同じテンションだと、内容が良くても平坦に見えて記憶に残りません。盛り上がりは、自然に来るのを待つのでなく<b>自分で作る</b>もの。</p>
+<p>前半で「あとで◯◯やります」と仕込み、中盤で山を作り、締めで余韻を残す。1枠に小さな山をいくつか置くだけで「なんとなく面白い枠」に変わります。</p>
+</div></details>
 
-<div class="block"><div class="block__head"><h3>軸を貫く ── 一貫性が結局いちばん強い</h3></div>
-<p>「万人に好かれたい」と枠を広げすぎると、かえって誰にも刺さらずブレて離脱を招きます。強い個性や世界観は魅力になりますが、順番を間違えると孤立します。</p>
+<details class="acc"><summary><span class="acc__h"><span class="acc__t">軸を貫く</span><span class="acc__teaser">広げすぎると、誰にも刺さらない。</span></span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary><div class="acc__body">
+<p>「万人に好かれたい」と枠を広げすぎると、かえって誰にも刺さりません。強い個性は魅力ですが、順番を間違えると孤立します。</p>
 <div class="cols">
-<div class="col col--ng"><div class="col__head">NG例</div><ul class="col__list"><li>立ち上げ初期から「嫌なら来んな」的な強い世界観を押し出す</li><li>反応が薄いと方向性を毎回変え、枠の軸がブレる</li><li>万人受けを狙って自分のやりたいことを消す</li></ul></div>
-<div class="col col--ok"><div class="col__head">OK例</div><ul class="col__list"><li>まずは傾聴で団結を作り、世界観は確立してから前に出す</li><li>自分が本音でやりたいことを決め、枠の軸として貫く</li><li>合う人が残る前提で、来てくれた人を大切にし続ける</li></ul></div>
+<div class="col col--ng"><div class="col__head">やりがち</div><ul class="col__list"><li>最初から強すぎる世界観を押し出す</li><li>反応が薄いと方向性を毎回変える</li><li>万人受けを狙って"やりたいこと"を消す</li></ul></div>
+<div class="col col--ok"><div class="col__head">こうする</div><ul class="col__list"><li>まず傾聴で信頼を作り、世界観は後から</li><li>本音でやりたいことを決めて貫く</li><li>合う人が残る前提で、来た人を大切に</li></ul></div>
 </div>
-<p class="callout"><span class="callout__label">重要</span><span class="callout__body">強い世界観は“確立した後”の武器。初心者はまず傾聴で信頼と団結を積み、そのうえで本音の軸を貫くほうが、結局いちばん強い枠になります。</span></p>
-</div>
+<p class="callout"><span class="callout__label">まとめ</span><span class="callout__body">強い世界観は"確立した後"の武器。初心者はまず傾聴で信頼を積み、そのうえで軸を貫くほうが、結局いちばん強い枠になります。</span></p>
+</div></details>
 
 <p class="src">参考：@liver_textbook（ライバーの教科書）／@answer42.do.not.panic／DeNA Creator Links 育成ナレッジ。数値・条件は変わるため公式で確認を。</p>
 <nav class="chnav"><button data-target="ch1">← 前の章<span class="sub">BAN・コンプラ</span></button><button data-target="ch3">次の章 →<span class="sub">集客・伸ばす</span></button></nav>

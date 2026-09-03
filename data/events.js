@@ -1,5 +1,5 @@
 window.EVENT_META = {
-  updated: '2026-08-28',
+  updated: '2026-09-02',
   rangeStart: '2026-08-01',
   rangeEnd: '2026-10-31'
 };

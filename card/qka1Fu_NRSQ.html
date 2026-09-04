@@ -164,7 +164,7 @@ li.ggbanner .box svg{opacity:1}
   <div class="pagehead">
     <h1>📩 宿題カード</h1>
     <p>その日の弱点に効く、あなただけのミッション</p>
-    <div class="live"><span class="dot"></span> データ 2026-09-03 時点（毎朝自動更新）</div>
+    <div class="live"><span class="dot"></span> データ 2026-09-04 時点（毎朝自動更新）</div>
   </div>
   <div class="switch" id="switch" role="tablist"></div>
   <div id="card"></div>
@@ -185,7 +185,7 @@ function sendCheck(li){
       body:JSON.stringify({t:CARD_TOKEN,u:CARD_USER,sec:sec,item:txt,on:on,at:new Date().toISOString()})});}catch(e){}
   }
 }
-const L={"kakouririy": {"nm": "花香リリー🌷", "em": "🌷", "ac": "#C084FC", "acs": "#F6EEFF", "stage": "S0", "rank": "ランク維持", "now": 16326, "met": [["27h", "配信", "warn"], ["8%", "バトル", "bad"], ["6.8万", "インプレ", "bad"], ["182", "新規ファン", "good"]], "h": 26.8, "bat": 8.3, "imp": 67980, "fans": 182, "msg": "まずは出る量から！土台を作ろう🌷"}};
+const L={"kakouririy": {"nm": "花香リリー🌷", "em": "🌷", "ac": "#C084FC", "acs": "#F6EEFF", "stage": "S0", "rank": "⚠️ ランク維持せず", "now": 28046, "met": [["3h", "配信", "bad"], ["83%", "バトル", "warn"], ["2.1万", "インプレ", "bad"], ["51", "新規ファン", "warn"]], "h": 3.2, "bat": 82.6, "imp": 21500, "fans": 51, "msg": "まずは出る量から！土台を作ろう🌷"}};
 const order=["kakouririy"];
 const C=326.7; // 2*pi*52
 function jp(n){return n.toLocaleString('ja-JP');}
@@ -194,7 +194,7 @@ const BORDERS=[[50000,"最初の壁","5万💎"],[200000,"プロライバー","2
 function nextGoal(now){for(const b of BORDERS)if(now<b[0])return{v:b[0],l:b[1],s:b[2]};return{v:1000000,l:"A帯達成",s:"100万💎"};}
 // 着地見込み（当月ペース）: データのas-of日から当月ペースで外挿。当月日数は自動算出。
 // ★データ更新時は DATA_ASOF も実際のデータ取得日に更新すること（下の nm 更新日と揃える）。
-const DATA_ASOF=new Date(2026,8,3); // 2026-08-25（月は0始まり=7）
+const DATA_ASOF=new Date(2026,8,4); // 2026-08-25（月は0始まり=7）
 const TOTAL=new Date(DATA_ASOF.getFullYear(),DATA_ASOF.getMonth()+1,0).getDate(); // 当月日数(8月=31)
 const ELAPSED=DATA_ASOF.getDate();   // as-of日(=25)
 function landing(now){return Math.round(now/ELAPSED*TOTAL);}
@@ -336,7 +336,7 @@ function render(key){
     </div>
     <div class="donebar">🔥 クリアした宿題 <b id="dc">0</b> 個 ／ 昨日より一歩！</div>
     <div class="foot"><div class="msg">${d.msg||'今日も一歩ずつ！🔥'}</div>
-      最終更新 9/3 ・ 自動更新　/　担当と一緒に</div>
+      最終更新 9/4 ・ 自動更新　/　担当と一緒に</div>
   </div>`;
   requestAnimationFrame(()=>{const c=document.getElementById('prog');if(c){c.style.transition='stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)';c.style.strokeDashoffset=off;}});
   el.addEventListener('click',()=>{const dc=document.getElementById('dc');if(dc)dc.textContent=el.querySelectorAll('li.done').length;});

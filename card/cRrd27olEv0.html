@@ -164,7 +164,7 @@ li.ggbanner .box svg{opacity:1}
   <div class="pagehead">
     <h1>📩 宿題カード</h1>
     <p>その日の弱点に効く、あなただけのミッション</p>
-    <div class="live"><span class="dot"></span> データ 2026-09-06 時点（毎朝自動更新）</div>
+    <div class="live"><span class="dot"></span> データ 2026-09-09 時点（毎朝自動更新）</div>
   </div>
   <div class="switch" id="switch" role="tablist"></div>
   <div id="card"></div>
@@ -185,7 +185,7 @@ function sendCheck(li){
       body:JSON.stringify({t:CARD_TOKEN,u:CARD_USER,sec:sec,item:txt,on:on,at:new Date().toISOString()})});}catch(e){}
   }
 }
-const L={"nunu15864": {"nm": "nunu🩵", "em": "🩵", "ac": "#38BDF8", "acs": "#E0F2FE", "stage": "S0", "rank": "⚠️ ランク維持せず", "now": 12785, "met": [["16h", "配信", "bad"], ["53%", "バトル", "good"], ["2.3万", "インプレ", "bad"], ["33", "新規ファン", "bad"]], "h": 16.2, "bat": 52.7, "imp": 23216, "fans": 33, "msg": "まずは出る量から！土台を作ろう🩵"}};
+const L={"nunu15864": {"nm": "nunu🩵", "em": "🩵", "ac": "#38BDF8", "acs": "#E0F2FE", "stage": "S0", "rank": "ランク維持", "now": 18509, "prev": 88029, "met": [["33h", "配信", "warn"], ["57%", "バトル", "good"], ["4.7万", "インプレ", "bad"], ["76", "新規ファン", "warn"]], "h": 32.7, "bat": 57.0, "imp": 47381, "fans": 76, "msg": "まずは出る量から！土台を作ろう🩵"}};
 const order=["nunu15864"];
 const C=326.7; // 2*pi*52
 function jp(n){return n.toLocaleString('ja-JP');}
@@ -194,7 +194,7 @@ const BORDERS=[[50000,"最初の壁","5万💎"],[200000,"プロライバー","2
 function nextGoal(now){for(const b of BORDERS)if(now<b[0])return{v:b[0],l:b[1],s:b[2]};return{v:1000000,l:"A帯達成",s:"100万💎"};}
 // 着地見込み（当月ペース）: データのas-of日から当月ペースで外挿。当月日数は自動算出。
 // ★データ更新時は DATA_ASOF も実際のデータ取得日に更新すること（下の nm 更新日と揃える）。
-const DATA_ASOF=new Date(2026,8,6); // 2026-08-25（月は0始まり=7）
+const DATA_ASOF=new Date(2026,8,9); // 2026-08-25（月は0始まり=7）
 const TOTAL=new Date(DATA_ASOF.getFullYear(),DATA_ASOF.getMonth()+1,0).getDate(); // 当月日数(8月=31)
 const ELAPSED=DATA_ASOF.getDate();   // as-of日(=25)
 function landing(now){return Math.round(now/ELAPSED*TOTAL);}
@@ -207,86 +207,58 @@ function eventPlan(now,proj){
 // ================= 宿題プール（ハブ確定版と連動） =================
 // 各項目 [本文, 重点?] 。__GG__=ギフギャラ特殊ブロック。時間系は{dh}/{H}で差し込み。
 // レーン(base=土台/reach=集客/kanki=換金)＋ステージ(S0/S1+)で処方する“在庫”。
-const POOL={
-  base:{
-    anchorToday:"まず{dh} 配信する（今日の最優先）",
-    today:[["配信前にLIVEゴールを設定して画面に出す",1],["24時までに1回は配信（かけら減少を防ぐ）",0],
-      ["今日の目標を画面に出す＋声出しで宣言",0],
-      ["配信前に通知＋ストーリーで告知する",0],["冒頭で今日やることを一言で宣言する",0]],
-    anchorWeek:"配信する（{H}／週5本）",
-    week:[["毎日同じ時間に配信して“枠”を固定する",0],["1回の配信は最低25分以上（おすすめ審査を通す）",0],
-      ["2日連続オフを作らない（1日はOK）",0],["計画的な休養日を先にカレンダーに入れる",0],
-      ["反応が良い枠だけ延長し、悪い日は無理に延ばさない",0],["しんどい日も5分は点けて“流れ”を切らさない",0],
-      ["配信時間帯をインサイトで確認し“自分の最適帯”に寄せる",0],["カメラ目線・照明・音量を毎回同じ品質に整える",0]],
-  },
-  reach:{
-    anchorToday:"{dh} 配信する",
-    today:[["入室したら0.5秒以内に声かけ（読めなくても「新しい人来た！」）",1],
-      ["冒頭で質問して“最初の5コメント”を取る",0],["名前を「入室/返し/お礼/締め」の4場面で呼ぶ",0],
-      ["沈黙したら「考え事してた」→二択→リスナーに振る",0],["気軽な声かけ「見るだけでも大丈夫」を常備",0],
-      ["コメント返しは「名前→質問→状況→歓迎」の4ステップ",0]],
-    anchorWeek:"配信前にショート動画を1本投稿してから始める",
-    week:[["固定テロップで「初見歓迎/今日は〇〇」を常時表示",0],["「また会いたいからフォローしてね」を自然に入れる",0],
-      ["二択質問で会話ハードルを下げる（「①か②か」）",0],["通知オンの設定方法まで添えて伝える",0],
-      ["企画ストックを10個常備して毎回1つ回す",0],["ショートは1ジャンルに統一（3トピック跨ぎを解消）",0,"s0"],
-      ["切り抜きを配信直後30分で1本投稿（12-18字＋CTA＋ハッシュタグ3）",1,"s1"],
-      ["朝の集客枠(5〜9時)＋夜(20〜25時)の二部制を試す（まず週1回から）",0,"s1"],
-      ["普段と違う時間帯にも配信して、新しい層に当てる（新規ファン開拓）",0],
-      ["色・コントラストの強い画作りでスワイプを止める",0]],
-  },
-  kanki:{
-    anchorTodayS0:"{dh} 配信する",
-    anchorTodayS1:"{dh} 配信する",
-    todayS0:[["初めて/少額のギフターにも即・大きくお礼（差をつけない）",1],["ギフトお礼は「名前＋行動＋その後どうする」で言い切る",0],
-      ["ギフト種ごとの決めリアクションを用意しておく",0],["締め前に「あと◯で△△」の目標を宣言する",0]],
-    todayS1:[["予約バトルの告知をする（or 週1本を1回）",1],["常連の名前・前回の話に毎回1人ずつ触れる",0],
-      ["締めに感謝＋次回予告＋常連へ一言",0],["高額ギフトに特別リアクションを返す",0]],
-    anchorWeek:"⚠️ 目標は“みんなで達成する”トーンで提示（取引化はしない）",
-    week:[["ファンクラブ（ハートミー）を案内しLv20を“みんなの目標”に",0],
-      ["予約バトル 週1本・3日前告知（同格の相手を選ぶ）",1,"s1"],
-      ["週1で大口偏りをチェック→2人目の常連ギフター候補を探す",1,"s1"],
-      ["グローブはスピチャのボーナス30秒に集中投下",0,"s1"],
-      ["常連の名前・前回の話・推しポイントをカルテ化して毎回1人",0],
-      ["締めに感謝＋次回予告＋常連へ一言＋参加型を1つ",0],
-      ["投げる“大義名分”（次イベントの目標・夢）を毎回提示",0],
-      ["低額ギフトを投げやすい文化をつくる（すぐ拾って褒める）",0]],
-  },
+const POOL_L={
+ 1:{name:"① ガイドライン把握＋土台",focus:"まず「出る量」と、基本の画面作り・安全を固める段。",
+   anchorToday:"まず{dh} 配信する（今日の最優先）",
+   anchorWeek:"毎日同じ時間に配信して「枠」を固定する",
+   today:[["配信前にLIVEゴールを設定して画面に出す",1],["24時までに1回は配信（かけら減少を防ぐ）",0],["冒頭で今日やることを一言で宣言する",0],["配信前に通知＋ストーリーで告知する",0],["カメラは目の高さ・顔まわりに余白をとる",0],["リングライトで顔を明るくする",0],["個人が特定される物が映っていないか確認する",0]],
+   week:[["1回の配信は25分以上（おすすめ審査を通す）",0],["ジャンルを1つに絞りプロフィールを統一する",0],["練習モードで機材・機能を一度テストする",0],["NGワード・外部誘導のルールを把握する",0],["背景をきれいに整える",0]]},
+ 2:{name:"② ファン作り",focus:"新規を「また来る」常連に変える段。",
+   anchorToday:"{dh} 配信する",
+   anchorWeek:"ハートミー新規10を目標にする",
+   today:[["入室した人の名前をすぐ呼ぶ（0.5秒以内に反応）",1],["コメントは「ありがとう＋名前」で返す",0],["二択質問で会話のハードルを下げる",0],["固定テロップで「初見歓迎／今日は〇〇」を常時表示",0],["自己紹介を定期的にループする（初見向け）",0],["「また会いたいからフォローしてね」を自然に入れる",0]],
+   week:[["常連にお礼＋次回告知（DM文面は人が確認）",0],["固定リスナーの名前・推しを覚える",0],["曜日ごとにテーマを決める（マンネリ防止）",0],["終了前に必ず次回予告を出す",0],["切り抜き／ショートで新規流入をつくる",0]]},
+ 3:{name:"③ ギフギャラ（課金の入口）",focus:"ギフトが「送りたくなる」設計にする段。",
+   anchorToday:"{dh} 配信する",
+   anchorWeek:"ギフギャラの進捗をスタッフに送る→コンプでスクショ",
+   today:[["ギフトには即お礼＆リアクション（初・少額も薄くしない）",1],["ギフトのお礼を「型」にする（ギフト名＋送り主名＋決めポーズ）",0],["今日の目標を画面に出す（「あと〇個！」）",0],["「〇〇が来たら△△する」を事前に宣言（みんなで達成する目標）",0],["LIVEゴールを設定して一体感を作る",0],["ギフト種ごとに違うリアクションを用意しておく",0]],
+   week:[["ファンクラブ（ハートミー）Lv20を「みんなの目標」にする",0],["サブスクを設定し、限定エモートを用意する",0],["上位ギフターに個別お礼（DM文面は人が確認）",0],["リスナー限定の交流場をつくる（Linyは自動化せずCSV）",0]]},
+ 4:{name:"④ バトルで枠を大きくする（S1）",focus:"バトルとイベントで枠を一段大きくする段。",
+   anchorToday:"{dh} 配信する",
+   anchorWeek:"予約バトルを週１本（週末・3日前告知）",
+   today:[["バトル前に「開始10秒はタップ集中」を常連に共有",1],["バトル中の逆転演出・実況で盛り上げる",0],["バトル前に応援を集める声かけをする",0],["大口来場時に特別な反応をする",0],["中盤に質問・投票・ミニゲームで視聴維持を上げる",0]],
+   week:[["週１回はリーグ内上位％（かけら２個）を狙う勝負枠",0],["次イベント（新人王／ギフトスター）に火力集中",0],["大口を複数育てて依存を分散する",0],["コラボ配信で滞在・コメントを伸ばす（最大６人）",0]]}
 };
-const DAY=Math.floor(Date.now()/864e5); // 日替わりローテーション種
 function fillT(s,dh,H){return s.replace(/\{dh\}/g,dh).replace(/\{H\}/g,H);}
-function stageOK(it,S0){return it.length<3?true:(it[2]==='s0'?S0:(it[2]==='s1'?!S0:true));}
-// 在庫からn件を日替わりで回す（開始位置を毎日n進める＝連チャン回避／offで人ごとに変える）
-function rotp(pool,n,S0,off,dh,H){
-  const a=(pool||[]).filter(function(it){return stageOK(it,S0);});
-  if(a.length<=n) return a.map(function(it){return [fillT(it[0],dh,H),it[1]];});
+const DAY=Math.floor(Date.now()/864e5); // 日替わりローテーション種
+function rotp(pool,n,off,dh,H){
+  const a=(pool||[]);
+  if(a.length===0) return [];
+  function m(it){return it[0]==='__GG__'?['__GG__',it[1]]:[fillT(it[0],dh,H),it[1]];}
+  if(a.length<=n) return a.map(m);
   const start=(((DAY*n+off)%a.length)+a.length)%a.length;
-  const out=[]; for(let i=0;i<n;i++){const it=a[(start+i)%a.length]; out.push([fillT(it[0],dh,H),it[1]]);}
+  const out=[]; for(let i=0;i<n;i++)out.push(m(a[(start+i)%a.length]));
   return out;
 }
-// ★弱点＝動的ボトルネック判定（固定順やめ／割れ幅・時給効率・バトル0・赤信号を考慮）
-function buildPlan(d){
+function stageNo(d){
+  const base=Math.max(d.now||0,d.prev||0);
+  if(base>=200000) return 4;
+  if(base>=50000)  return 3;
+  if(base>=10000)  return 2;
+  return 1;
+}
+function buildLadder(d){
+  const lv=stageNo(d), P=POOL_L[lv];
   const S0=(d.stage==='S0');
-  const ht=S0?60:80, ft=S0?100:(d.stage==='S1'?200:300), yt=S0?1500:(d.stage==='S1'?3000:5000);
-  const gBase=Math.max(0,1-d.h/ht), gReach=Math.max(0,1-d.fans/ft), gKanki=Math.max(0,1-(d.now/d.h)/yt);
-  const battleZero=(!S0 && d.bat===0);
-  let lane,weak,why;
-  if(battleZero){lane='kanki';weak='換金の導線づくり';why='露出はあるのにバトル未着手＝換金の主戦場に乗れてない。まず乗ろう。';}
-  else if(gBase>0.5){lane='base';weak='土台（配信量）';why='まず“出る量”が最優先。ここが全ての土台。';}
-  else{const m=Math.max(gBase,gReach,gKanki);
-    if(m===gKanki){lane='kanki';weak='換金（1配信の単価）';why='配信量はある。1配信で稼ぐ“単価”を上げよう。';}
-    else if(m===gReach){lane='reach';weak='集客の固定化';why='露出を“ファン”に変えるのが伸びしろ。';}
-    else{lane='base';weak='土台（配信量）';why='まず“出る量”を安定させよう。';}}
-  let red='';
-  if(d.bat>70 && d.now<(S0?50000:200000) && /維持せず/.test(d.rank)) red='⚠️ バトル比率は高いけど、素の配信・固定客が薄いサイン。バトル一発頼みになってないか要注意。';
   const dh=S0?'3時間':'4時間', H=S0?'1日3時間':'1日4時間＝週20h';
-  const off=(Math.floor(d.now/777)+(d.fans||0))|0; // 人ごとにローテをずらす
-  const P=POOL[lane];
-  const anchT=lane==='kanki'?(S0?P.anchorTodayS0:P.anchorTodayS1):P.anchorToday;
-  const todayPool=lane==='kanki'?(S0?P.todayS0:P.todayS1):P.today;
-  const today=[[fillT(anchT,dh,H),1]].concat(rotp(todayPool,3,S0,off,dh,H));
-  let week=[[fillT(P.anchorWeek,dh,H),1]].concat(rotp(P.week,4,S0,off+5,dh,H));
-  week.splice(2,0,["__GG__",0]);
-  return {weak,why,red,week,today};
+  const base=Math.max(d.now||0,d.prev||0);
+  const off=(Math.floor(base/777)+(d.fans||0))|0;
+  const today=[[fillT(P.anchorToday,dh,H),1]].concat(rotp(P.today,3,off,dh,H));
+  let week=[[fillT(P.anchorWeek,dh,H),1]].concat(rotp(P.week,4,off+5,dh,H));
+  if(lv>=3) week.splice(2,0,["__GG__",0]);
+  let red='';
+  if(d.bat>70 && base<200000 && /維持せず/.test(d.rank)) red='⚠️ バトル比率は高いけど、素の配信・固定客が薄いサイン。バトル一発頼みに注意。';
+  return {stageNo:lv,stageName:P.name,focus:P.focus,red,week,today};
 }
 function taskLi(t,s){return `<li onclick="sendCheck(this)"><span class="box">${F}</span><span class="txt">${t}</span>${s?'<span class="star">重点</span>':''}</li>`;}
 function ggBlock(star){return `<li class="gg" onclick="ggProgress(this)"><span class="box">${F}</span><span class="txt">ギフギャラの進捗をスタッフに送る</span>${star?'<span class="star">重点</span>':''}</li>`
@@ -297,7 +269,7 @@ function ggComplete(li){li.closest('ul').classList.add('gg-cleared');} // コン
 function ggRevert(el){el.closest('ul').classList.remove('gg-prog','gg-cleared');}
 function tasks(arr){return '<ul class="tasks">'+arr.map(([t,s])=>t==="__GG__"?ggBlock(s):taskLi(t,s)).join('')+'</ul>';}
 function render(key){
-  const d=L[key],ng=nextGoal(d.now),p=Math.min(100,Math.round(d.now/ng.v*100)),off=C*(1-p/100),proj=landing(d.now),ev=eventPlan(d.now,proj),far=((1000000-d.now)/10000).toFixed(1),plan=buildPlan(d);
+  const d=L[key],ng=nextGoal(d.now),p=Math.min(100,Math.round(d.now/ng.v*100)),off=C*(1-p/100),proj=landing(d.now),ev=eventPlan(d.now,proj),far=((1000000-d.now)/10000).toFixed(1),plan=buildLadder(d);
   document.querySelectorAll('#switch button').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===key));
   const el=document.getElementById('card');
   el.style.setProperty('--accent',d.ac); el.style.setProperty('--accent-soft',d.acs);
@@ -321,7 +293,7 @@ function render(key){
         <div class="far">🏆 A帯(100万💎)まで あと${far}万</div>
       </div>
     </div>
-    <div class="weak"><span class="ic">🎯</span><div><b>今週の重点：${plan.weak}</b><p>${plan.why}</p></div></div>
+    <div class="weak"><span class="ic">🎯</span><div><b>今の段階：${plan.stageName}</b><p>${plan.focus}</p><div style="margin-top:6px;font-size:16px;letter-spacing:3px">${['①','②','③','④'].map((c,i)=>i+1===plan.stageNo?`<b style="color:${d.ac}">${c}</b>`:`<span style="opacity:.3">${c}</span>`).join('')}</div></div></div>
     ${plan.red?`<div class="redflag">${plan.red}</div>`:''}
     <div class="metrics">${d.met.map(([v,k,s])=>`<div class="m ${s}"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('')}</div>
     <div class="sec"><h3>📝 今週のクエスト</h3>${tasks(plan.week)}</div>
@@ -336,7 +308,7 @@ function render(key){
     </div>
     <div class="donebar">🔥 クリアした宿題 <b id="dc">0</b> 個 ／ 昨日より一歩！</div>
     <div class="foot"><div class="msg">${d.msg||'今日も一歩ずつ！🔥'}</div>
-      最終更新 9/6 ・ 自動更新　/　担当と一緒に</div>
+      最終更新 9/9 ・ 自動更新　/　担当と一緒に</div>
   </div>`;
   requestAnimationFrame(()=>{const c=document.getElementById('prog');if(c){c.style.transition='stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)';c.style.strokeDashoffset=off;}});
   el.addEventListener('click',()=>{const dc=document.getElementById('dc');if(dc)dc.textContent=el.querySelectorAll('li.done').length;});

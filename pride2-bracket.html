@@ -225,10 +225,24 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .bslot.lose .n{text-decoration:line-through;text-decoration-thickness:1px}
 .bslot.tbd .n{color:#565b66;font-weight:500}
 .bslot.bye .n{color:var(--muted);font-style:italic}
-.bjoin{flex:0 0 28px;display:flex;flex-direction:column;justify-content:space-around;padding:44px 0 0}
-.bjoin i{flex:1;display:block;margin:7px 0;border:1.5px solid var(--line);border-left:0;
-  border-radius:0 9px 9px 0;transition:border-color .3s}
-.bjoin i.lit{border-color:rgba(240,180,41,.6);box-shadow:0 0 12px rgba(240,180,41,.18)}
+.brscroll{position:relative}
+.brlines{position:absolute;left:0;top:0;pointer-events:none;z-index:0;overflow:visible}
+.brlines path{fill:none;stroke:var(--line-lt);stroke-width:1.5;stroke-linecap:round}
+.brlines path.lit{stroke:rgba(240,180,41,.75);filter:drop-shadow(0 0 5px rgba(240,180,41,.45))}
+.brlines circle{fill:var(--line-lt)}
+.brlines circle.lit{fill:var(--gold)}
+.bcol,.bfinal{position:relative;z-index:1}
+.bgap{flex:0 0 38px}
+/* 凡例 */
+.legend{display:flex;flex-wrap:wrap;gap:9px 16px;padding:12px 15px 13px;margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;
+  color:var(--muted);white-space:nowrap}
+.legend i{display:inline-block;width:13px;height:13px;flex:0 0 auto;
+  clip-path:polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px)}
+.legend i.g{background:var(--gold)}
+.legend i.r{background:transparent;border:1.5px solid var(--blood);box-shadow:0 0 8px rgba(255,43,74,.4)}
+.legend i.l{background:var(--line-lt)}
+.legend i.b{background:transparent;border:1.5px dashed var(--line-lt)}
 .bfinal{flex:0 0 178px;display:flex;flex-direction:column;justify-content:center;padding-top:44px}
 .bcrown{position:relative;border:1px solid rgba(240,180,41,.55);padding:17px 12px;text-align:center;
   background:linear-gradient(160deg,rgba(240,180,41,.20),rgba(13,15,20,.9) 72%);
@@ -571,7 +585,7 @@ if (HAS) {
     else {
       seed = p.seed != null ? p.seed : "–";
       name = esc(p.name);
-      if (p.bye) { cls += " bye"; name += "（BYE）"; }
+      if (p.bye) { cls += " bye"; name += "（1回戦免除）"; }
     }
     if (decided) cls += isWin ? " win" : " lose";
     const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";
@@ -586,39 +600,107 @@ if (HAS) {
   const parts = [];
   cols.forEach((c, ci) => {
     const fin = /^決勝/.test(c.name);
-    const boxes = c.matches.map((m, mi) => {
+    const boxes = c.matches.map(m => {
       const dec = !!m.winner;
       const isNext = NX && m === NX;
       const tag = isNext ? "NEXT" : (dec ? "DONE" : (m.id || ""));
-      return `<div class="bmatch${dec ? " done" : ""}${isNext ? " next" : ""}">
+      return `<div class="bmatch${dec ? " done" : ""}${isNext ? " next" : ""}" data-c="${ci}">
         ${tag ? `<span class="mtag">${esc(tag)}</span>` : ""}
         ${bslot(m.a, m.winner === "a", dec)}
         ${bslot(m.b, m.winner === "b", dec)}</div>`;
     }).join("");
-    parts.push(`<div class="bcol${ci === NRI ? " now" : ""}${fin ? " fin" : ""}">
+    parts.push(`<div class="bcol${ci === NRI ? " now" : ""}${fin ? " fin" : ""}" data-col="${ci}">
       <div class="clab"><u>${String(ci+1).padStart(2,"0")}</u><b>${esc(c.name)}</b><i>${esc(c.date || "—")}</i></div>
       <div class="cbody">${boxes}</div></div>`);
-    const nc = cols[ci+1];
-    if (nc) {
-      // 次ラウンドの枠が埋まっていれば導線を金色に光らせる
-      const lits = nc.matches.map(m => (m.a && m.b) ? ' class="lit"' : "");
-      parts.push(`<div class="bjoin">${lits.map(x => `<i${x}></i>`).join("")}</div>`);
-    }
+    if (cols[ci+1]) parts.push('<div class="bgap"></div>');
   });
   const lm = cols[cols.length-1] && cols[cols.length-1].matches[0];
   const won = !!(DATA.champion || (lm && lm.winner));
   const champ = DATA.champion ? esc(DATA.champion)
     : (lm && lm.winner ? esc((lm.winner === "a" ? lm.a : lm.b).name) : "未定");
-  parts.push(`<div class="bjoin"><i${won ? ' class="lit"' : ""}></i></div>`);
+  parts.push('<div class="bgap"></div>');
   parts.push(`<div class="bfinal"><div class="bcrown${won ? " won" : ""}">
     <div class="c">🏆</div><div class="l">Champion</div><div class="v">${champ}</div></div></div>`);
 
   area.innerHTML = `<div class="sect"><span class="en">Bracket</span><h2>トーナメント表</h2><span class="rule"></span></div>
-    <div class="brpanel"><div class="brwrap"><div class="brscroll">${parts.join("")}</div></div></div>
+    <div class="brpanel"><div class="brwrap"><div class="brscroll" id="brs">
+      <svg class="brlines" id="brl" aria-hidden="true"></svg>${parts.join("")}</div></div></div>
     <div class="swipe">Swipe</div>
+    <div class="brpanel legend">
+      <span><i class="g"></i>勝ち上がり</span>
+      <span><i class="r"></i>次の試合</span>
+      <span><i class="b"></i>まだ未定</span>
+      <span><i class="l"></i>線は勝った人の進む先</span>
+    </div>
     <p class="brnote">${HAS
-      ? "<b>勝った人が金色＋👑</b>、負けた人は取り消し線。<b>赤く光っている枠が次の試合</b>です。"
+      ? "<b>勝った人が金色＋👑</b>、負けた人は取り消し線。<b>赤く光っている枠が次の試合</b>です。<br>「1回戦免除」は、実績上位のため1回戦を戦わずに次から登場する人です。"
       : "上は<b>形と日程の目安</b>です。何回戦になるかは出場人数で決まり、確定した山割りは <b>9/14</b> にここへ出ます。<b>決勝の9/30だけは確定</b>です。"}</p>`;
+
+  /* ── 実際の座標から連結線を引く ── */
+  const scroll = document.getElementById("brs");
+  const svg = document.getElementById("brl");
+  const SVGNS = "http://www.w3.org/2000/svg";
+
+  // 前ラウンド→次ラウンドの対応。同数なら1:1（BYEのラウンド）、倍なら2:1
+  function mapping(prevN, nextN){
+    if (prevN === nextN) return Array.from({length:nextN}, (_,i)=>[i]);
+    if (prevN === nextN * 2) return Array.from({length:nextN}, (_,i)=>[2*i, 2*i+1]);
+    return null;
+  }
+
+  function draw(){
+    const base = scroll.getBoundingClientRect();
+    if (!base.width) return;
+    svg.setAttribute("width", scroll.scrollWidth);
+    svg.setAttribute("height", scroll.offsetHeight);
+    svg.setAttribute("viewBox", `0 0 ${scroll.scrollWidth} ${scroll.offsetHeight}`);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const byCol = cols.map((_, ci) =>
+      [...scroll.querySelectorAll(`.bmatch[data-c="${ci}"]`)]);
+    const rect = el => {
+      const r = el.getBoundingClientRect();
+      return { l:r.left-base.left, r:r.right-base.left, t:r.top-base.top, b:r.bottom-base.top,
+               cy:(r.top+r.bottom)/2-base.top };
+    };
+    const line = (x1,y1,x2,y2,mx,lit) => {
+      const pth = document.createElementNS(SVGNS,"path");
+      pth.setAttribute("d", `M ${x1} ${y1} H ${mx} V ${y2} H ${x2}`);
+      if (lit) pth.setAttribute("class","lit");
+      svg.appendChild(pth);
+      const dot = document.createElementNS(SVGNS,"circle");
+      dot.setAttribute("cx", x1); dot.setAttribute("cy", y1); dot.setAttribute("r", 2.6);
+      if (lit) dot.setAttribute("class","lit");
+      svg.appendChild(dot);
+    };
+
+    for (let ci = 0; ci < cols.length - 1; ci++) {
+      const map = mapping(cols[ci].matches.length, cols[ci+1].matches.length);
+      if (!map) continue;
+      map.forEach((srcIdx, ti) => {
+        const tEl = byCol[ci+1][ti]; if (!tEl) return;
+        const T = rect(tEl);
+        const mx = T.l - 19;
+        srcIdx.forEach(si => {
+          const sEl = byCol[ci][si]; if (!sEl) return;
+          const S = rect(sEl);
+          const lit = !!cols[ci].matches[si].winner;
+          line(S.r, S.cy, T.l, T.cy, mx, lit);
+        });
+      });
+    }
+    // 決勝 → 優勝枠
+    const fEl = byCol[cols.length-1][0], cEl = scroll.querySelector(".bcrown");
+    if (fEl && cEl) {
+      const S = rect(fEl), C = rect(cEl);
+      line(S.r, S.cy, C.l, C.cy, C.l - 19, won);
+    }
+  }
+
+  requestAnimationFrame(draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  window.addEventListener("resize", () => { clearTimeout(window.__brT); window.__brT = setTimeout(draw, 120); });
+  setTimeout(draw, 600);
 })();
 
 /* ── 対戦表カルーセル（横スワイプで試合を切り替え／名前で飛ぶ）── */

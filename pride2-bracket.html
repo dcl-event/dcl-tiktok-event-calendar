@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>🏆第2回 DCLトーナメント PRIDE ／ 山割り</title>
+<link rel="icon" href="assets/dcl_mark.png">
+<link rel="apple-touch-icon" href="assets/dcl_mark.png">
+<meta property="og:title" content="第2回 DCLトーナメント PRIDE ／ 山割り">
+<meta property="og:description" content="1vs1、負けたら終わり。勝ち上がりを見届けてください。決勝は9/30(水) 22:00。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#08090c; --panel:#12141a; --panel2:#181b23; --sunk:#0d0f14;
+  --line:#252932; --line-lt:#323845;
+  --ink:#eef0f4; --ink-dim:#c4c9d4; --muted:#8b909d;
+  --blood:#ff2b4a; --blood-dk:#c2132c; --blood-soft:rgba(255,43,74,.12);
+  --gold:#f0b429; --gold-lt:#ffdd8a; --gold-soft:rgba(240,180,41,.12);
+  --steel:#9aa4b5; --silver:#c9ced8; --bronze:#c8895a;
+  --live:#28c76f;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;
+  color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(900px 420px at 50% -6%, rgba(255,43,74,.20) 0%, rgba(255,43,74,0) 62%),
+    radial-gradient(700px 380px at 100% 4%, rgba(240,180,41,.10) 0%, rgba(240,180,41,0) 58%),
+    radial-gradient(700px 400px at 0% 10%, rgba(255,43,74,.10) 0%, rgba(255,43,74,0) 55%),
+    linear-gradient(180deg,#0b0c11 0%, var(--void) 60%);
+  background-attachment:fixed;
+}
+.wrap{max-width:680px;margin:0 auto;padding:22px 16px 76px;position:relative}
+
+/* ── brand ── */
+.brandbar{display:flex;justify-content:center;margin:8px 0 18px}
+.brandbar img{height:30px;width:auto;opacity:.9}
+
+/* ── hero ── */
+header.hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 22px 24px;
+  margin-bottom:14px;border:1px solid var(--line-lt);
+  background:linear-gradient(160deg,#1a1013 0%,#0e0f14 46%,#14161d 100%);
+  box-shadow:0 18px 40px rgba(0,0,0,.6)}
+header.hero::before{content:"";position:absolute;left:-30%;top:-40%;width:160%;height:80%;
+  transform:rotate(-14deg);pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,43,74,0) 0%,rgba(255,43,74,.30) 45%,rgba(255,43,74,0) 100%)}
+header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.030) 0 1px,transparent 1px 4px)}
+.hero .inner{position:relative}
+.hero .eyebrow{font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold)}
+.hero .mark{font-family:'Anton',sans-serif;font-size:clamp(52px,17vw,86px);line-height:.92;
+  letter-spacing:.02em;margin:8px 0 2px;color:#fff;
+  text-shadow:0 0 32px rgba(255,43,74,.45), 0 2px 0 rgba(0,0,0,.5)}
+.hero .mark em{font-style:normal;color:var(--blood)}
+.hero .jp{font-weight:800;font-size:15px;letter-spacing:.02em;color:var(--ink-dim);margin-top:6px}
+.hero .tagline{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:13px;
+  color:var(--gold-lt);margin-top:10px;letter-spacing:.02em}
+.hero .metarow{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 12px;
+  font-size:12px;font-weight:700;border:1px solid var(--line-lt);background:rgba(255,255,255,.04);
+  color:var(--ink-dim);font-family:'Noto Sans JP',sans-serif;white-space:nowrap}
+.pill.hot{border-color:rgba(255,43,74,.5);background:var(--blood-soft);color:#ffb9c4}
+.pill.gold{border-color:rgba(240,180,41,.5);background:var(--gold-soft);color:var(--gold-lt)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--live);
+  box-shadow:0 0 0 0 rgba(40,199,111,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(40,199,111,.5)}70%{box-shadow:0 0 0 7px rgba(40,199,111,0)}100%{box-shadow:0 0 0 0 rgba(40,199,111,0)}}
+.updated{font-size:12px;color:var(--muted);text-align:right;margin:0 2px 16px;
+  font-family:'Jost',sans-serif;letter-spacing:.03em}
+
+/* ── section title ── */
+.sect{display:flex;align-items:center;gap:10px;margin:26px 2px 12px}
+.sect h2{margin:0;font-size:15px;font-weight:800;letter-spacing:.03em}
+.sect .en{font-family:'Jost',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blood)}
+.sect .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line-lt),transparent)}
+
+/* ── generic card ── */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+
+/* ── next up ── */
+.nextup{position:relative;overflow:hidden;padding:18px 18px 16px;margin-bottom:6px}
+.nextup::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--blood),var(--blood-dk))}
+.nextup .lb{font-family:'Jost',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blood)}
+.nextup .big{font-weight:800;font-size:19px;margin-top:6px;line-height:1.35}
+.nextup .sub{font-size:13px;color:var(--muted);margin-top:5px}
+.cd{display:flex;gap:8px;margin-top:14px}
+.cd div{flex:1;text-align:center;background:var(--sunk);border:1px solid var(--line);
+  border-radius:11px;padding:9px 4px}
+.cd b{display:block;font-family:'Jost',sans-serif;font-size:23px;font-weight:700;
+  font-variant-numeric:tabular-nums;line-height:1.1;color:#fff}
+.cd span{font-size:10px;color:var(--muted);font-family:'Jost',sans-serif;letter-spacing:.14em;
+  text-transform:uppercase}
+
+/* ── rules ── */
+details.rules{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.45)}
+details.rules>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:800;
+  font-size:14px;color:var(--gold);user-select:none}
+details.rules>summary::-webkit-details-marker{display:none}
+details.rules>summary::after{content:"▼";float:right;font-size:10px;opacity:.6;transition:transform .2s}
+details.rules[open]>summary::after{transform:rotate(180deg)}
+.rbody{padding:0 16px 14px}
+.rsec{margin-top:13px}
+.rsec .rh{font-weight:800;font-size:13px;margin-bottom:5px;padding-left:9px;
+  border-left:3px solid var(--blood)}
+.rsec ul{margin:0;padding-left:1.15em}
+.rsec li{font-size:13px;line-height:1.8;color:var(--ink-dim);word-break:break-word}
+.rsec li b{color:#fff}
+
+/* ── trophy ── */
+.prizes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:460px){.prizes{grid-template-columns:1fr}}
+.prize{position:relative;overflow:hidden;padding:16px 16px 15px;text-align:center}
+.prize .ico{font-size:30px;line-height:1}
+.prize .r{font-family:'Jost',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin-top:6px}
+.prize .t{font-weight:800;font-size:16px;margin-top:3px}
+.prize .d{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.6}
+.prize.p1{border-color:rgba(240,180,41,.45);
+  background:linear-gradient(160deg,rgba(240,180,41,.14),var(--panel) 60%)}
+.prize.p1 .t{color:var(--gold-lt)}
+.prize.p2{border-color:rgba(201,206,216,.28);
+  background:linear-gradient(160deg,rgba(201,206,216,.10),var(--panel) 60%)}
+.prize.p2 .t{color:var(--silver)}
+
+/* ── bracket ── */
+.round{margin-bottom:16px}
+.rhead{display:flex;align-items:center;gap:9px;margin:0 2px 9px}
+.rhead .nm{font-weight:800;font-size:14px}
+.rhead .dt{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--muted);
+  letter-spacing:.03em}
+.rhead .tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;
+  border:1px solid var(--line-lt);color:var(--muted)}
+.rhead .tag.fin{border-color:rgba(240,180,41,.5);color:var(--gold-lt);background:var(--gold-soft)}
+.rhead .sp{flex:1}
+.match{overflow:hidden;margin-bottom:9px}
+.match .mh{display:flex;align-items:center;gap:8px;padding:8px 13px;background:var(--sunk);
+  border-bottom:1px solid var(--line)}
+.match .mh .id{font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blood)}
+.match .mh .when{font-family:'Jost',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);
+  margin-left:auto;white-space:nowrap}
+.side{display:flex;align-items:center;gap:11px;padding:12px 13px}
+.side + .side{border-top:1px solid var(--line)}
+.side .seed{font-family:'Jost',sans-serif;font-size:12px;font-weight:700;color:var(--muted);
+  width:24px;height:24px;flex:0 0 auto;display:grid;place-items:center;border-radius:6px;
+  background:var(--sunk);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.side .who{flex:1;min-width:0;font-weight:700;font-size:15px;word-break:break-word}
+.side .who i{display:block;font-style:normal;font-family:'Jost',sans-serif;font-weight:500;
+  font-size:11px;color:var(--muted);letter-spacing:.02em;margin-top:1px}
+.side .res{font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.side.win{background:linear-gradient(90deg,rgba(240,180,41,.13),transparent 70%)}
+.side.win .seed{color:var(--gold-lt);border-color:rgba(240,180,41,.45);background:var(--gold-soft)}
+.side.win .who{color:#fff}
+.side.win .res{color:var(--gold-lt)}
+.side.lose{opacity:.5}
+.side.tbd .who{color:var(--muted);font-weight:500}
+.side.tbd .seed{color:var(--line-lt)}
+.side.bye .who{color:var(--ink-dim)}
+.vs{display:flex;align-items:center;gap:9px;padding:0 13px}
+.vs .l{flex:1;height:1px;background:var(--line)}
+.vs .t{font-family:'Anton',sans-serif;font-size:12px;letter-spacing:.16em;color:var(--blood)}
+
+/* ── entrants ── */
+.elist{list-style:none;margin:0;padding:0}
+.elist li{display:flex;align-items:center;gap:11px;background:var(--panel);
+  border:1px solid var(--line);border-radius:13px;padding:10px 13px;margin-bottom:7px;
+  box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.elist .n{font-family:'Jost',sans-serif;font-size:13px;font-weight:700;color:var(--muted);
+  min-width:26px;text-align:center;font-variant-numeric:tabular-nums}
+.elist .nm{flex:1;min-width:0;font-weight:700;font-size:14.5px;word-break:break-word}
+.elist .bd{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;
+  border:1px solid rgba(240,180,41,.45);color:var(--gold-lt);background:var(--gold-soft)}
+.elist li.top3 .n{color:var(--gold)}
+
+/* ── format table (entry phase) ── */
+.fmt{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.fmt-t{border-collapse:collapse;width:100%;min-width:430px;font-size:12.5px}
+table.fmt-t th,table.fmt-t td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);
+  white-space:nowrap}
+table.fmt-t th{font-family:'Jost',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);background:var(--sunk)}
+table.fmt-t td:first-child{font-family:'Jost',sans-serif;font-weight:700;color:#fff;
+  font-variant-numeric:tabular-nums}
+table.fmt-t tr:last-child td{border-bottom:0}
+table.fmt-t td.nights{color:var(--ink-dim)}
+
+/* ── legacy (1st edition) ── */
+.legacy{padding:18px 18px 16px}
+.legacy .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}
+@media(max-width:460px){.legacy .stats{grid-template-columns:1fr;gap:7px}}
+.legacy .st{background:var(--sunk);border:1px solid var(--line);border-radius:11px;
+  padding:12px 12px;text-align:center}
+.legacy .st b{display:block;font-family:'Jost',sans-serif;font-size:25px;font-weight:700;
+  color:var(--gold);line-height:1.05}
+.legacy .st span{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
+.legacy p{margin:0;font-size:13px;color:var(--ink-dim);line-height:1.85}
+.legacy p b{color:#fff}
+
+/* ── links / footer ── */
+.linkbox{margin:22px 0 4px}
+.linkbox a{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 18px;
+  text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;margin-bottom:9px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45);transition:transform .15s ease,box-shadow .15s ease}
+.linkbox a:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.6)}
+.linkbox a::after{content:"›";color:var(--blood);font-size:20px;line-height:1}
+.note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:12px 2px 0}
+footer{text-align:center;font-size:12px;color:#5e636e;margin-top:40px;
+  font-family:'Jost',sans-serif;letter-spacing:.06em}
+
+/* ── entry banner（締切を最優先で見せる） ── */
+.entrybar{position:relative;overflow:hidden;border-radius:18px;margin-bottom:16px;
+  border:1px solid rgba(255,43,74,.55);
+  background:linear-gradient(135deg,rgba(255,43,74,.24) 0%,rgba(194,19,44,.16) 45%,var(--panel) 100%);
+  box-shadow:0 14px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(255,43,74,.08) inset}
+.entrybar::before{content:"";position:absolute;right:-50px;top:-70px;width:190px;height:190px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,43,74,.30),rgba(255,43,74,0) 70%)}
+.entrybar .eb{position:relative;padding:18px 18px 16px}
+.entrybar .kick{display:inline-flex;align-items:center;gap:6px;font-family:'Jost',sans-serif;
+  font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;background:var(--blood);border-radius:999px;padding:4px 11px}
+.entrybar .when{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:11px}
+.entrybar .when b{font-family:'Jost',sans-serif;font-weight:800;font-size:clamp(26px,7.6vw,36px);
+  line-height:1.05;color:#fff;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.entrybar .when span{font-weight:800;font-size:14px;color:#ffc4cd}
+.entrybar .lead{font-size:13px;color:var(--ink-dim);margin-top:9px;line-height:1.75}
+.entrybar .lead b{color:#fff}
+.entrybar .cd{margin-top:14px}
+.entrybar .cd div{background:rgba(0,0,0,.36);border-color:rgba(255,255,255,.10)}
+
+/* ── sticky deadline bar ── */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:rgba(10,11,15,.94);backdrop-filter:blur(8px);
+  border-top:1px solid rgba(255,43,74,.45);
+  padding:9px 14px;display:flex;align-items:center;gap:10px;justify-content:center;
+  font-size:12.5px;font-weight:700;color:var(--ink-dim)}
+.sticky b{color:#fff;font-family:'Jost',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+.sticky .tag{font-family:'Jost',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#fff;background:var(--blood);border-radius:999px;padding:3px 9px}
+body.has-sticky .wrap{padding-bottom:112px}
+
+/* ── 山割り図（横スクロール） ── */
+.brwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:15px 13px 16px}
+.brscroll{display:flex;align-items:stretch;min-width:648px}
+.bcol{display:flex;flex-direction:column;flex:0 0 150px}
+.bcol .clab{font-family:'Jost',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:7px;
+  border-bottom:1px solid var(--line);margin-bottom:9px;white-space:nowrap}
+.bcol .clab i{display:block;font-style:normal;font-size:9px;letter-spacing:.08em;color:#5e636e;margin-top:2px}
+.bcol .cbody{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:7px}
+.bmatch{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--sunk)}
+.bmatch.done{border-color:rgba(240,180,41,.32)}
+.bslot{display:flex;align-items:center;gap:5px;padding:5px 7px;min-height:27px}
+.bslot + .bslot{border-top:1px solid var(--line)}
+.bslot .s{font-family:'Jost',sans-serif;font-size:9.5px;font-weight:700;color:var(--muted);
+  width:13px;text-align:center;flex:0 0 auto;font-variant-numeric:tabular-nums}
+.bslot .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:11.5px;font-weight:700;color:var(--ink-dim)}
+.bslot.win{background:linear-gradient(90deg,rgba(240,180,41,.18),transparent)}
+.bslot.win .n{color:var(--gold-lt)}
+.bslot.win .s{color:var(--gold)}
+.bslot.lose{opacity:.4}
+.bslot.tbd .n{color:#5e636e;font-weight:500}
+.bslot.bye .n{color:var(--muted);font-style:italic}
+.bjoin{flex:0 0 21px;display:flex;flex-direction:column;justify-content:space-around;padding:26px 0 0}
+.bjoin i{flex:1;display:block;margin:5px 0;border:1px solid var(--line);border-left:0;
+  border-radius:0 7px 7px 0}
+.bfinal{flex:0 0 150px;display:flex;flex-direction:column;justify-content:center;padding-top:26px}
+.bcrown{border:1px solid rgba(240,180,41,.5);border-radius:11px;padding:11px 9px;text-align:center;
+  background:linear-gradient(160deg,rgba(240,180,41,.16),var(--sunk) 70%)}
+.bcrown .c{font-size:22px;line-height:1}
+.bcrown .l{font-family:'Jost',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-top:4px}
+.bcrown .v{font-size:12px;font-weight:800;color:var(--gold-lt);margin-top:2px;line-height:1.4}
+.brnote{font-size:11.5px;color:var(--muted);line-height:1.7;margin:10px 2px 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<div class="wrap">
+<div class="brandbar"><img src="assets/dcl_logo_dark.png" alt="DeNA Creator Links" onerror="this.style.display='none'"></div>
+
+<header class="hero">
+  <div class="inner">
+    <div class="eyebrow">DCL Tournament · 2nd</div>
+    <div class="mark">PR<em>I</em>DE</div>
+    <div class="jp">第2回 DCLトーナメント ／ 山割り</div>
+    <div class="tagline">🔥 1vs1、負けたら終わり。勝ち上がりを見届けてください。</div>
+    <div class="metarow" id="metarow"></div>
+  </div>
+</header>
+
+<div class="updated" id="updated"></div>
+
+<div class="card nextup" id="nextup"></div>
+
+<div id="bracketArea"></div>
+<div id="entrantArea"></div>
+
+<div class="sect"><span class="en">How to watch</span><h2>応援のしかた</h2><span class="rule"></span></div>
+<div class="card">
+  <div class="rbody" style="padding:4px 16px 14px">
+    <div class="rsec"><div class="rh">試合のきまり</div><ul>
+      <li>試合はすべて<b>22:00スタート</b>の1vs1バトルです</li>
+      <li><b>勝った方が次に進みます。負けたらそこで終了</b></li>
+      <li>勝敗は<b>バトルスコアが高い方</b>が勝ち</li>
+      <li><b>グローブは1試合2個まで</b>（それ以外のアイテムは制限なし）</li>
+    </ul></div>
+    <div class="rsec"><div class="rh">ここが面白いところ</div><ul>
+      <li>試合の間は<b>中2日</b>。この2日でどれだけアイテムを貯められるかが勝敗を分けます</li>
+      <li>だから<b>試合当日だけでなく、間の2日も戦いの一部</b>です</li>
+      <li>優勝・準優勝のおふたりには<b>トロフィー</b>が贈られます</li>
+    </ul></div>
+  </div>
+</div>
+
+<div class="linkbox">
+  <a href="https://dcl-events.github.io/rankings/"><span>🏆 DCL 事務所イベント一覧</span></a>
+  <a href="index.html"><span>⚡ TikTok LIVE 公式イベントカレンダー</span></a>
+</div>
+
+<p class="note">主催：DeNA Creator Links ／ 第2回 DCLトーナメント PRIDE。<br>
+試合日はすべて22:00スタート、間隔は中2日です。対戦カードと日程は確定後に随時更新します。</p>
+
+<footer>DeNA Creator Links — DCL Tournament PRIDE</footer>
+</div>
+<script src="assets/pride2-data.js"></script>
+<script>
+const DATA = window.PRIDE2;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+  ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const pad = n => String(n).padStart(2,"0");
+
+/* hero meta（リスナー向け：エントリー情報は出さない） */
+(function(){
+  const bits = [];
+  if (DATA.status === "live") bits.push('<span class="pill hot"><span class="dot"></span>開催中</span>');
+  if (DATA.status === "done") bits.push('<span class="pill gold">大会終了</span>');
+  if (DATA.status === "entry") bits.push('<span class="pill hot">9/21 開幕</span>');
+  bits.push('<span class="pill gold">🏆 決勝 9/30(水) 22:00</span>');
+  bits.push('<span class="pill">TikTok LIVE</span>');
+  bits.push('<span class="pill">1vs1 勝ち抜き</span>');
+  $("metarow").innerHTML = bits.join("");
+})();
+
+(function(){
+  const d = new Date();
+  const j = new Date(d.getTime() + (d.getTimezoneOffset() + 540) * 60000);
+  $("updated").textContent =
+    `最終更新: ${j.getFullYear()}-${pad(j.getMonth()+1)}-${pad(j.getDate())} ${pad(j.getHours())}:${pad(j.getMinutes())} JST`;
+})();
+
+const CDCELLS = `<div class="cd">
+  <div><b>--</b><span>days</span></div><div><b>--</b><span>hrs</span></div>
+  <div><b>--</b><span>min</span></div><div><b>--</b><span>sec</span></div></div>`;
+function countdownInto(root, target){
+  const cells = root.querySelectorAll(".cd b");
+  if (!cells.length || !target) return;
+  (function tick(){
+    let ms = target - new Date();
+    if (ms <= 0) { cells.forEach(c => c.textContent = "0"); return; }
+    const s = Math.floor(ms/1000);
+    const v = [Math.floor(s/86400), Math.floor(s%86400/3600), Math.floor(s%3600/60), s%60];
+    cells.forEach((c,i) => c.textContent = i === 0 ? String(v[i]) : pad(v[i]));
+    setTimeout(tick, 1000);
+  })();
+}
+
+/* next match */
+(function(){
+  const box = $("nextup");
+  let nx = null, rd = null;
+  for (const r of (DATA.rounds || [])) {
+    for (const m of r.matches) { if (!m.winner) { nx = m; rd = r; break; } }
+    if (nx) break;
+  }
+  if (!DATA.rounds || !DATA.rounds.length) {
+    box.innerHTML = `<div class="lb">Coming</div>
+      <div class="big">対戦カードは ${esc(DATA.announceDate)} 公開</div>
+      <div class="sub">決勝は9/30(水) 22:00。試合はすべて22:00スタートで、間隔は中2日です。<br>
+        出場者が決まりしだい、このページに山割りが出ます。</div>`;
+    return;
+  }
+  let target = null, label, big, sub = "";
+  if (nx) {
+    target = nx.at ? new Date(nx.at) : null;
+    label = "Next match";
+    big = `${esc(rd.name)}　${esc((nx.a && nx.a.name) || "未定")} <span style="color:var(--blood)">vs</span> ${esc((nx.b && nx.b.name) || "未定")}`;
+    sub = `${esc(rd.date || "")} 22:00〜`;
+  } else {
+    label = "Result";
+    big = DATA.champion ? `🏆 第2代 PRIDE 王者　${esc(DATA.champion)}` : "全試合終了";
+    sub = DATA.runnerUp ? `準優勝　${esc(DATA.runnerUp)}` : "";
+  }
+  box.innerHTML = `<div class="lb">${esc(label)}</div><div class="big">${big}</div>` +
+    (sub ? `<div class="sub">${sub}</div>` : "") + (target ? CDCELLS : "");
+  if (target) countdownInto(box, target);
+})();
+
+/* bracket（山割り図＋試合カード。フォーマット表は出さない） */
+(function(){
+  const area = $("bracketArea");
+  const head = (en, jp) =>
+    `<div class="sect"><span class="en">${en}</span><h2>${jp}</h2><span class="rule"></span></div>`;
+
+  const bslot = (p, isWin, decided) => {
+    let cls="bslot", seed="–", name="未定";
+    if (!p) cls+=" tbd";
+    else {
+      seed = p.seed != null ? p.seed : "–";
+      name = esc(p.name);
+      if (p.bye) { cls+=" bye"; name += "（BYE）"; }
+    }
+    if (decided) cls += isWin ? " win" : " lose";
+    return `<div class="${cls}"><span class="s">${esc(seed)}</span><span class="n">${name}</span></div>`;
+  };
+
+  const cols = (DATA.rounds && DATA.rounds.length)
+    ? DATA.rounds.map(r => ({ name:r.name, date:r.date||"", matches:r.matches }))
+    : DATA.skeleton.map(k => ({ name:k.name, date:"", matches:Array.from({length:k.n},()=>({a:null,b:null,winner:""})) }));
+
+  const parts = [];
+  cols.forEach((c, ci) => {
+    const boxes = c.matches.map(m => {
+      const decided = !!m.winner;
+      return `<div class="bmatch${decided?" done":""}">
+        ${bslot(m.a, m.winner==="a", decided)}
+        ${bslot(m.b, m.winner==="b", decided)}</div>`;
+    }).join("");
+    parts.push(`<div class="bcol">
+      <div class="clab">${esc(c.name)}${c.date?`<i>${esc(c.date)}</i>`:""}</div>
+      <div class="cbody">${boxes}</div></div>`);
+    const nextN = cols[ci+1] ? cols[ci+1].matches.length : 0;
+    if (nextN) parts.push(`<div class="bjoin">${'<i></i>'.repeat(nextN)}</div>`);
+  });
+  const last = cols[cols.length-1], lm = last && last.matches[0];
+  const champ = DATA.champion ? esc(DATA.champion)
+    : (lm && lm.winner ? esc((lm.winner==="a"?lm.a:lm.b).name) : "未定");
+  parts.push(`<div class="bjoin"><i></i></div>`);
+  parts.push(`<div class="bfinal"><div class="bcrown">
+    <div class="c">🏆</div><div class="l">Champion</div><div class="v">${champ}</div></div></div>`);
+
+  const isSkeleton = !(DATA.rounds && DATA.rounds.length);
+  let html = head("Bracket", "トーナメント表") +
+    `<div class="card brwrap"><div class="brscroll">${parts.join("")}</div></div>` +
+    `<p class="brnote">${isSkeleton
+      ? "↔ 横にスクロールできます。上は形のイメージで、確定した山割りは <b>"+esc(DATA.announceDate)+"</b> に公開します。"
+      : "↔ 横にスクロールできます。<b>勝った人が金色</b>で表示されます。"}</p>`;
+
+  if (!isSkeleton) {
+    const sideHTML = (p, isWin, decided) => {
+      let cls="side", res="", seed="–", who="未定";
+      if (!p) cls+=" tbd";
+      else {
+        seed = p.seed != null ? p.seed : "–";
+        who = esc(p.name);
+        if (p.bye) { cls+=" bye"; res="BYE"; }
+      }
+      if (decided) { cls += isWin ? " win" : " lose"; res = isWin ? "WIN 👑" : "LOSE"; }
+      return `<div class="${cls}"><span class="seed">${esc(seed)}</span>
+        <span class="who">${who}</span><span class="res">${res}</span></div>`;
+    };
+    html += head("Matches", "試合ごとの結果");
+    html += DATA.rounds.map(r => {
+      const isFinal = /^決勝/.test(r.name);
+      const ms = r.matches.map(m => `<div class="card match">
+        <div class="mh"><span class="id">${esc(m.id || "")}</span>
+          <span class="when">${esc(r.date || "")} 22:00〜</span></div>
+        ${sideHTML(m.a, m.winner==="a", !!m.winner)}
+        <div class="vs"><span class="l"></span><span class="t">VS</span><span class="l"></span></div>
+        ${sideHTML(m.b, m.winner==="b", !!m.winner)}</div>`).join("");
+      return `<div class="round"><div class="rhead">
+        <span class="nm">${esc(r.name)}</span><span class="dt">${esc(r.date || "")}</span>
+        <span class="sp"></span>
+        <span class="tag${isFinal?" fin":""}">${esc(r.note || (isFinal ? "FINAL" : r.matches.length+"試合"))}</span>
+      </div>${ms}</div>`;
+    }).join("");
+  }
+  area.innerHTML = html;
+})();
+
+/* entrants */
+(function(){
+  const area = $("entrantArea");
+  const head = `<div class="sect"><span class="en">Entrants</span><h2>出場者</h2><span class="rule"></span></div>`;
+  if (!DATA.entrants || !DATA.entrants.length) {
+    area.innerHTML = head + `<div class="card nextup">
+      <div class="lb">Coming</div><div class="big">出場者は 9/16 発表</div>
+      <div class="sub">決まりしだいこのページに並びます。</div></div>`;
+    return;
+  }
+  area.innerHTML = head + `<ul class="elist">` + DATA.entrants.map((e,i) =>
+    `<li${i<3?' class="top3"':""}><span class="n">${esc(e.seed != null ? e.seed : i+1)}</span>
+      <span class="nm">${esc(e.name)}</span>${e.badge?`<span class="bd">${esc(e.badge)}</span>`:""}</li>`).join("")
+    + `</ul>`;
+})();
+</script>
+</body></html>

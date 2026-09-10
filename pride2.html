@@ -346,9 +346,6 @@ body.has-sticky .wrap{padding-bottom:112px}
 </div>
 
 <div id="bracketArea"></div>
-<div class="linkbox" style="margin:14px 0 4px">
-  <a href="pride2-bracket.html"><span>⚔️ この山割りをリスナーさんに見せる用のページ</span></a>
-</div>
 <div id="entrantArea"></div>
 
 <div class="sect"><span class="en">1st Edition</span><h2>第1回の記録（5/21–5/30）</h2><span class="rule"></span></div>
@@ -385,6 +382,7 @@ const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
   ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
 
 function pad(n){ return String(n).padStart(2,"0"); }
+const HAS = !!(DATA.rounds && DATA.rounds.length);
 
 /* ---------- hero meta ---------- */
 (function meta(){
@@ -489,103 +487,31 @@ function countdownInto(root, target){
   if (target) countdownInto(box, target);
 })();
 
-/* ---------- 山割り図（トーナメント表）＋ 対戦カード ---------- */
+/* ---------- 山割りは配布ページに一本化（重複させない）＋ 人数別の形 ---------- */
 (function bracket(){
   const area = $("bracketArea");
   const head = (en, jp) =>
     `<div class="sect"><span class="en">${en}</span><h2>${jp}</h2><span class="rule"></span></div>`;
 
-  /* --- 図のスロット1行 --- */
-  const bslot = (p, isWin, decided) => {
-    let cls="bslot", seed="–", name="未定";
-    if (!p) cls+=" tbd";
-    else {
-      seed = p.seed != null ? p.seed : "–";
-      name = esc(p.name);
-      if (p.bye) { cls+=" bye"; name = name + "（BYE）"; }
-    }
-    if (decided) cls += isWin ? " win" : " lose";
-    return `<div class="${cls}"><span class="s">${esc(seed)}</span><span class="n">${name}</span></div>`;
-  };
+  // 山割り図はリスナー向けページに一本化してある（同じデータを読むので常に同期）
+  let html = head("Bracket", "山割り・対戦表") +
+    `<div class="linkbox" style="margin:0 0 4px">
+       <a href="pride2-bracket.html"><span>⚔️ 山割り・対戦表を開く${HAS ? "" : "（9/14公開）"}</span></a>
+     </div>
+     <p class="brnote">対戦表は<b>リスナーさんに配れるページ</b>にまとめてあります。
+       トーナメント表・試合ごとの対戦カード・勝ち上がり状況はすべてそちらで見られます。
+       <b>このリンクはそのままリスナーさんに渡してOK</b>です（エントリー情報や第1回の実績は入っていません）。</p>`;
 
-  /* --- 図：rounds があれば実データ、無ければ skeleton --- */
-  function diagram(){
-    const cols = DATA.rounds.length
-      ? DATA.rounds.map(r => ({ name:r.name, date:r.date||"", matches:r.matches }))
-      : DATA.skeleton.map(k => ({ name:k.name, date:"", matches:Array.from({length:k.n},()=>({a:null,b:null,winner:""})) }));
-
-    const parts = [];
-    cols.forEach((c, ci) => {
-      const boxes = c.matches.map(m => {
-        const decided = !!m.winner;
-        return `<div class="bmatch${decided?" done":""}">
-          ${bslot(m.a, m.winner==="a", decided)}
-          ${bslot(m.b, m.winner==="b", decided)}</div>`;
-      }).join("");
-      parts.push(`<div class="bcol">
-        <div class="clab">${esc(c.name)}${c.date?`<i>${esc(c.date)}</i>`:""}</div>
-        <div class="cbody">${boxes}</div></div>`);
-      const nextN = cols[ci+1] ? cols[ci+1].matches.length : 0;
-      if (nextN) parts.push(`<div class="bjoin">${'<i></i>'.repeat(nextN)}</div>`);
-    });
-
-    const last = cols[cols.length-1];
-    const champ = DATA.champion ? esc(DATA.champion)
-      : (last && last.matches[0] && last.matches[0].winner
-          ? esc((last.matches[0].winner==="a"?last.matches[0].a:last.matches[0].b).name) : "未定");
-    parts.push(`<div class="bjoin"><i></i></div>`);
-    parts.push(`<div class="bfinal"><div class="bcrown">
-      <div class="c">🏆</div><div class="l">Champion</div><div class="v">${champ}</div></div></div>`);
-
-    return `<div class="card brwrap"><div class="brscroll">${parts.join("")}</div></div>`;
-  }
-
-  const isSkeleton = !DATA.rounds.length;
-  let html = head("Bracket", "トーナメント表") + diagram();
-  html += `<p class="brnote">${isSkeleton
-    ? "↔ 横にスクロールできます。上の表は<b>9〜12名エントリー時の形</b>です。実際の形はエントリー人数で決まり、確定した山割りは <b>"+esc(DATA.announceDate)+"</b> に公開します。"
-    : "↔ 横にスクロールできます。勝者は金色で表示されます。"}</p>`;
-
-  /* --- 対戦カード（rounds がある時だけ） --- */
-  if (!isSkeleton) {
-    const sideHTML = (p, isWin, decided) => {
-      let cls="side", res="", seed="–", who="未定", user="";
-      if (!p) cls+=" tbd";
-      else {
-        seed = p.seed != null ? p.seed : "–";
-        who  = esc(p.name);
-        user = p.user ? `<i>${esc(p.user)}</i>` : "";
-        if (p.bye) { cls+=" bye"; res="BYE"; }
-      }
-      if (decided) { cls += isWin ? " win" : " lose"; res = isWin ? "WIN 👑" : "LOSE"; }
-      return `<div class="${cls}"><span class="seed">${esc(seed)}</span>
-        <span class="who">${who}${user}</span><span class="res">${res}</span></div>`;
-    };
-    html += head("Matches", "試合ごとの結果");
-    html += DATA.rounds.map(r => {
-      const isFinal = /^決勝/.test(r.name);
-      const matches = r.matches.map(m => `<div class="card match">
-        <div class="mh"><span class="id">${esc(m.id || "")}</span>
-          <span class="when">${esc(r.date || "")} 22:00〜</span></div>
-        ${sideHTML(m.a, m.winner==="a", !!m.winner)}
-        <div class="vs"><span class="l"></span><span class="t">VS</span><span class="l"></span></div>
-        ${sideHTML(m.b, m.winner==="b", !!m.winner)}</div>`).join("");
-      return `<div class="round"><div class="rhead">
-        <span class="nm">${esc(r.name)}</span><span class="dt">${esc(r.date || "")}</span>
-        <span class="sp"></span>
-        <span class="tag${isFinal?" fin":""}">${esc(r.note || (isFinal ? "FINAL" : r.matches.length+"試合"))}</span>
-      </div>${matches}</div>`;
-    }).join("");
-  } else {
-    /* --- エントリー前：人数で形が決まる表 --- */
+  if (!HAS) {
     const rows = DATA.format.map(f =>
       `<tr><td>${esc(f.n)}</td><td>${esc(f.br)}</td><td>${esc(f.bye)}</td><td class="nights">${esc(f.nights)}</td></tr>`).join("");
     html += head("Format", "人数で形が決まります") +
       `<div class="card fmt"><table class="fmt-t">
         <thead><tr><th>エントリー</th><th>ブラケット</th><th>BYE</th><th>使う夜（22:00〜）</th></tr></thead>
-        <tbody>${rows}</tbody></table></div>`;
+        <tbody>${rows}</tbody></table></div>
+      <p class="brnote">決勝の <b>9/30(水)</b> から中2日で遡って、必要な夜だけ使います。
+        エントリー締切（9/13）で人数が出たら、この表に当てはめて確定させます。</p>`;
   }
-
   area.innerHTML = html;
 })();
 

@@ -320,6 +320,11 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:14px 2px 0}
 footer{text-align:center;font-size:12px;color:#5e636e;margin-top:38px;
   font-family:'Jost',sans-serif;letter-spacing:.06em}
+.demobar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,43,74,.94);
+  color:#fff;font-size:12px;font-weight:700;padding:9px 14px;text-align:center;line-height:1.5}
+.demobar b{font-family:'Jost',sans-serif;letter-spacing:.16em;margin-right:8px;
+  background:rgba(0,0,0,.28);padding:2px 8px;border-radius:999px}
+body.has-demo .wrap{padding-bottom:104px}
 /* ══════════ OPENING（入場演出） ══════════ */
 #intro{position:fixed;inset:0;z-index:9999;background:#05060a;overflow:hidden;
   display:grid;place-items:center;cursor:pointer}
@@ -439,7 +444,53 @@ body.intro-on{overflow:hidden}
 
 <script src="assets/pride2-data.js"></script>
 <script>
-const DATA = window.PRIDE2;
+/* ══════════ サンプル表示（?demo=1）══════════
+   UI確認用のダミー。本番データ(assets/pride2-data.js)には一切触らない。 */
+const DEMO_DATA = {
+  status:"live", entryDeadline:"2026-09-13T23:59:00+09:00", announceDate:"9/14",
+  finalDate:"2026-09-30T22:00:00+09:00", nights:[], format:[], champion:"", runnerUp:"",
+  skeleton:[{name:"1回戦",n:4},{name:"2回戦",n:4},{name:"準決勝",n:2},{name:"決勝",n:1}],
+  entrants:[
+    {seed:1,name:"🍓まろん@美容整体師🌸",badge:"PRIDE四天王"},
+    {seed:2,name:"maron🐈‍⬛💗",badge:"PRIDE四天王"},
+    {seed:3,name:"元カフェ店員 ☕️ミオ🌿",badge:"初代王者"},
+    {seed:4,name:"れな🐟💚"},
+    {seed:5,name:"ぐでち。🍳💫",badge:"PRIDE"},
+    {seed:6,name:"ぼんじり🐥❤"},
+    {seed:7,name:"まゆ🍀癒し部屋🍀"},
+    {seed:8,name:"雲雀丘モガ"},
+    {seed:9,name:"ノアの方舟🐈‍⬛⚓️"},
+    {seed:10,name:"りーぬちゃん🐹🌻",badge:"PRIDE"},
+    {seed:11,name:"伝説のツチノトちゃん🧡💫"},
+    {seed:12,name:"nunu🍫🩵"}
+  ],
+  rounds:[
+    {name:"1回戦", date:"9/21(月)", matches:[
+      {id:"R1-1", at:"2026-09-21T22:00:00+09:00", a:{seed:5,name:"ぐでち。🍳💫"},          b:{seed:6,name:"ぼんじり🐥❤"},            winner:"a"},
+      {id:"R1-2", at:"2026-09-21T22:00:00+09:00", a:{seed:7,name:"まゆ🍀癒し部屋🍀"},       b:{seed:8,name:"雲雀丘モガ"},              winner:"b"},
+      {id:"R1-3", at:"2026-09-21T22:00:00+09:00", a:{seed:9,name:"ノアの方舟🐈‍⬛⚓️"},      b:{seed:10,name:"りーぬちゃん🐹🌻"},       winner:"b"},
+      {id:"R1-4", at:"2026-09-21T22:00:00+09:00", a:{seed:11,name:"伝説のツチノトちゃん🧡💫"}, b:{seed:12,name:"nunu🍫🩵"},              winner:"a"}]},
+    {name:"2回戦", date:"9/24(木)", matches:[
+      {id:"R2-1", at:"2026-09-24T22:00:00+09:00", a:{seed:1,name:"🍓まろん@美容整体師🌸",bye:true}, b:{seed:5,name:"ぐでち。🍳💫"},        winner:"a"},
+      {id:"R2-2", at:"2026-09-24T22:00:00+09:00", a:{seed:2,name:"maron🐈‍⬛💗",bye:true},        b:{seed:8,name:"雲雀丘モガ"},          winner:"b"},
+      {id:"R2-3", at:"2026-09-24T22:00:00+09:00", a:{seed:3,name:"元カフェ店員 ☕️ミオ🌿",bye:true}, b:{seed:10,name:"りーぬちゃん🐹🌻"},    winner:""},
+      {id:"R2-4", at:"2026-09-24T22:00:00+09:00", a:{seed:4,name:"れな🐟💚",bye:true},            b:{seed:11,name:"伝説のツチノトちゃん🧡💫"}, winner:""}]},
+    {name:"準決勝", date:"9/27(日)", matches:[
+      {id:"SF-1", at:"2026-09-27T22:00:00+09:00", a:{seed:1,name:"🍓まろん@美容整体師🌸"}, b:{seed:8,name:"雲雀丘モガ"}, winner:""},
+      {id:"SF-2", at:"2026-09-27T22:00:00+09:00", a:null, b:null, winner:""}]},
+    {name:"決勝", date:"9/30(水)", matches:[
+      {id:"FINAL", at:"2026-09-30T22:00:00+09:00", a:null, b:null, winner:""}]}]
+};
+const IS_DEMO = /[?&]demo=1/.test(location.search);
+const DATA = IS_DEMO ? DEMO_DATA : window.PRIDE2;
+if (IS_DEMO) {
+  const b = document.createElement("div");
+  b.className = "demobar";
+  document.body && document.body.classList.add("has-demo");
+  b.innerHTML = '<b>SAMPLE</b> UI確認用のサンプル表示です（架空の勝敗）。本番はこの表示になりません。';
+  document.addEventListener("DOMContentLoaded", () => document.body.appendChild(b));
+  if (document.body) document.body.appendChild(b);
+}
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
   ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
@@ -497,7 +548,7 @@ if (HAS) {
   }
   const A = NX.a, B = NX.b, dec = !!NX.winner;
   const side = (p, cls, corner) => {
-    const nm = p ? esc(p.name) + (p.bye ? "（BYE）" : "") : "未定";
+    const nm = p ? esc(p.name) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
     return `<div class="corner ${cls}">
       <div class="cn">${corner}</div><div class="sd">${sd}</div>
@@ -712,7 +763,7 @@ if (HAS) {
   DATA.rounds.forEach((r, ri) => r.matches.forEach(m => all.push({ r, ri, m })));
 
   const side = (p, cls, corner, isWin, dec) => {
-    const nm = p ? esc(p.name) + (p.bye ? "（BYE）" : "") : "未定";
+    const nm = p ? esc(p.name) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
     const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
     const k  = dec ? (isWin ? " win" : " lose") : "";

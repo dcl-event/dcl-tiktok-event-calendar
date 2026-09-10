@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="assets/dcl_mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
 <style>
 :root{
   --void:#08090c; --panel:#12141a; --panel2:#181b23; --sunk:#0d0f14;
@@ -284,6 +284,8 @@ body.has-sticky .wrap{padding-bottom:112px}
 /* ══════════ OPENING（入場演出） ══════════ */
 #intro{position:fixed;inset:0;z-index:9999;background:#05060a;overflow:hidden;
   display:grid;place-items:center;cursor:pointer}
+/* Anton の読み込みが終わるまで演出を 0% で止めておく（PRIDEが最初から居るのを防ぐ） */
+#intro:not(.go) *{animation-play-state:paused!important}
 #intro.out{animation:introOut .62s cubic-bezier(.7,0,.3,1) forwards}
 @keyframes introOut{to{opacity:0;transform:scale(1.06);visibility:hidden}}
 #intro .stage{position:relative;text-align:center;padding:0 18px;width:100%}
@@ -617,6 +619,12 @@ function countdownInto(root, target){
   try { seen = sessionStorage.getItem("pride2-intro") === "1"; } catch(e){}
   if (reduce || seen) { el.remove(); document.body.classList.remove("intro-on"); return; }
   try { sessionStorage.setItem("pride2-intro", "1"); } catch(e){}
+  // Anton が来てから走らせる（代替フォント表示中にスラムが終わるのを防ぐ）
+  const go = () => { el.classList.add("go"); setTimeout(close, 3000); };
+  const fontReady = (document.fonts && document.fonts.load)
+    ? document.fonts.load('400 100px Anton', 'PRIDE').catch(() => {})
+    : Promise.resolve();
+  Promise.race([fontReady, new Promise(r => setTimeout(r, 1400))]).then(() => requestAnimationFrame(go));
   let closed = false;
   function close(){
     if (closed) return; closed = true;
@@ -625,7 +633,6 @@ function countdownInto(root, target){
     setTimeout(() => el.remove(), 700);
   }
   el.addEventListener("click", close);
-  setTimeout(close, 3000);
 })();
 </script>
 </body></html>

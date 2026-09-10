@@ -516,7 +516,9 @@ if (HAS) {
 
 /* ── ROUND STEPPER ── */
 (function(){
-  const rounds = HAS ? DATA.rounds : DATA.skeleton.map(k => ({ name:k.name, date:"" }));
+  const PRE = ["9/21","9/24","9/27","9/30"];
+  const rounds = HAS ? DATA.rounds
+    : DATA.skeleton.map((k,i) => ({ name:k.name, date:(PRE[i] || "") + (PRE[i] ? " 予定" : "") }));
   $("stepper").innerHTML = rounds.map((r,i) => {
     const allDone = HAS && DATA.rounds[i].matches.every(m => m.winner);
     const cur = HAS && i === NRI;
@@ -576,12 +578,14 @@ if (HAS) {
       if (p.bye) { cls += " bye"; name += "（BYE）"; }
     }
     if (decided) cls += isWin ? " win" : " lose";
+    const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";
     return `<div class="${cls}"><span class="s">${esc(seed)}</span>
-      <span class="n">${name}</span><span class="k">👑</span></div>`;
+      <span class="n">${name}</span>${crown}</div>`;
   };
   const cols = HAS
     ? DATA.rounds.map(r => ({ name:r.name, date:r.date || "", matches:r.matches }))
-    : DATA.skeleton.map(k => ({ name:k.name, date:"", matches:Array.from({length:k.n},()=>({a:null,b:null,winner:""})) }));
+    : DATA.skeleton.map((k,i) => ({ name:k.name, date:(["9/21","9/24","9/27","9/30"][i] || "") + " 予定",
+        matches:Array.from({length:k.n},()=>({a:null,b:null,winner:""})) }));
 
   const parts = [];
   cols.forEach((c, ci) => {
@@ -618,7 +622,7 @@ if (HAS) {
     <div class="swipe">Swipe</div>
     <p class="brnote">${HAS
       ? "<b>勝った人が金色＋👑</b>、負けた人は取り消し線。<b>赤く光っている枠が次の試合</b>です。"
-      : "上は形のイメージです。確定した山割りは <b>9/14</b> にここへ出ます。"}</p>`;
+      : "上は<b>形と日程の目安</b>です。何回戦になるかは出場人数で決まり、確定した山割りは <b>9/14</b> にここへ出ます。<b>決勝の9/30だけは確定</b>です。"}</p>`;
 })();
 
 /* ── 対戦表カルーセル（横スワイプで試合を切り替え／名前で飛ぶ）── */

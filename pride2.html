@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="assets/dcl_mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --void:#08090c; --panel:#12141a; --panel2:#181b23; --sunk:#0d0f14;
@@ -327,11 +327,13 @@ body.has-sticky .wrap{padding-bottom:112px}
   letter-spacing:.36em;text-indent:.36em;text-transform:uppercase;color:var(--muted);
   margin-top:15px;opacity:0;animation:fadeUp .5s 1.10s ease-out forwards}
 #intro .plate b{color:var(--gold);font-weight:700}
-#intro .cry{font-weight:800;font-size:clamp(15px,4.7vw,22px);color:#fff;margin-top:16px;
-  letter-spacing:.36em;text-indent:.36em;line-height:1.5;
-  opacity:0;animation:cry .85s 1.38s cubic-bezier(.2,.9,.2,1) forwards}
-@keyframes cry{0%{opacity:0;letter-spacing:1.1em;text-indent:1.1em;filter:blur(6px)}
-  100%{opacity:1;letter-spacing:.36em;text-indent:.36em;filter:blur(0)}}
+#intro .cry{font-family:'Noto Serif JP','Hiragino Mincho ProN',serif;font-weight:900;
+  font-size:clamp(20px,6.4vw,32px);color:#fff;margin-top:19px;
+  letter-spacing:.24em;text-indent:.24em;line-height:1.62;
+  text-shadow:0 0 30px rgba(240,180,41,.30), 0 1px 0 rgba(0,0,0,.6);
+  opacity:0;animation:cry .95s 1.38s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes cry{0%{opacity:0;letter-spacing:.92em;text-indent:.92em;filter:blur(7px)}
+  100%{opacity:1;letter-spacing:.24em;text-indent:.24em;filter:blur(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 #intro .skip{position:absolute;right:16px;bottom:18px;font-family:'Jost',sans-serif;font-size:11px;
   font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);

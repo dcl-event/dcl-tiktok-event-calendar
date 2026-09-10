@@ -129,6 +129,30 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .fight .champ .v{font-family:'Anton',sans-serif;font-size:clamp(24px,7vw,34px);color:var(--gold-lt);
   margin-top:4px;line-height:1.15}
 
+/* 次のラウンド＝全試合を横スライド */
+.fight .fmeta{display:flex;align-items:center;gap:8px;padding:11px 15px 0}
+.fight .fmeta .n{font-family:'Jost',sans-serif;font-size:11px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold)}
+.fight .fmeta .t{font-size:12.5px;font-weight:700;color:var(--ink-dim)}
+.fcar{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+  scrollbar-width:none}
+.fcar::-webkit-scrollbar{display:none}
+.fslide{flex:0 0 100%;scroll-snap-align:center;min-width:0}
+.fslide .mid{display:flex;align-items:center;gap:8px;padding:9px 15px 0}
+.fslide .mid .id{font-family:'Jost',sans-serif;font-size:10px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.fslide .mid .st{font-family:'Jost',sans-serif;font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;margin-left:auto}
+.fslide .mid .st.d{color:var(--gold-lt)}
+.fslide .mid .st.w{color:#ffb9c4}
+.fight .fdots{display:flex;justify-content:center;align-items:center;gap:6px;padding:4px 0 14px}
+.fight .fdots i{width:7px;height:7px;border-radius:50%;background:var(--line-lt);transition:.2s}
+.fight .fdots i.on{background:var(--blood);width:22px;border-radius:4px}
+.fight .fswipe{display:flex;align-items:center;justify-content:center;gap:7px;
+  font-family:'Jost',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);padding:2px 0 0}
+.fight .fswipe::before,.fight .fswipe::after{content:"";width:22px;height:1px;background:var(--line-lt)}
+
 /* ══ ROUND STEPPER ══ */
 .stepper{display:flex;align-items:flex-start;padding:15px 8px 13px;margin-bottom:14px;
   overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -525,7 +549,7 @@ if (HAS) {
     `最終更新: ${j.getFullYear()}-${pad(j.getMonth()+1)}-${pad(j.getDate())} ${pad(j.getHours())}:${pad(j.getMinutes())} JST`;
 })();
 
-/* ── FIGHT CARD ── */
+/* ── FIGHT CARD：次のラウンドの全試合（同時スタートなので全部見せる）── */
 (function(){
   const box = $("fight");
   const CD = `<div class="cd">
@@ -535,44 +559,87 @@ if (HAS) {
   if (!HAS) {
     box.innerHTML = `<div class="teaser">
       <div class="big">対戦カードは 9/14 公開</div>
-      <div class="sub">出場者が決まりしだい、ここに1回戦のカードが出ます。<br>
+      <div class="sub">出場者が決まりしだい、ここに1回戦の全カードが出ます。<br>
         決勝は <b style="color:#fff">9/30(水) 22:00</b>。試合はすべて22:00スタート、間隔は中2日です。</div></div>`;
     return;
   }
-  if (!NX) {
-    const champ = DATA.champion || "";
+  if (NRI < 0) {
     box.innerHTML = `<div class="champ"><div class="c">🏆</div>
-      <div class="l">Champion</div><div class="v">${esc(champ || "決定")}</div>
+      <div class="l">Champion</div><div class="v">${esc(DATA.champion || "決定")}</div>
       ${DATA.runnerUp ? `<div class="sub" style="color:var(--muted);font-size:13px;margin-top:9px">準優勝　${esc(DATA.runnerUp)}</div>` : ""}</div>`;
     return;
   }
-  const A = NX.a, B = NX.b, dec = !!NX.winner;
-  const side = (p, cls, corner) => {
+
+  const RD = DATA.rounds[NRI];
+  const ms = RD.matches;                        // このラウンドは全試合が同時刻スタート
+  const at = (ms.find(m => m.at) || {}).at || null;
+
+  const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
-    return `<div class="corner ${cls}">
+    const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
+    return `<div class="corner ${cls}${dec ? (isWin ? " win" : " lose") : ""}">
       <div class="cn">${corner}</div><div class="sd">${sd}</div>
-      <div class="nm">${nm}</div><div class="st">&nbsp;</div></div>`;
+      <div class="nm">${nm}</div><div class="st">${st}</div></div>`;
   };
-  box.innerHTML = `<div class="fh">
-      <span class="lb">Next</span><span class="rnd">${esc(NRD.name)}</span>
-      <span class="when">${esc(NRD.date || "")} 22:00〜</span></div>
-    <div class="bout">
-      ${side(A, "red", "Red corner")}
-      <div class="vsmid"><b>VS</b></div>
-      ${side(B, "blue", "Blue corner")}
-    </div>${NX.at ? CD : ""}`;
 
-  if (!NX.at) return;
-  const t = new Date(NX.at), cells = box.querySelectorAll(".cd b");
-  (function tick(){
-    let ms = t - new Date();
-    if (ms <= 0) { cells.forEach(c => c.textContent = "0"); return; }
-    const s = Math.floor(ms/1000);
-    const v = [Math.floor(s/86400), Math.floor(s%86400/3600), Math.floor(s%3600/60), s%60];
-    cells.forEach((c,i) => c.textContent = i === 0 ? String(v[i]) : pad(v[i]));
-    setTimeout(tick, 1000);
-  })();
+  const slides = ms.map(m => {
+    const dec = !!m.winner;
+    const stat = dec
+      ? `<span class="st d">勝者 ${esc(((m.winner === "a" ? m.a : m.b) || {}).name || "")}</span>`
+      : `<span class="st w">試合前</span>`;
+    return `<div class="fslide">
+      <div class="mid"><span class="id">${esc(m.id || "")}</span>${stat}</div>
+      <div class="bout">
+        ${side(m.a, "red", "Red corner", m.winner === "a", dec)}
+        <div class="vsmid"><b>VS</b></div>
+        ${side(m.b, "blue", "Blue corner", m.winner === "b", dec)}
+      </div></div>`;
+  }).join("");
+
+  const left = ms.filter(m => !m.winner).length;
+  box.innerHTML = `<div class="fh">
+      <span class="lb">Next</span><span class="rnd">${esc(RD.name)}</span>
+      <span class="when">${esc(RD.date || "")} 22:00〜</span></div>
+    <div class="fmeta"><span class="n">${ms.length} matches</span>
+      <span class="t">全${ms.length}試合が22:00に同時スタート${left && left < ms.length ? `（残り${left}試合）` : ""}</span></div>
+    ${at ? CD : ""}
+    <div class="fcar" id="fcar">${slides}</div>
+    ${ms.length > 1 ? `<div class="fdots" id="fdots">${ms.map((_,i)=>`<i${i===0?' class="on"':""}></i>`).join("")}</div>
+      <div class="fswipe">Swipe</div><div style="height:12px"></div>` : `<div style="height:14px"></div>`}`;
+
+  if (at) {
+    const t = new Date(at), cells = box.querySelectorAll(".cd b");
+    (function tick(){
+      let d = t - new Date();
+      if (d <= 0) { cells.forEach(c => c.textContent = "0"); return; }
+      const sec = Math.floor(d/1000);
+      const v = [Math.floor(sec/86400), Math.floor(sec%86400/3600), Math.floor(sec%3600/60), sec%60];
+      cells.forEach((c,i) => c.textContent = i === 0 ? String(v[i]) : pad(v[i]));
+      setTimeout(tick, 1000);
+    })();
+  }
+
+  const car = $("fcar"), dotsEl = $("fdots");
+  if (car && dotsEl) {
+    const dots = dotsEl.children, sl = car.children;
+    let raf = 0;
+    car.addEventListener("scroll", () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const mid = car.scrollLeft + car.clientWidth / 2;
+        let best = 0, bd = Infinity;
+        for (let i = 0; i < sl.length; i++) {
+          const c = sl[i], cm = c.offsetLeft + c.offsetWidth / 2, dd = Math.abs(cm - mid);
+          if (dd < bd) { bd = dd; best = i; }
+        }
+        for (let i = 0; i < dots.length; i++) dots[i].className = i === best ? "on" : "";
+      });
+    }, { passive:true });
+    // 未消化の最初の試合に合わせる
+    const fi = ms.findIndex(m => !m.winner);
+    if (fi > 0) requestAnimationFrame(() => sl[fi].scrollIntoView({ inline:"center", block:"nearest" }));
+  }
 })();
 
 /* ── ROUND STEPPER ── */

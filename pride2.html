@@ -434,10 +434,6 @@ body.intro-on{overflow:hidden}
   中2日の作戦会議で枠の空気が変わり、<b>ここでバトルの面白さに気づいた方が何人も出ました</b>。</p>
 </div>
 
-<div class="linkbox">
-  <a href="pride2-bracket.html"><span>⚔️ 山割り・対戦表 — リスナーさんにそのまま配れるページ</span></a>
-</div>
-
 <p class="note" id="note"></p>
 
 <footer>DeNA Creator Links — DCL Tournament PRIDE</footer>
@@ -566,8 +562,9 @@ function countdownInto(root, target){
     `<div class="sect"><span class="en">${en}</span><h2>${jp}</h2><span class="rule"></span></div>`;
 
   // 山割り図はリスナー向けページに一本化してある（同じデータを読むので常に同期）
-  // 山割りへの導線はページ最下部の1本に集約。ここでは出さない。
-  let html = "";
+  let html = `<div class="linkbox">
+       <a href="pride2-bracket.html"><span>⚔️ 山割り・対戦表 — リスナーさんにそのまま配れるページ</span></a>
+     </div>`;
 
   if (!HAS) {
     const rows = DATA.format.map(f =>

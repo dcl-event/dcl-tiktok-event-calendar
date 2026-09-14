@@ -566,13 +566,8 @@ function countdownInto(root, target){
     `<div class="sect"><span class="en">${en}</span><h2>${jp}</h2><span class="rule"></span></div>`;
 
   // 山割り図はリスナー向けページに一本化してある（同じデータを読むので常に同期）
-  let html = head("Bracket", "山割り・対戦表") +
-    `<div class="linkbox" style="margin:0 0 4px">
-       <a href="pride2-bracket.html"><span>⚔️ 山割り・対戦表を開く${HAS ? "" : "（9/14公開）"}</span></a>
-     </div>
-     <p class="brnote">対戦表は<b>リスナーさんに配れるページ</b>にまとめてあります。
-       トーナメント表・試合ごとの対戦カード・勝ち上がり状況はすべてそちらで見られます。
-       <b>このリンクはそのままリスナーさんに渡してOK</b>です（エントリー情報や第1回の実績は入っていません）。</p>`;
+  // 山割りへの導線はページ最下部の1本に集約。ここでは出さない。
+  let html = "";
 
   if (!HAS) {
     const rows = DATA.format.map(f =>

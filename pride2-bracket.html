@@ -444,34 +444,13 @@ body.intro-on{overflow:hidden}
 
 <div class="fight" id="fight"></div>
 <div class="card stepper" id="stepper"></div>
-<div id="surviveArea"></div>
 <div id="bracketArea"></div>
 <div id="cardArea"></div>
-
-<div class="sect"><span class="en">How to watch</span><h2>応援のしかた</h2><span class="rule"></span></div>
-<div class="card">
-  <div class="rbody">
-    <div class="rsec"><div class="rh">試合のきまり</div><ul>
-      <li>試合はすべて<b>22:00スタート</b>の1vs1バトルです</li>
-      <li><b>勝った方が次に進みます。負けたらそこで終了</b></li>
-      <li>勝敗は<b>バトルスコアが高い方</b>が勝ち</li>
-      <li><b>グローブは1試合2個まで</b>（それ以外のアイテムは制限なし）</li>
-    </ul></div>
-    <div class="rsec"><div class="rh">ここが面白いところ</div><ul>
-      <li>試合の間は<b>中2日</b>。この2日でどれだけアイテムを貯められるかが勝敗を分けます</li>
-      <li>だから<b>試合当日だけでなく、間の2日も戦いの一部</b>です</li>
-      <li>優勝・準優勝のおふたりには<b>トロフィー</b>が贈られます</li>
-    </ul></div>
-  </div>
-</div>
 
 <div class="share">
   <button type="button" id="copyBtn">🔗 リンクをコピー</button>
   <a id="xBtn" href="#" target="_blank" rel="noopener">𝕏 でシェア</a>
 </div>
-
-<p class="note">主催：DeNA Creator Links ／ 第2回 DCLトーナメント PRIDE。<br>
-試合日はすべて22:00スタート、間隔は中2日です。対戦カードと日程は確定後に随時更新します。</p>
 
 <footer>DeNA Creator Links — DCL Tournament PRIDE</footer>
 </div>
@@ -669,6 +648,7 @@ if (HAS) {
 /* ── SURVIVORS ── */
 (function(){
   const area = $("surviveArea");
+  if (!area) return;                 // 勝ち上がりブロックは非表示
   if (!HAS) {
     if (!DATA.entrants || !DATA.entrants.length) {
       area.innerHTML = `<div class="sect"><span class="en">Entrants</span><h2>出場者</h2><span class="rule"></span></div>

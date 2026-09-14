@@ -546,7 +546,7 @@ if (HAS) {
   const b = [];
   if (DATA.status === "live") b.push('<span class="pill hot"><span class="dot"></span>開催中</span>');
   else if (DATA.status === "done") b.push('<span class="pill gold">大会終了</span>');
-  else b.push('<span class="pill hot">9/21 開幕</span>');
+  else b.push('<span class="pill hot">' + ((DATA.nights && DATA.nights[0]) || "") + ' 開幕</span>');
   b.push('<span class="pill gold">🏆 決勝 9/30(水) 22:00</span>');
   b.push('<span class="pill">TikTok LIVE</span>');
   b.push('<span class="pill">1vs1 勝ち抜き</span>');
@@ -654,7 +654,7 @@ if (HAS) {
 
 /* ── ROUND STEPPER ── */
 (function(){
-  const PRE = ["9/21","9/24","9/27","9/30"];
+  const PRE = DATA.nights || [];
   const rounds = HAS ? DATA.rounds
     : DATA.skeleton.map((k,i) => ({ name:k.name, date:(PRE[i] || "") + (PRE[i] ? " 予定" : "") }));
   $("stepper").innerHTML = rounds.map((r,i) => {
@@ -713,7 +713,7 @@ if (HAS) {
     else {
       seed = p.seed != null ? p.seed : "–";
       name = esc(p.name);
-      if (p.bye) { cls += " bye"; name += "（1回戦免除）"; }
+      if (p.bye) { cls += " bye"; name += "（シード）"; }
     }
     if (decided) cls += isWin ? " win" : " lose";
     const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";
@@ -722,7 +722,7 @@ if (HAS) {
   };
   const cols = HAS
     ? DATA.rounds.map(r => ({ name:r.name, date:r.date || "", matches:r.matches }))
-    : DATA.skeleton.map((k,i) => ({ name:k.name, date:(["9/21","9/24","9/27","9/30"][i] || "") + " 予定",
+    : DATA.skeleton.map((k,i) => ({ name:k.name, date:(((DATA.nights||[])[i]) || "") + " 予定",
         matches:Array.from({length:k.n},()=>({a:null,b:null,winner:""})) }));
 
   const parts = [];
@@ -770,7 +770,10 @@ if (HAS) {
   const SVGNS = "http://www.w3.org/2000/svg";
 
   // 前ラウンド→次ラウンドの対応。同数なら1:1（BYEのラウンド）、倍なら2:1
-  function mapping(prevN, nextN){
+  function mapping(prevN, nextN, nextMatches){
+    // データ側が src（前ラウンドの試合番号）を持っていればそれに従う（BYEが偏る山割り用）
+    if (nextMatches && nextMatches.some(m => Array.isArray(m.src)))
+      return nextMatches.map(m => Array.isArray(m.src) ? m.src : []);
     if (prevN === nextN) return Array.from({length:nextN}, (_,i)=>[i]);
     if (prevN === nextN * 2) return Array.from({length:nextN}, (_,i)=>[2*i, 2*i+1]);
     return null;
@@ -803,7 +806,7 @@ if (HAS) {
     };
 
     for (let ci = 0; ci < cols.length - 1; ci++) {
-      const map = mapping(cols[ci].matches.length, cols[ci+1].matches.length);
+      const map = mapping(cols[ci].matches.length, cols[ci+1].matches.length, cols[ci+1].matches);
       if (!map) continue;
       map.forEach((srcIdx, ti) => {
         const tEl = byCol[ci+1][ti]; if (!tEl) return;

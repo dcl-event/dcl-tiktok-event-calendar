@@ -4,26 +4,67 @@
    両方が同時に更新されます。
      status : "entry"（エントリー受付中）/ "live"（開催中）/ "done"（終了）
      rounds : winner は "a" / "b" / ""（未確定）
+     src    : その試合に勝ち上がってくる「前ラウンドの試合番号」（0始まり）
    ══════════════════════════════════════════════════════════════ */
 window.PRIDE2 = {
-  status: "entry",
+  status: "live",
   entryDeadline: "2026-09-13T23:59:00+09:00",
   announceDate: "9/14",
   finalDate: "2026-09-30T22:00:00+09:00",
-  nights: ["9/18", "9/21", "9/24", "9/27", "9/30"],
+  nights: ["9/18", "9/24", "9/27", "9/30"],
+  champion: "",
+  runnerUp: "",
   format: [
     { n: "2名",     br: "一本勝負",      bye: "—",     nights: "9/30" },
     { n: "3〜4名",  br: "4枠・2回戦",    bye: "4−N",   nights: "9/27 → 9/30" },
     { n: "5〜8名",  br: "8枠・3回戦",    bye: "8−N",   nights: "9/24 → 9/27 → 9/30" },
-    { n: "9〜12名", br: "16枠・4回戦",   bye: "16−N",  nights: "9/21 → 9/24 → 9/27 → 9/30" },
+    { n: "9〜12名", br: "16枠・4回戦",   bye: "16−N",  nights: "9/18 → 9/24 → 9/27 → 9/30" },
     { n: "13名〜",  br: "16枠・4回戦",   bye: "16−N",  nights: "9/18・9/21（1回戦を2夜に分割）→ 以降同じ" }
   ],
   skeleton: [
-    { name: "1回戦",  n: 4 },
-    { name: "2回戦",  n: 4 },
-    { name: "準決勝", n: 2 },
-    { name: "決勝",   n: 1 }
+    { name: "1回戦",   n: 3 },
+    { name: "準々決勝", n: 4 },
+    { name: "準決勝",   n: 2 },
+    { name: "決勝",     n: 1 }
   ],
-  entrants: [],
-  rounds: []
+  entrants: [
+    { seed: 1,  name: "🍓まろん@美容整体師🌸",              badge: "PRIDE四天王" },
+    { seed: 2,  name: "maron🐈‍⬛💗",                      badge: "PRIDE四天王" },
+    { seed: 3,  name: "ぐでち。🍳💫" },
+    { seed: 4,  name: "まゆ🍀癒し部屋🍀" },
+    { seed: 5,  name: "雲雀丘モガ" },
+    { seed: 6,  name: "りーぬちゃん🐹🌻" },
+    { seed: 7,  name: "伝説のツチノトちゃん🧡💫" },
+    { seed: 8,  name: "nunu🍫🩵" },
+    { seed: 9,  name: "ゆあ🐶🍫" },
+    { seed: 10, name: "さーたん🎀👑" },
+    { seed: 11, name: "ましゅまろ　うめ" }
+  ],
+  rounds: [
+    { name: "1回戦", date: "9/18(金)", matches: [
+      { id: "R1-1", at: "2026-09-18T22:00:00+09:00",
+        a: { seed: 8,  name: "nunu🍫🩵" },              b: { seed: 9,  name: "ゆあ🐶🍫" },       winner: "" },
+      { id: "R1-2", at: "2026-09-18T22:00:00+09:00",
+        a: { seed: 10, name: "さーたん🎀👑" },            b: { seed: 11, name: "ましゅまろ　うめ" }, winner: "" },
+      { id: "R1-3", at: "2026-09-18T22:00:00+09:00",
+        a: { seed: 6,  name: "りーぬちゃん🐹🌻" },        b: { seed: 7,  name: "伝説のツチノトちゃん🧡💫" }, winner: "" }
+    ]},
+    { name: "準々決勝", date: "9/24(木)", matches: [
+      { id: "QF-1", at: "2026-09-24T22:00:00+09:00", src: [0],
+        a: { seed: 2, name: "maron🐈‍⬛💗", bye: true },          b: null, winner: "" },
+      { id: "QF-2", at: "2026-09-24T22:00:00+09:00", src: [],
+        a: { seed: 4, name: "まゆ🍀癒し部屋🍀", bye: true },      b: { seed: 5, name: "雲雀丘モガ", bye: true }, winner: "" },
+      { id: "QF-3", at: "2026-09-24T22:00:00+09:00", src: [1],
+        a: { seed: 3, name: "ぐでち。🍳💫", bye: true },          b: null, winner: "" },
+      { id: "QF-4", at: "2026-09-24T22:00:00+09:00", src: [2],
+        a: { seed: 1, name: "🍓まろん@美容整体師🌸", bye: true }, b: null, winner: "" }
+    ]},
+    { name: "準決勝", date: "9/27(日)", matches: [
+      { id: "SF-1", at: "2026-09-27T22:00:00+09:00", a: null, b: null, winner: "" },
+      { id: "SF-2", at: "2026-09-27T22:00:00+09:00", a: null, b: null, winner: "" }
+    ]},
+    { name: "決勝", date: "9/30(水)", matches: [
+      { id: "FINAL", at: "2026-09-30T22:00:00+09:00", a: null, b: null, winner: "" }
+    ]}
+  ]
 };

@@ -597,7 +597,7 @@ if (HAS) {
       <span class="lb">Next</span><span class="rnd">${esc(RD.name)}</span>
       <span class="when">${esc(RD.date || "")} 22:00〜</span></div>
     <div class="fmeta"><span class="n">${ms.length} matches</span>
-      <span class="t">全${ms.length}試合が22:00に同時スタート${left && left < ms.length ? `（残り${left}試合）` : ""}</span></div>
+      <span class="t">全${ms.length}試合が22:00に同時スタート${(() => { const real = ms.filter(x => !wdDecided(x)); const rest = real.filter(x => !x.winner).length; return (rest && rest < real.length) ? `（残り${rest}試合）` : ""; })()}</span></div>
     ${at ? CD : ""}
     <div class="fcar" id="fcar">${slides}</div>
     ${ms.length > 1 ? `<div class="fdots" id="fdots">${ms.map((_,i)=>`<i${i===0?' class="on"':""}></i>`).join("")}</div>
@@ -716,7 +716,7 @@ if (HAS) {
     const fin = /^決勝/.test(c.name);
     const boxes = c.matches.map(m => {
       const dec = !!m.winner && !wdDecided(m);
-      const isNext = NX && m === NX;
+      const isNext = ci === NRI && !dec;
       const tag = isNext ? "NEXT" : (dec ? "DONE" : (m.id || ""));
       return `<div class="bmatch${dec ? " done" : ""}${isNext ? " next" : ""}" data-c="${ci}">
         ${tag ? `<span class="mtag">${esc(tag)}</span>` : ""}

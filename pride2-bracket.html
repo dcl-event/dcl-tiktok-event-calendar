@@ -694,6 +694,7 @@ if (HAS) {
       seed = p.seed != null ? p.seed : "–";
       name = esc(p.name);
       if (p.bye) { cls += " bye"; name += "（シード）"; }
+      if (p.withdrew) { cls += " bye"; name += "（辞退）"; }
     }
     if (decided) cls += isWin ? " win" : " lose";
     const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";

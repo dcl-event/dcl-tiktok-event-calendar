@@ -570,7 +570,7 @@ if (HAS) {
   const at = (ms.find(m => m.at) || {}).at || null;
 
   const side = (p, cls, corner, isWin, dec) => {
-    const nm = p ? esc(p.name) : "未定";
+    const nm = p ? (esc(p.name) + (p.withdrew ? "（辞退）" : "")) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
     const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
     return `<div class="corner ${cls}${dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : ""}">
@@ -700,9 +700,9 @@ if (HAS) {
       seed = p.seed != null ? p.seed : "–";
       name = esc(p.name);
       if (p.bye) { cls += " bye"; name += "（シード）"; }
+      if (p.withdrew) name += "（辞退）";
     }
-    if (p.withdrew) name += "（辞退）";
-    if (decided) cls += isWin ? " win" : (p.withdrew ? " wd" : " lose");
+    if (decided) cls += isWin ? " win" : ((p && p.withdrew) ? " wd" : " lose");
     const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";
     return `<div class="${cls}"><span class="s">${esc(seed)}</span>
       <span class="n">${name}</span>${crown}</div>`;
@@ -828,7 +828,7 @@ if (HAS) {
   DATA.rounds.forEach((r, ri) => r.matches.forEach(m => all.push({ r, ri, m })));
 
   const side = (p, cls, corner, isWin, dec) => {
-    const nm = p ? esc(p.name) : "未定";
+    const nm = p ? (esc(p.name) + (p.withdrew ? "（辞退）" : "")) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
     const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
     const k  = dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : "";

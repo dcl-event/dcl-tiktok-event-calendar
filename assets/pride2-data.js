@@ -54,19 +54,23 @@ window.PRIDE2 = {
     { name: "準々決勝", date: "9/24(木)", matches: [
       { id: "QF-1", at: "2026-09-24T22:00:00+09:00", src: [0],
         a: { seed: 2, name: "maron🐈‍⬛💗", bye: true },
-        b: { seed: 8, name: "nunu🍫🩵" }, winner: "" },
+        b: { seed: 8, name: "nunu🍫🩵" }, winner: "a" },
       { id: "QF-2", at: "2026-09-24T22:00:00+09:00", src: [],
-        a: { seed: 4, name: "まゆ🍀癒し部屋🍀", bye: true },      b: { seed: 5, name: "雲雀丘モガ@ギフトスター200位目標！", bye: true }, winner: "" },
+        a: { seed: 4, name: "まゆ🍀癒し部屋🍀", bye: true },      b: { seed: 5, name: "雲雀丘モガ@ギフトスター200位目標！", bye: true }, winner: "a" },
       { id: "QF-3", at: "2026-09-24T22:00:00+09:00", src: [1],
         a: { seed: 3, name: "ぐでち。🍳💫", bye: true },
-        b: { seed: 10, name: "さーたん🎀👑登竜門参戦🐉" }, winner: "" },
+        b: { seed: 10, name: "さーたん🎀👑登竜門参戦🐉" }, winner: "a" },
       { id: "QF-4", at: "2026-09-24T22:00:00+09:00", src: [2],
         a: { seed: 1, name: "ｷﾞﾌﾄｽﾀｰ🍓まろん@美容整体師🌸", bye: true },
-        b: { seed: 6, name: "りーぬちゃん🐹🌻" }, winner: "" }
+        b: { seed: 6, name: "りーぬちゃん🐹🌻" }, winner: "b" }
     ]},
     { name: "準決勝", date: "9/27(日)", matches: [
-      { id: "SF-1", at: "2026-09-27T22:00:00+09:00", a: null, b: null, winner: "" },
-      { id: "SF-2", at: "2026-09-27T22:00:00+09:00", a: null, b: null, winner: "" }
+      { id: "SF-1", at: "2026-09-27T22:00:00+09:00", src: [0, 1],
+        a: { seed: 2, name: "maron🐈‍⬛💗" },
+        b: { seed: 4, name: "まゆ🍀癒し部屋🍀" }, winner: "" },
+      { id: "SF-2", at: "2026-09-27T22:00:00+09:00", src: [2, 3],
+        a: { seed: 3, name: "ぐでち。🍳💫" },
+        b: { seed: 6, name: "りーぬちゃん🐹🌻" }, winner: "" }
     ]},
     { name: "決勝", date: "9/30(水)", matches: [
       { id: "FINAL", at: "2026-09-30T22:00:00+09:00", a: null, b: null, winner: "" }

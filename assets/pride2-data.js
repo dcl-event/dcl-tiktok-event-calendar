@@ -67,13 +67,15 @@ window.PRIDE2 = {
     { name: "準決勝", date: "9/27(日)", matches: [
       { id: "SF-1", at: "2026-09-27T22:00:00+09:00", src: [0, 1],
         a: { seed: 2, name: "maron🐈‍⬛💗" },
-        b: { seed: 4, name: "まゆ🍀癒し部屋🍀" }, winner: "" },
+        b: { seed: 4, name: "まゆ🍀癒し部屋🍀" }, winner: "b" },
       { id: "SF-2", at: "2026-09-27T22:00:00+09:00", src: [2, 3],
         a: { seed: 3, name: "ぐでち。🍳💫" },
-        b: { seed: 6, name: "りーぬちゃん🐹🌻" }, winner: "" }
+        b: { seed: 6, name: "りーぬちゃん🐹🌻" }, winner: "a" }
     ]},
     { name: "決勝", date: "9/30(水)", matches: [
-      { id: "FINAL", at: "2026-09-30T22:00:00+09:00", a: null, b: null, winner: "" }
+      { id: "FINAL", at: "2026-09-30T22:00:00+09:00", src: [0, 1],
+        a: { seed: 4, name: "まゆ🍀癒し部屋🍀" },
+        b: { seed: 3, name: "ぐでち。🍳💫" }, winner: "" }
     ]}
   ]
 };

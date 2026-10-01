@@ -353,17 +353,22 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   letter-spacing:.2em;text-indent:.2em;color:var(--gold-lt);margin:6px 0 12px}
 .champ .nm{font-size:clamp(28px,7.4vw,46px);font-weight:800;line-height:1.25;color:#fff;
   overflow-wrap:anywhere;text-shadow:0 0 34px rgba(240,180,41,.45)}
-.champ .bar{width:84px;height:2px;margin:18px auto 16px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.champ .ru{font-size:13px;color:var(--ink-dim)}
-.champ .ru b{color:#fff;font-weight:800;font-size:15px}
-.champ .ru span{font-family:'Jost',sans-serif;font-size:10px;font-weight:800;letter-spacing:.2em;
   text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
 .champ .cry{margin:22px auto 0;max-width:30ch;font-family:'Noto Serif JP',serif;font-weight:900;
   font-size:clamp(15px,3.8vw,19px);letter-spacing:.14em;line-height:1.9;color:#fff}
 .champ .cry em{font-style:normal;color:var(--gold-lt)}
-.champ .meta{margin-top:16px;font-size:11.5px;color:var(--muted);letter-spacing:.06em}
 @media (prefers-reduced-motion:reduce){.champ::before,.champ::after{animation:none}}
+
+
+.runner{display:flex;align-items:center;gap:16px;margin:0 0 10px;padding:16px 20px;
+  border:1px solid var(--line-lt);border-radius:14px;background:var(--panel);}
+.runner .medal{font-size:30px;line-height:1;flex:none}
+.runner .rt{flex:1;min-width:0}
+.runner .lb2{font-family:'Jost',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--silver)}
+.runner .rn{font-size:17px;font-weight:800;color:var(--ink);margin-top:3px;overflow-wrap:anywhere}
+.runner .rnote{flex:none;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.champmeta{text-align:center;font-size:11.5px;color:var(--muted);letter-spacing:.06em;margin:0 0 26px}
 
 /* ══ share ══ */
 .share{display:flex;gap:9px;margin:22px 0 4px}
@@ -580,11 +585,14 @@ if (HAS) {
       <div class="cup">🏆</div>
       <div class="ttl">第2代 PRIDE 王者</div>
       <div class="nm">${esc(champ)}</div>
-      <div class="bar"></div>
-      ${ru ? `<div class="ru"><span>Runner-up</span><b>${esc(ru)}</b></div>` : ""}
       <p class="cry">勝ち上がったのは、<em>たった一人</em>。<br>次は、あなたがこの場所に立つ番です。</p>
-      <div class="meta">${n ? n + "名が参加 ／ " : ""}全10試合 ／ 決勝 9/30(水)</div>
-    </div></section>`;
+    </div></section>
+    ${ru ? `<section class="runner">
+      <div class="medal">🥈</div>
+      <div class="rt"><div class="lb2">Runner-up</div><div class="rn">${esc(ru)}</div></div>
+      <div class="rnote">決勝進出</div>
+    </section>` : ""}
+    <div class="champmeta">${n ? n + "名が参加 ／ " : ""}全10試合 ／ 決勝 9/30(水) 22:00</div>`;
 })();
 
 /* ── hero meta ── */
@@ -619,12 +627,7 @@ if (HAS) {
         決勝は <b style="color:#fff">9/30(水) 22:00</b>。試合はすべて22:00スタート、間隔は中2日です。</div></div>`;
     return;
   }
-  if (NRI < 0) {
-    box.innerHTML = `<div class="champ"><div class="c">🏆</div>
-      <div class="l">Champion</div><div class="v">${esc(DATA.champion || "決定")}</div>
-      ${DATA.runnerUp ? `<div class="sub" style="color:var(--muted);font-size:13px;margin-top:9px">準優勝　${esc(DATA.runnerUp)}</div>` : ""}</div>`;
-    return;
-  }
+  if (NRI < 0) { box.remove(); return; }   // 優勝表示は championArea に一本化
 
   const RD = DATA.rounds[NRI];
   const ms = RD.matches;                        // このラウンドは全試合が同時刻スタート

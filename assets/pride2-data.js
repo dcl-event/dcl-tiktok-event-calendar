@@ -7,13 +7,13 @@
      src    : その試合に勝ち上がってくる「前ラウンドの試合番号」（0始まり）
    ══════════════════════════════════════════════════════════════ */
 window.PRIDE2 = {
-  status: "live",
+  status: "done",
   entryDeadline: "2026-09-13T23:59:00+09:00",
   announceDate: "9/14",
   finalDate: "2026-09-30T22:00:00+09:00",
   nights: ["9/20", "9/24", "9/27", "9/30"],
-  champion: "",
-  runnerUp: "",
+  champion: "ぐでち。🍳💫",
+  runnerUp: "まゆ🍀癒し部屋🍀",
   format: [
     { n: "2名",     br: "一本勝負",      bye: "—",     nights: "9/30" },
     { n: "3〜4名",  br: "4枠・2回戦",    bye: "4−N",   nights: "9/27 → 9/30" },
@@ -75,7 +75,7 @@ window.PRIDE2 = {
     { name: "決勝", date: "9/30(水)", matches: [
       { id: "FINAL", at: "2026-09-30T22:00:00+09:00", src: [0, 1],
         a: { seed: 4, name: "まゆ🍀癒し部屋🍀" },
-        b: { seed: 3, name: "ぐでち。🍳💫" }, winner: "" }
+        b: { seed: 3, name: "ぐでち。🍳💫" }, winner: "b" }
     ]}
   ]
 };

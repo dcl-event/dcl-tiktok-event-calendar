@@ -327,6 +327,44 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .rsec li{font-size:13.5px;line-height:1.85;color:var(--ink-dim)}
 .rsec li b{color:#fff}
 
+
+/* ══ CHAMPION（大会終了時の表彰ブロック）══ */
+.champ{position:relative;overflow:hidden;margin:4px 0 26px;padding:40px 24px 34px;text-align:center;
+  border:1px solid rgba(240,180,41,.45);border-radius:20px;
+  background:
+    radial-gradient(900px 300px at 50% -40%, rgba(240,180,41,.26), rgba(240,180,41,0) 68%),
+    linear-gradient(180deg,#1a1710 0%,#101118 62%,var(--panel) 100%);
+  box-shadow:0 22px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,221,138,.18)}
+.champ::before{content:"";position:absolute;inset:-60% -20%;pointer-events:none;opacity:.5;
+  background:repeating-conic-gradient(from 0deg at 50% 0%,
+    rgba(255,221,138,.10) 0deg 6deg, rgba(255,221,138,0) 6deg 14deg);
+  animation:rays 26s linear infinite}
+@keyframes rays{to{transform:rotate(360deg)}}
+.champ::after{content:"";position:absolute;left:-40%;top:0;width:40%;height:100%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);
+  animation:sheen 4.8s ease-in-out infinite}
+@keyframes sheen{0%{left:-40%}55%{left:120%}100%{left:120%}}
+.champ .inner{position:relative;z-index:1}
+.champ .lb{font-family:'Jost',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold);text-indent:.34em}
+.champ .cup{font-size:clamp(54px,13vw,86px);line-height:1;margin:10px 0 2px;
+  filter:drop-shadow(0 0 26px rgba(240,180,41,.6))}
+.champ .ttl{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(14px,3.4vw,17px);
+  letter-spacing:.2em;text-indent:.2em;color:var(--gold-lt);margin:6px 0 12px}
+.champ .nm{font-size:clamp(28px,7.4vw,46px);font-weight:800;line-height:1.25;color:#fff;
+  overflow-wrap:anywhere;text-shadow:0 0 34px rgba(240,180,41,.45)}
+.champ .bar{width:84px;height:2px;margin:18px auto 16px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.champ .ru{font-size:13px;color:var(--ink-dim)}
+.champ .ru b{color:#fff;font-weight:800;font-size:15px}
+.champ .ru span{font-family:'Jost',sans-serif;font-size:10px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.champ .cry{margin:22px auto 0;max-width:30ch;font-family:'Noto Serif JP',serif;font-weight:900;
+  font-size:clamp(15px,3.8vw,19px);letter-spacing:.14em;line-height:1.9;color:#fff}
+.champ .cry em{font-style:normal;color:var(--gold-lt)}
+.champ .meta{margin-top:16px;font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+@media (prefers-reduced-motion:reduce){.champ::before,.champ::after{animation:none}}
+
 /* ══ share ══ */
 .share{display:flex;gap:9px;margin:22px 0 4px}
 .share button,.share a{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
@@ -444,6 +482,7 @@ body.intro-on{overflow:hidden}
 
 <div class="updated" id="updated"></div>
 
+<div id="championArea"></div>
 <div class="fight" id="fight"></div>
 <div class="card stepper" id="stepper"></div>
 <div id="bracketArea"></div>
@@ -525,6 +564,28 @@ if (HAS) {
     }
   }
 }
+
+
+/* ── CHAMPION ── */
+(function(){
+  const area = $("championArea"); if (!area) return;
+  const fin = HAS ? DATA.rounds[DATA.rounds.length-1].matches[0] : null;
+  const champ = DATA.champion || (fin && fin.winner ? (fin.winner === "a" ? fin.a : fin.b).name : "");
+  if (!champ) return;
+  const ru = DATA.runnerUp || (fin && fin.winner ? (fin.winner === "a" ? fin.b : fin.a).name : "");
+  const n = (DATA.entrants || []).length;
+  area.innerHTML = `
+    <section class="champ"><div class="inner">
+      <div class="lb">Champion</div>
+      <div class="cup">🏆</div>
+      <div class="ttl">第2代 PRIDE 王者</div>
+      <div class="nm">${esc(champ)}</div>
+      <div class="bar"></div>
+      ${ru ? `<div class="ru"><span>Runner-up</span><b>${esc(ru)}</b></div>` : ""}
+      <p class="cry">勝ち上がったのは、<em>たった一人</em>。<br>次は、あなたがこの場所に立つ番です。</p>
+      <div class="meta">${n ? n + "名が参加 ／ " : ""}全10試合 ／ 決勝 9/30(水)</div>
+    </div></section>`;
+})();
 
 /* ── hero meta ── */
 (function(){

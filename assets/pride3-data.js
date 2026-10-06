@@ -13,9 +13,9 @@ window.PRIDE3 = {
   consecutive: true,
   intervalNote: "4夜連続（中日なし）",
 
-  /* ── 3連戦（2本先取）と3位決定戦 ── */
-  bestOf: 3,
-  bestOfNote: "3回戦以下は全試合が3連戦。4回戦になる場合は決勝と3位決定戦だけ3連戦",
+  /* ── 3本勝負は決勝と3位決定戦だけ。それ以外は一本勝負 ── */
+  bestOfFinalOnly: true,
+  bestOfNote: "3本勝負は決勝と3位決定戦だけ。それ以外の試合は一本勝負",
   thirdPlace: true,
   trophies: 3,                                      // 優勝・準優勝・3位
 

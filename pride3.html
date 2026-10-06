@@ -114,8 +114,8 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
 .rsec li b{color:#fff}
 
 /* ── trophy ── */
-.prizes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:460px){.prizes{grid-template-columns:1fr}}
+.prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:720px){.prizes{grid-template-columns:1fr}}
 .prize{position:relative;overflow:hidden;padding:16px 16px 15px;text-align:center}
 .prize .ico{font-size:30px;line-height:1}
 .prize .r{font-family:'Jost',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;

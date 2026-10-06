@@ -3,8 +3,8 @@
    翌月以降は finalLabel / finalDate / nights / format の夜だけ差し替えればそのまま使えます。 */
 window.PRIDE3 = {
   status: "entry",                                  // entry → live → done
-  entryDeadline: "2026-10-18T23:59:00+09:00",
-  announceDate: "10/19",
+  entryDeadline: "2026-10-13T23:59:00+09:00",
+  announceDate: "10/15(木)",
 
   /* ── 日程（連日開催・中日なし／決勝は月の最終日） ── */
   finalDate:  "2026-10-31T22:00:00+09:00",
@@ -17,6 +17,7 @@ window.PRIDE3 = {
   bestOf: 3,
   bestOfNote: "3回戦以下は全試合が3連戦。4回戦になる場合は決勝と3位決定戦だけ3連戦",
   thirdPlace: true,
+  trophies: 3,                                      // 優勝・準優勝・3位
 
   champion: "",
   runnerUp: "",

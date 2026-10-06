@@ -506,7 +506,7 @@ body.intro-on{overflow:hidden}
 /* ══════════ サンプル表示（?demo=1）══════════
    UI確認用のダミー。本番データ(assets/pride3-data.js)には一切触らない。 */
 const DEMO_DATA = {
-  status:"live", entryDeadline:"2026-10-18T23:59:00+09:00", announceDate:"10/19",
+  status:"live", entryDeadline:"2026-10-13T23:59:00+09:00", announceDate:"10/15(木)",
   finalDate:"2026-10-31T22:00:00+09:00", finalLabel:"10/31(土)", nights:[], format:[], champion:"", runnerUp:"",
   skeleton:[{name:"1回戦",n:4},{name:"2回戦",n:4},{name:"準決勝",n:2},{name:"決勝",n:1}],
   entrants:[
@@ -623,11 +623,11 @@ if (HAS) {
 
   if (!HAS) {
     box.innerHTML = `<div class="teaser">
-      <div class="big">対戦カードは 10/19 公開</div>
+      <div class="big">対戦カードは ${esc(DATA.announceDate || "")} 公開</div>
       <div class="sub">出場者が決まりしだい、ここに1回戦の全カードが出ます。<br>
         決勝は <b style="color:#fff">${esc(DATA.finalLabel || "")} 22:00</b>。試合はすべて22:00スタート、<b style="color:#fff">4夜連続（中日なし）</b>。<br>
         1カードは<b style="color:#fff">3連戦</b>で、先に2勝した方が勝ち上がりです。<br>
-        最終日は<b style="color:#fff">3位決定戦のあとに決勝</b>をやります。</div></div>`;
+        最終日は<b style="color:#fff">3位決定戦のあとに決勝</b>。トロフィーは<b style="color:#fff">優勝・準優勝・3位の3つ</b>です。</div></div>`;
     return;
   }
   if (NRI < 0) { box.remove(); return; }   // 優勝表示は championArea に一本化

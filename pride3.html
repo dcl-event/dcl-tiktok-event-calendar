@@ -403,16 +403,18 @@ body.intro-on{overflow:hidden}
       <li><b>開始5分を過ぎて枠が立たない場合は不戦敗</b>になります</li>
       <li>勝った方は<b>結果のスクショをLINEで送ってください</b></li>
       <li><b>4夜連続で開催します。中日はありません</b>（10/28→10/29→10/30→10/31）</li>
+      <li><b>10月のうちに終わります。</b>11月には持ち越しません</li>
       <li>連戦なので<b>アイテムは配分を考えて使ってください</b>。1夜で使い切ると後半がつらくなります</li>
       <li>日程の個別調整はできません。勝ち進んだ場合に候補の夜すべて配信できる方だけご参加ください</li>
     </ul></div>
     <div class="rsec"><div class="rh">賞</div><ul>
-      <li><b>優勝・準優勝のおふたりにトロフィー</b>をお渡しします</li>
+      <li><b>優勝・準優勝・3位のお三方にトロフィー</b>をお渡しします</li>
+      <li>3位は<b>3位決定戦に勝った方</b>です</li>
     </ul></div>
   </div>
 </details>
 
-<div class="sect"><span class="en">Trophy</span><h2>今回はトロフィーが2つ</h2><span class="rule"></span></div>
+<div class="sect"><span class="en">Trophy</span><h2>今回はトロフィーが3つ</h2><span class="rule"></span></div>
 <div class="prizes">
   <div class="card prize p1">
     <div class="ico">🏆</div><div class="r">Champion</div>
@@ -422,7 +424,12 @@ body.intro-on{overflow:hidden}
   <div class="card prize p2">
     <div class="ico">🥈</div><div class="r">Runner-up</div>
     <div class="t">準優勝</div>
-    <div class="d">トロフィー。第1回は優勝の1つだけでした</div>
+    <div class="d">トロフィー</div>
+  </div>
+  <div class="card prize p2">
+    <div class="ico">🥉</div><div class="r">3rd place</div>
+    <div class="t">3位</div>
+    <div class="d">トロフィー。第1回は優勝の1つだけ、第2回は2つでした</div>
   </div>
 </div>
 
@@ -596,7 +603,7 @@ function countdownInto(root, target){
         <thead><tr><th>エントリー</th><th>ブラケット</th><th>BYE</th><th>使う夜（22:00〜）</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
       <p class="brnote">決勝の <b>${esc(DATA.finalLabel)}</b> から連日で遡って、必要な夜だけ使います。
-        エントリー締切（10/18）で人数が出たら、この表に当てはめて確定させます。<br>
+        エントリー締切（10/13）で人数が出たら、この表に当てはめて確定させます。<br>
         <b>1カードは3連戦（2本先取）。</b>${esc(DATA.bestOfNote||"")}。</p>`;
   }
   area.innerHTML = html;
@@ -611,7 +618,7 @@ function countdownInto(root, target){
       `<div class="card nextup">
          <div class="lb">Entry</div>
          <div class="big">出場者は ${esc(DATA.announceDate || "")} 発表</div>
-         <div class="sub">エントリー締切は10/18(日)。<strong>招待をお送りした方が参加対象</strong>です。<br>
+         <div class="sub">エントリー締切は10/13(火)。<strong>招待をお送りした方が参加対象</strong>です。<br>
            勝ち上がった場合は <b>10/28〜10/31 の4夜すべて</b>配信できる方のみご参加ください。</div>
        </div>`;
     return;

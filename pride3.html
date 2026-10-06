@@ -402,7 +402,7 @@ body.intro-on{overflow:hidden}
       <li>試合はすべて<b>22:00〜</b>スタート</li>
       <li><b>開始5分を過ぎて枠が立たない場合は不戦敗</b>になります</li>
       <li>勝った方は<b>結果のスクショをLINEで送ってください</b></li>
-      <li><b>4夜連続で開催します。中日はありません</b>（10/28→10/29→10/30→10/31）</li>
+      <li><b>連日開催です。中日はありません。</b>決勝 10/31(土) から連日で遡って、必要な夜だけ使います（最大 10/28→10/29→10/30→10/31）</li>
       <li><b>10月のうちに終わります。</b>11月には持ち越しません</li>
       <li>連戦なので<b>アイテムは配分を考えて使ってください</b>。1夜で使い切ると後半がつらくなります</li>
       <li>日程の個別調整はできません。勝ち進んだ場合に候補の夜すべて配信できる方だけご参加ください</li>
@@ -489,7 +489,7 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   bits.push(`<span class="pill gold">🏆 決勝 ${esc(DATA.finalLabel)} 22:00</span>`);
   bits.push(`<span class="pill">TikTok LIVE</span>`);
   bits.push(`<span class="pill">3連戦・2本先取</span>`);
-  bits.push(`<span class="pill">4夜連続</span>`);
+  bits.push(`<span class="pill">連日開催</span>`);
   $("metarow").innerHTML = bits.join("");
 })();
 
@@ -559,7 +559,7 @@ function countdownInto(root, target){
   if (DATA.status === "entry") {
     box.innerHTML = `<div class="lb">Tournament</div>
       <div class="big">決勝は ${esc(DATA.finalLabel)} 22:00</div>
-      <div class="sub">試合はすべて22:00スタート、<b>4夜連続（中日なし）</b>。1カードは3連戦で、先に2勝した方が勝ち上がりです。<br>
+      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。1カードは3連戦で、先に2勝した方が勝ち上がりです。<br>
         何回戦やるかはエントリー人数で決まります（決勝の日だけ固定）。</div>`;
     return;
   }

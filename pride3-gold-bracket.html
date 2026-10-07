@@ -7,7 +7,7 @@
 <link rel="icon" href="assets/dcl_mark.png">
 <link rel="apple-touch-icon" href="assets/dcl_mark.png">
 <meta property="og:title" content="DCLトーナメント PRIDE ／ 山割り">
-<meta property="og:description" content="一本勝負の勝ち抜き。決勝と3位決定戦は3回勝負。連日開催。決勝は10/27(火) 22:00。">
+<meta property="og:description" content="一本勝負の勝ち抜き。決勝と3位決定戦は3回勝負。連日開催。決勝は10/31(土) 22:00。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
@@ -466,7 +466,7 @@ body.intro-on{overflow:hidden}
     <div class="kicker">DCL Tournament</div>
     <div class="word">PR<em>I</em>DE<span class="gh r" aria-hidden="true">PRIDE</span><span class="gh b" aria-hidden="true">PRIDE</span></div>
     <div class="bar"></div>
-    <div class="plate"><b>1st</b> Edition &nbsp;·&nbsp; Final <b>10.27</b></div>
+    <div class="plate"><b>1st</b> Edition &nbsp;·&nbsp; Final <b>10.31</b></div>
     <div class="cry">一世一代の名誉を</div>
   </div>
   <div class="skip">Skip ›</div>
@@ -507,7 +507,7 @@ body.intro-on{overflow:hidden}
    UI確認用のダミー。本番データ(assets/pride3-gold-data.js)には一切触らない。 */
 const DEMO_DATA = {
   status:"live", entryDeadline:"2026-10-13T23:59:00+09:00", announceDate:"10/15(木)",
-  finalDate:"2026-10-27T22:00:00+09:00", finalLabel:"10/27(火)", nights:[], format:[], champion:"", runnerUp:"",
+  finalDate:"2026-10-31T22:00:00+09:00", finalLabel:"10/31(土)", nights:[], format:[], champion:"", runnerUp:"",
   skeleton:[{name:"1回戦",n:4},{name:"2回戦",n:4},{name:"準決勝",n:2},{name:"決勝",n:1}],
   entrants:[
     {seed:1,name:"？？？"},
@@ -524,21 +524,21 @@ const DEMO_DATA = {
     {seed:12,name:"？？？"}
   ],
   rounds:[
-    {name:"1回戦", date:"10/24(土)", matches:[
-      {id:"R1-1", at:"2026-10-24T22:00:00+09:00", a:{seed:5,name:"？？？"},          b:{seed:6,name:"？？？"},            winner:""},
-      {id:"R1-2", at:"2026-10-24T22:00:00+09:00", a:{seed:7,name:"？？？"},       b:{seed:8,name:"？？？"},              winner:""},
-      {id:"R1-3", at:"2026-10-24T22:00:00+09:00", a:{seed:9,name:"？？？"},      b:{seed:10,name:"？？？"},       winner:""},
-      {id:"R1-4", at:"2026-10-24T22:00:00+09:00", a:{seed:11,name:"？？？"}, b:{seed:12,name:"？？？"},              winner:""}]},
-    {name:"準々決勝", date:"10/25(日)", matches:[
-      {id:"R2-1", at:"2026-10-25T22:00:00+09:00", a:{seed:1,name:"？？？",bye:true}, b:{seed:5,name:"？？？"},        winner:""},
-      {id:"R2-2", at:"2026-10-25T22:00:00+09:00", a:{seed:2,name:"？？？",bye:true},        b:{seed:8,name:"？？？"},          winner:""},
-      {id:"R2-3", at:"2026-10-25T22:00:00+09:00", a:{seed:3,name:"？？？",bye:true}, b:{seed:10,name:"？？？"},    winner:""},
-      {id:"R2-4", at:"2026-10-25T22:00:00+09:00", a:{seed:4,name:"？？？",bye:true},            b:{seed:11,name:"？？？"}, winner:""}]},
-    {name:"準決勝", date:"10/26(月)", matches:[
-      {id:"SF-1", at:"2026-10-26T22:00:00+09:00", a:{seed:1,name:"？？？"}, b:{seed:8,name:"？？？"}, winner:""},
-      {id:"SF-2", at:"2026-10-26T22:00:00+09:00", a:null, b:null, winner:""}]},
-    {name:"決勝", date:"10/27(火)", matches:[
-      {id:"FINAL", at:"2026-10-27T22:00:00+09:00", a:null, b:null, winner:""}]}]
+    {name:"1回戦", date:"10/28(水)", matches:[
+      {id:"R1-1", at:"2026-10-28T22:00:00+09:00", a:{seed:5,name:"？？？"},          b:{seed:6,name:"？？？"},            winner:""},
+      {id:"R1-2", at:"2026-10-28T22:00:00+09:00", a:{seed:7,name:"？？？"},       b:{seed:8,name:"？？？"},              winner:""},
+      {id:"R1-3", at:"2026-10-28T22:00:00+09:00", a:{seed:9,name:"？？？"},      b:{seed:10,name:"？？？"},       winner:""},
+      {id:"R1-4", at:"2026-10-28T22:00:00+09:00", a:{seed:11,name:"？？？"}, b:{seed:12,name:"？？？"},              winner:""}]},
+    {name:"準々決勝", date:"10/29(木)", matches:[
+      {id:"R2-1", at:"2026-10-29T22:00:00+09:00", a:{seed:1,name:"？？？",bye:true}, b:{seed:5,name:"？？？"},        winner:""},
+      {id:"R2-2", at:"2026-10-29T22:00:00+09:00", a:{seed:2,name:"？？？",bye:true},        b:{seed:8,name:"？？？"},          winner:""},
+      {id:"R2-3", at:"2026-10-29T22:00:00+09:00", a:{seed:3,name:"？？？",bye:true}, b:{seed:10,name:"？？？"},    winner:""},
+      {id:"R2-4", at:"2026-10-29T22:00:00+09:00", a:{seed:4,name:"？？？",bye:true},            b:{seed:11,name:"？？？"}, winner:""}]},
+    {name:"準決勝", date:"10/30(金)", matches:[
+      {id:"SF-1", at:"2026-10-30T22:00:00+09:00", a:{seed:1,name:"？？？"}, b:{seed:8,name:"？？？"}, winner:""},
+      {id:"SF-2", at:"2026-10-30T22:00:00+09:00", a:null, b:null, winner:""}]},
+    {name:"決勝", date:"10/31(土)", matches:[
+      {id:"FINAL", at:"2026-10-31T22:00:00+09:00", a:null, b:null, winner:""}]}]
 };
 const IS_DEMO = /[?&]demo=1/.test(location.search);
 const DATA = IS_DEMO ? DEMO_DATA : window.PRIDE3G;

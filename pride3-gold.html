@@ -371,7 +371,7 @@ body.intro-on{overflow:hidden}
   <div class="inner">
     <div class="eyebrow">DCL Tournament</div>
     <div class="mark">PR<em>I</em>DE</div>
-    <div class="jp">DCLトーナメント</div>
+    <div class="jp">DCLトーナメント<span id="divisionJp"></span></div>
     <div class="tagline">🔥 一世一代の名誉を。初代の王者を決める。</div>
     <div class="metarow" id="metarow"></div>
   </div>
@@ -384,16 +384,17 @@ body.intro-on{overflow:hidden}
 
 <div class="sect"><span class="en">Rules</span><h2>大会ルール</h2><span class="rule"></span></div>
 <details class="rules">
-  <summary>ルールを開く（一本勝負・決勝は3本勝負・連日開催・アイテム）</summary>
+  <summary>ルールを開く（一本勝負・決勝は3回勝負・3位決定戦・連日開催）</summary>
   <div class="rbody">
     <div class="rsec"><div class="rh">形式</div><ul>
       <li><b>1vs1の勝ち抜き制。</b>負けたらそこで終了</li>
-      <li><b>決勝と3位決定戦だけ3本勝負。</b>先に2勝した方が勝ちです</li>
+      <li><b>決勝は3回勝負。そのうち2回勝った方が優勝</b>です</li>
+      <li><b>3位決定戦をやります。</b>こちらも3回勝負で、2回勝った方が3位です</li>
       <li>それ以外の試合は<b>一本勝負</b>。1回負けたら終わりです</li>
       <li>勝敗は<b>バトルスコアが高い方</b>が勝ち</li>
       <li><b>招待制</b>。今回ご案内した方が参加対象です</li>
       <li>何回戦やるかは<b>エントリー人数で決まる</b>（決勝は<b id="ruleFinal">10/27(火)</b>固定）</li>
-      <li><b>3位決定戦をやります</b>。準決勝で敗れたおふたりが決勝の前に戦います</li>
+      <li>3位決定戦は<b>準決勝で敗れたおふたり</b>が、決勝の前に戦います</li>
     </ul></div>
     <div class="rsec"><div class="rh">アイテム</div><ul>
       <li><b>グローブは1試合2個まで</b></li>
@@ -470,10 +471,13 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   const bits = [];
   bits.push(`<span class="pill ${S[1]}">${DATA.status==="live"?'<span class="dot"></span>':""}${esc(S[0])}</span>`);
   bits.push(`<span class="pill gold">🏆 決勝 ${esc(DATA.finalLabel)} 22:00</span>`);
+  if (DATA.division) bits.push(`<span class="pill gold">${esc(DATA.division)}</span>`);
   bits.push(`<span class="pill">TikTok LIVE</span>`);
-  bits.push(`<span class="pill">決勝は3本勝負</span>`);
+  bits.push(`<span class="pill">決勝は3回勝負</span>`);
+  bits.push(`<span class="pill">3位決定戦あり</span>`);
   bits.push(`<span class="pill">連日開催</span>`);
   $("metarow").innerHTML = bits.join("");
+  if (DATA.division) { const d = $("divisionJp"); if (d) d.textContent = "　" + DATA.division; }
 })();
 
 /* ---------- updated / note ---------- */
@@ -542,7 +546,7 @@ function countdownInto(root, target){
   if (DATA.status === "entry") {
     box.innerHTML = `<div class="lb">Tournament</div>
       <div class="big">決勝は ${esc(DATA.finalLabel)} 22:00</div>
-      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負で、<b>決勝と3位決定戦だけ3本勝負</b>（2勝した方が勝ち）です。<br>
+      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負。<b>決勝と3位決定戦だけ3回勝負</b>で、2回勝った方が勝ちです。<br>
         何回戦やるかはエントリー人数で決まります（決勝の日だけ固定）。</div>`;
     return;
   }
@@ -587,7 +591,7 @@ function countdownInto(root, target){
         <tbody>${rows}</tbody></table></div>
       <p class="brnote">決勝の <b>${esc(DATA.finalLabel)}</b> から連日で遡って、必要な夜だけ使います。
         エントリー締切（10/13）で人数が出たら、この表に当てはめて確定させます。<br>
-        ${esc(DATA.bestOfNote||"")}。</p>`;
+        ${esc(DATA.bestOfNote||"")}。<br><b>3位決定戦は決勝と同じ夜</b>に、決勝の前にやります。</p>`;
   }
   area.innerHTML = html;
 })();

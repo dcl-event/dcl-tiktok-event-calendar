@@ -114,6 +114,13 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
 .rsec li b{color:#fff}
 
 /* ── trophy ── */
+.trophypic{margin:0 0 12px;display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:18px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.trophypic img{width:100%;height:auto;display:block;border-radius:10px;background:var(--sunk)}
+.trophypic figcaption{font-size:13.5px;line-height:1.95;color:var(--ink-dim)}
+.trophypic figcaption b{color:var(--ink)}
+.trophypic figcaption .cap{display:block;margin-top:10px;font-size:11px;color:var(--muted)}
+@media(max-width:720px){.trophypic{grid-template-columns:1fr;gap:12px}}
 .prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:720px){.prizes{grid-template-columns:1fr}}
 .prize{position:relative;overflow:hidden;padding:16px 16px 15px;text-align:center}
@@ -417,6 +424,15 @@ body.intro-on{overflow:hidden}
 </details>
 
 <div class="sect"><span class="en">Trophy</span><h2>今回はトロフィーが3つ</h2><span class="rule"></span></div>
+<figure class="trophypic">
+  <img src="assets/trophy-stack.webp" alt="受賞プレートが積み上がっていくDCLのトロフィー" loading="lazy" decoding="async">
+  <figcaption>
+    DCLのトロフィーは、<b>受賞するたびに台座へプレートが積み上がっていきます。</b><br>
+    一度きりの置き物ではなく、<b>勝った数だけ厚くなっていく記録</b>です。<br>
+    ここに自分の名前が刻まれたプレートを、何枚載せられるか。
+    <span class="cap">※写真はイメージです。プレートの内容は受賞した賞によって変わります</span>
+  </figcaption>
+</figure>
 <div class="prizes">
   <div class="card prize p1">
     <div class="ico">🏆</div><div class="r">Champion</div>

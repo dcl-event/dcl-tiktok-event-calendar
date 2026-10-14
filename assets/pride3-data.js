@@ -2,14 +2,14 @@
    ここだけ直せば、企画書ページ(pride3.html)と配布ページ(pride3-bracket.html)が両方変わります。
    翌月以降は finalLabel / finalDate / nights / format の夜だけ差し替えればそのまま使えます。 */
 window.PRIDE3 = {
-  status: "entry",                                  // entry → live → done
+  status: "live",                                  // entry → live → done
   entryDeadline: "2026-10-13T23:59:00+09:00",
   announceDate: "10/15(木)",
 
-  /* ── 日程（連日開催・中日なし／決勝は月の最終日） ── */
+  /* ── 日程（連日・中日なし。4名なので10/31から2夜を使う） ── */
   finalDate:  "2026-10-31T22:00:00+09:00",
   finalLabel: "10/31(土)",
-  nights: ["10/28(水)", "10/29(木)", "10/30(金)", "10/31(土)"],
+  nights: ["10/30(金)", "10/31(土)"],
   consecutive: true,
   intervalNote: "4夜連続（中日なし）",
 
@@ -32,9 +32,23 @@ window.PRIDE3 = {
 
   /* エントリー締切後に rounds を入れると、この skeleton は使われなくなります */
   skeleton: [
-    { name: "1回戦", n: 8 }, { name: "準々決勝", n: 4 }, { name: "準決勝", n: 2 }, { name: "決勝", n: 1 }
+    { name: "準決勝", n: 2 }, { name: "決勝", n: 1 }
   ],
 
-  entrants: [],
-  rounds: []
+  entrants: [
+    { seed: 1, name: "れな🐟💚" },
+    { seed: 2, name: "🍓まろん@美容整体師🌸" },
+    { seed: 3, name: "maron🐈‍⬛💗" },
+    { seed: 4, name: "おどぎ" }
+  ],
+
+  rounds: [
+    { name: "準決勝", date: "10/30(金)", matches: [
+      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", a: { seed: 1, name: "れな🐟💚" },           b: { seed: 4, name: "おどぎ" },        winner: "" },
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", a: { seed: 2, name: "🍓まろん@美容整体師🌸" }, b: { seed: 3, name: "maron🐈‍⬛💗" }, winner: "" }
+    ]},
+    { name: "決勝", date: "10/31(土)", matches: [
+      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }
+    ]}
+  ]
 };

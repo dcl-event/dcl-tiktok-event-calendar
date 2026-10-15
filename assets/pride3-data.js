@@ -13,11 +13,11 @@ window.PRIDE3 = {
   consecutive: true,
   intervalNote: "4夜連続（中日なし）",
 
-  /* ── 3回勝負は決勝と3位決定戦だけ。それ以外は一本勝負 ── */
+  /* ── 3回勝負は決勝だけ。それ以外は一本勝負 ── */
   bestOfFinalOnly: true,
-  bestOfNote: "3回勝負は決勝と3位決定戦だけ。2回勝った方が勝ち。それ以外の試合は一本勝負",
-  thirdPlace: true,
-  trophies: 3,                                      // 優勝・準優勝・3位
+  bestOfNote: "3回勝負は決勝だけ。2回勝った方が優勝。それ以外の試合は一本勝負",
+  thirdPlace: false,                                // 4名なので3位決定戦はやらない
+  trophies: 1,                                      // 優勝のみ                                      // 優勝・準優勝・3位
 
   champion: "",
   runnerUp: "",

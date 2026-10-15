@@ -124,6 +124,7 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
 .trophypic figcaption .cap{display:block;margin-top:10px;font-size:11px;color:var(--muted)}
 @media(max-width:720px){.trophypic{grid-template-columns:1fr;gap:12px}}
 .prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.prizes.one{grid-template-columns:minmax(0,340px);justify-content:center}
 @media(max-width:720px){.prizes{grid-template-columns:1fr}}
 .prize{position:relative;overflow:hidden;padding:16px 16px 15px;text-align:center}
 .prize .ico{font-size:30px;line-height:1}
@@ -393,17 +394,15 @@ body.intro-on{overflow:hidden}
 
 <div class="sect"><span class="en">Rules</span><h2>大会ルール</h2><span class="rule"></span></div>
 <details class="rules">
-  <summary>ルールを開く（一本勝負・決勝は3回勝負・3位決定戦・アイテムはグローブのみ）</summary>
+  <summary>ルールを開く（一本勝負・決勝は3回勝負・アイテムはグローブのみ）</summary>
   <div class="rbody">
     <div class="rsec"><div class="rh">形式</div><ul>
       <li><b>1vs1の勝ち抜き制。</b>負けたらそこで終了</li>
       <li><b>決勝は3回勝負。そのうち2回勝った方が優勝</b>です</li>
-      <li><b>3位決定戦をやります。</b>こちらも3回勝負で、2回勝った方が3位です</li>
       <li>それ以外の試合は<b>一本勝負</b>。1回負けたら終わりです</li>
       <li>勝敗は<b>バトルスコアが高い方</b>が勝ち</li>
       <li><b>招待制</b>。今回ご案内した方が参加対象です</li>
       <li>何回戦やるかは<b>エントリー人数で決まる</b>（決勝は<b id="ruleFinal">10/31(土)</b>固定）</li>
-      <li>3位決定戦は<b>準決勝で敗れたおふたり</b>が、決勝の前に戦います</li>
     </ul></div>
     <div class="rsec"><div class="rh">アイテム</div><ul>
       <li><b>使えるのはグローブだけ。1試合2個まで</b></li>
@@ -420,15 +419,14 @@ body.intro-on{overflow:hidden}
       <li>日程の個別調整はできません。勝ち進んだ場合に候補の夜すべて配信できる方だけご参加ください</li>
     </ul></div>
     <div class="rsec"><div class="rh">賞</div><ul>
-      <li><b>優勝・準優勝・3位のお三方にトロフィー</b>をお渡しします</li>
-      <li>3位は<b>3位決定戦に勝った方</b>です</li>
+      <li><b>優勝された方にトロフィー</b>をお渡しします</li>
     </ul></div>
     <p class="rnote">今回から形が大きく変わるので、<b>細かいルールを途中で調整することがあります。</b>
       変更するときは、このページと担当からのご連絡でかならずお知らせします。</p>
   </div>
 </details>
 
-<div class="sect"><span class="en">Trophy</span><h2>今回はトロフィーが3つ</h2><span class="rule"></span></div>
+<div class="sect"><span class="en">Trophy</span><h2>トロフィーは優勝のひとりに</h2><span class="rule"></span></div>
 <figure class="trophypic">
   <img src="assets/trophy-stack.webp" alt="アクリルトロフィが積み上がっていくDCLのトロフィー" loading="lazy" decoding="async">
   <figcaption>
@@ -438,21 +436,11 @@ body.intro-on{overflow:hidden}
     <span class="cap">※写真はイメージです。アクリルトロフィの内容は受賞した賞によって変わります</span>
   </figcaption>
 </figure>
-<div class="prizes">
+<div class="prizes one">
   <div class="card prize p1">
     <div class="ico">🏆</div><div class="r">Champion</div>
     <div class="t">第3代 PRIDE 王者</div>
     <div class="d">トロフィー</div>
-  </div>
-  <div class="card prize p2">
-    <div class="ico">🥈</div><div class="r">Runner-up</div>
-    <div class="t">準優勝</div>
-    <div class="d">トロフィー</div>
-  </div>
-  <div class="card prize p2">
-    <div class="ico">🥉</div><div class="r">3rd place</div>
-    <div class="t">3位</div>
-    <div class="d">トロフィー。第1回は優勝の1つだけ、第2回は2つでした</div>
   </div>
 </div>
 
@@ -512,7 +500,6 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   bits.push(`<span class="pill gold">🏆 決勝 ${esc(DATA.finalLabel)} 22:00</span>`);
   bits.push(`<span class="pill">TikTok LIVE</span>`);
   bits.push(`<span class="pill">決勝は3回勝負</span>`);
-  bits.push(`<span class="pill">3位決定戦あり</span>`);
   bits.push(`<span class="pill">連日開催</span>`);
   $("metarow").innerHTML = bits.join("");
 })();
@@ -583,7 +570,7 @@ function countdownInto(root, target){
   if (DATA.status === "entry") {
     box.innerHTML = `<div class="lb">Tournament</div>
       <div class="big">決勝は ${esc(DATA.finalLabel)} 22:00</div>
-      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負。<b>決勝と3位決定戦だけ3回勝負</b>で、2回勝った方が勝ちです。<br>
+      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負。<b>決勝だけ3回勝負</b>で、2回勝った方が優勝です。<br>
         何回戦やるかはエントリー人数で決まります（決勝の日だけ固定）。</div>`;
     return;
   }
@@ -628,7 +615,7 @@ function countdownInto(root, target){
         <tbody>${rows}</tbody></table></div>
       <p class="brnote">決勝の <b>${esc(DATA.finalLabel)}</b> から連日で遡って、必要な夜だけ使います。
         エントリー締切（10/13）で人数が出たら、この表に当てはめて確定させます。<br>
-        ${esc(DATA.bestOfNote||"")}。<br><b>3位決定戦は決勝と同じ夜</b>に、決勝の前にやります。</p>`;
+        ${esc(DATA.bestOfNote||"")}。</p>`;
   }
   area.innerHTML = html;
 })();

@@ -6,10 +6,10 @@ window.PRIDE3 = {
   entryDeadline: "2026-10-13T23:59:00+09:00",
   announceDate: "10/15(木)",
 
-  /* ── 日程（連日・中日なし。4名なので10/31から2夜を使う） ── */
+  /* ── 日程（連日・中日なし。5名なので10/31から3夜を使う） ── */
   finalDate:  "2026-10-31T22:00:00+09:00",
   finalLabel: "10/31(土)",
-  nights: ["10/30(金)", "10/31(土)"],
+  nights: ["10/29(木)", "10/30(金)", "10/31(土)"],
   consecutive: true,
   intervalNote: "4夜連続（中日なし）",
 
@@ -32,20 +32,24 @@ window.PRIDE3 = {
 
   /* エントリー締切後に rounds を入れると、この skeleton は使われなくなります */
   skeleton: [
-    { name: "準決勝", n: 2 }, { name: "決勝", n: 1 }
+    { name: "1回戦", n: 1 }, { name: "準決勝", n: 2 }, { name: "決勝", n: 1 }
   ],
 
   entrants: [
-    { seed: 1, name: "れな🐟💚" },
-    { seed: 2, name: "🍓まろん@美容整体師🌸" },
+    { seed: 1, name: "のん🤧🧂" },
+    { seed: 2, name: "おどぎ" },
     { seed: 3, name: "maron🐈‍⬛💗" },
-    { seed: 4, name: "おどぎ" }
+    { seed: 4, name: "れな🐟💚" },
+    { seed: 5, name: "🍓まろん@美容整体師🌸" }
   ],
 
   rounds: [
+    { name: "1回戦", date: "10/29(木)", matches: [
+      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 4, name: "れな🐟💚" }, b: { seed: 5, name: "🍓まろん@美容整体師🌸" }, winner: "" }
+    ]},
     { name: "準決勝", date: "10/30(金)", matches: [
-      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", a: { seed: 1, name: "れな🐟💚" },           b: { seed: 4, name: "おどぎ" },        winner: "" },
-      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", a: { seed: 2, name: "🍓まろん@美容整体師🌸" }, b: { seed: 3, name: "maron🐈‍⬛💗" }, winner: "" }
+      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0], a: { seed: 1, name: "のん🤧🧂", bye: true }, b: null, winner: "" },
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [],  a: { seed: 2, name: "おどぎ", bye: true }, b: { seed: 3, name: "maron🐈‍⬛💗", bye: true }, winner: "" }
     ]},
     { name: "決勝", date: "10/31(土)", matches: [
       { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }

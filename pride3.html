@@ -394,11 +394,13 @@ body.intro-on{overflow:hidden}
 
 <div class="sect"><span class="en">Rules</span><h2>大会ルール</h2><span class="rule"></span></div>
 <details class="rules">
-  <summary>ルールを開く（一本勝負・決勝は3回勝負・アイテムはグローブのみ）</summary>
+  <summary>ルールを開く（一本勝負・決勝は3回勝負・3位決定戦・アイテムはグローブのみ）</summary>
   <div class="rbody">
     <div class="rsec"><div class="rh">形式</div><ul>
       <li><b>1vs1の勝ち抜き制。</b>負けたらそこで終了</li>
       <li><b>決勝は3回勝負。そのうち2回勝った方が優勝</b>です</li>
+      <li><b>3位決定戦をやります。</b>こちらも3回勝負で、2回勝った方が3位です</li>
+      <li>3位決定戦は<b>準決勝で敗れたおふたり</b>が、決勝の前に戦います</li>
       <li>それ以外の試合は<b>一本勝負</b>。1回負けたら終わりです</li>
       <li>勝敗は<b>バトルスコアが高い方</b>が勝ち</li>
       <li><b>招待制</b>。今回ご案内した方が参加対象です</li>
@@ -419,14 +421,15 @@ body.intro-on{overflow:hidden}
       <li>日程の個別調整はできません。勝ち進んだ場合に候補の夜すべて配信できる方だけご参加ください</li>
     </ul></div>
     <div class="rsec"><div class="rh">賞</div><ul>
-      <li><b>優勝された方にトロフィー</b>をお渡しします</li>
+      <li><b>優勝・準優勝・3位のお三方にトロフィー</b>をお渡しします</li>
+      <li>3位は<b>3位決定戦に勝った方</b>です</li>
     </ul></div>
     <p class="rnote">今回から形が大きく変わるので、<b>細かいルールを途中で調整することがあります。</b>
       変更するときは、このページと担当からのご連絡でかならずお知らせします。</p>
   </div>
 </details>
 
-<div class="sect"><span class="en">Trophy</span><h2>トロフィーは優勝のひとりに</h2><span class="rule"></span></div>
+<div class="sect"><span class="en">Trophy</span><h2>今回はトロフィーが3つ</h2><span class="rule"></span></div>
 <figure class="trophypic">
   <img src="assets/trophy-stack.webp" alt="アクリルトロフィが積み上がっていくDCLのトロフィー" loading="lazy" decoding="async">
   <figcaption>
@@ -436,10 +439,20 @@ body.intro-on{overflow:hidden}
     <span class="cap">※写真はイメージです。アクリルトロフィの内容は受賞した賞によって変わります</span>
   </figcaption>
 </figure>
-<div class="prizes one">
+<div class="prizes">
   <div class="card prize p1">
     <div class="ico">🏆</div><div class="r">Champion</div>
     <div class="t">第3代 PRIDE 王者</div>
+    <div class="d">トロフィー</div>
+  </div>
+  <div class="card prize p2">
+    <div class="ico">🥈</div><div class="r">Runner-up</div>
+    <div class="t">準優勝</div>
+    <div class="d">トロフィー</div>
+  </div>
+  <div class="card prize p2">
+    <div class="ico">🥉</div><div class="r">3rd place</div>
+    <div class="t">3位</div>
     <div class="d">トロフィー</div>
   </div>
 </div>
@@ -500,6 +513,7 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   bits.push(`<span class="pill gold">🏆 決勝 ${esc(DATA.finalLabel)} 22:00</span>`);
   bits.push(`<span class="pill">TikTok LIVE</span>`);
   bits.push(`<span class="pill">決勝は3回勝負</span>`);
+  bits.push(`<span class="pill">3位決定戦あり</span>`);
   bits.push(`<span class="pill">連日開催</span>`);
   $("metarow").innerHTML = bits.join("");
 })();
@@ -570,7 +584,7 @@ function countdownInto(root, target){
   if (DATA.status === "entry") {
     box.innerHTML = `<div class="lb">Tournament</div>
       <div class="big">決勝は ${esc(DATA.finalLabel)} 22:00</div>
-      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負。<b>決勝だけ3回勝負</b>で、2回勝った方が優勝です。<br>
+      <div class="sub">試合はすべて22:00スタート、<b>連日開催（中日なし）</b>。試合は一本勝負。<b>決勝と3位決定戦だけ3回勝負</b>で、2回勝った方が勝ちです。<br>
         何回戦やるかはエントリー人数で決まります（決勝の日だけ固定）。</div>`;
     return;
   }
@@ -630,7 +644,7 @@ function countdownInto(root, target){
          <div class="lb">Entry</div>
          <div class="big">出場者は ${esc(DATA.announceDate || "")} 発表</div>
          <div class="sub">エントリー締切は10/13(火)。<strong>招待をお送りした方が参加対象</strong>です。<br>
-           勝ち上がった場合は <b>10/29〜10/31 の3夜すべて</b>配信できる方のみご参加ください。</div>
+           勝ち上がった場合は <b>10/30〜10/31 の2夜とも</b>配信できる方のみご参加ください。</div>
        </div>`;
     return;
   }

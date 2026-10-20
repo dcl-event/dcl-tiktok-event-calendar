@@ -6,7 +6,9 @@ window.PRIDE3 = {
   entryDeadline: "2026-10-13T23:59:00+09:00",
   announceDate: "10/15(木)",
 
-  /* ── 日程（連日・中日なし。6枠。1回戦2試合 → 準決勝 → 決勝） ── */
+  /* ── 日程（連日・中日なし。6枠。1回戦2試合 → 準決勝 → 決勝）
+     ※初参戦の のん・おどぎ・れな を1回戦に置き、第2回経験者の maron・まろん を準決勝から。
+     　のん と おどぎ は山を分けてあるので決勝まで当たらない。 ── */
   finalDate:  "2026-10-31T22:00:00+09:00",
   finalLabel: "10/31(土)",
   nights: ["10/29(木)", "10/30(金)", "10/31(土)"],
@@ -46,12 +48,12 @@ window.PRIDE3 = {
 
   rounds: [
     { name: "1回戦", date: "10/29(木)", matches: [
-      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 4, name: "れな🐟💚" },    b: { seed: 5, name: "🍓まろん@美容整体師🌸" }, winner: "" },
-      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 3, name: "maron🐈‍⬛💗" }, b: { seed: 6, name: "？？？" },                 winner: "" }
+      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "のん🤧🧂" }, b: { seed: 6, name: "？？？" },   winner: "" },
+      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "おどぎ" },   b: { seed: 4, name: "れな🐟💚" }, winner: "" }
     ]},
     { name: "準決勝", date: "10/30(金)", matches: [
-      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0], a: { seed: 1, name: "のん🤧🧂" }, b: null, winner: "" },
-      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [1], a: { seed: 2, name: "おどぎ" },   b: null, winner: "" }
+      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0], a: { seed: 3, name: "maron🐈‍⬛💗" },        b: null, winner: "" },
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [1], a: { seed: 5, name: "🍓まろん@美容整体師🌸" }, b: null, winner: "" }
     ]},
     { name: "決勝", date: "10/31(土)", matches: [
       { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }

@@ -42,18 +42,18 @@ window.PRIDE3 = {
     { seed: 2, name: "おどぎ" },
     { seed: 3, name: "maron🐈‍⬛💗" },
     { seed: 4, name: "れな🐟💚" },
-    { seed: 5, name: "🍓まろん@美容整体師🌸" },
-    { seed: 6, name: "？？？" }
+    { seed: 5, name: "lala🌴" },
+    { seed: 6, name: "🍓まろん@美容整体師🌸" }
   ],
 
   rounds: [
     { name: "1回戦", date: "10/29(木)", matches: [
-      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "のん🤧🧂" }, b: { seed: 6, name: "？？？" },   winner: "" },
+      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "のん🤧🧂" }, b: { seed: 5, name: "lala🌴" },   winner: "" },
       { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "おどぎ" },   b: { seed: 4, name: "れな🐟💚" }, winner: "" }
     ]},
     { name: "準決勝", date: "10/30(金)", matches: [
       { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0], a: { seed: 3, name: "maron🐈‍⬛💗" },        b: null, winner: "" },
-      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [1], a: { seed: 5, name: "🍓まろん@美容整体師🌸" }, b: null, winner: "" }
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [1], a: { seed: 6, name: "🍓まろん@美容整体師🌸" }, b: null, winner: "" }
     ]},
     { name: "決勝", date: "10/31(土)", matches: [
       { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }

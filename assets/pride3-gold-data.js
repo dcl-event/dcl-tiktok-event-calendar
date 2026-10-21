@@ -39,7 +39,7 @@ window.PRIDE3G = {
   ],
 
   entrants: [
-    { seed: 1, name: "lala🌴" },
+    { seed: 1, name: "糸結おでん🍢" },
     { seed: 2, name: "伝説のツチノトちゃん🧡💫" },
     { seed: 3, name: "雲雀丘モガ" },
     { seed: 4, name: "いぶ☕️🧡" },
@@ -51,7 +51,7 @@ window.PRIDE3G = {
 
   rounds: [
     { name: "1回戦", date: "10/29(木)", matches: [
-      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "lala🌴" },               b: { seed: 8, name: "絢斗 -ｹﾝﾄ-" },     winner: "" },
+      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "糸結おでん🍢" },               b: { seed: 8, name: "絢斗 -ｹﾝﾄ-" },     winner: "" },
       { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 4, name: "いぶ☕️🧡" },              b: { seed: 6, name: "ましゅまろ　うめ" },   winner: "" },
       { id: "R1-3", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "伝説のツチノトちゃん🧡💫" }, b: { seed: 7, name: "ぺんぎょす" },        winner: "" },
       { id: "R1-4", at: "2026-10-29T22:00:00+09:00", a: { seed: 3, name: "雲雀丘モガ" },             b: { seed: 5, name: "さーたん🎀👑" },     winner: "" }

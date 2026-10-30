@@ -646,7 +646,7 @@ if (HAS) {
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
-    const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
+    const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     return `<div class="corner ${cls}${dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : ""}">
       <div class="cn">${corner}</div><div class="sd">${sd}</div>
       <div class="nm">${nm}</div><div class="st">${st}</div></div>`;
@@ -655,7 +655,7 @@ if (HAS) {
   const slides = ms.map(m => {
     const dec = !!m.winner;
     const stat = dec
-      ? `<span class="st d">勝者 ${esc(((m.winner === "a" ? m.a : m.b) || {}).name || "")}</span>`
+      ? `<span class="st d">勝者 ${esc(((m.winner === "a" ? m.a : m.b) || {}).name || "")}${wdDecided(m) ? "（不戦勝）" : ""}</span>`
       : `<span class="st w">試合前</span>`;
     return `<div class="fslide">
       <div class="mid"><span class="id">${esc(m.id || "")}</span>${stat}</div>
@@ -774,6 +774,7 @@ if (HAS) {
       seed = p.seed != null ? p.seed : "–";
       name = esc(p.name);
       if (p.bye) { cls += " bye"; name += "（シード）"; }
+      if (p.withdrew) name += "（欠場）";
     }
     if (decided) cls += isWin ? " win" : ((p && p.withdrew) ? " wd" : " lose");
     const crown = (decided && isWin) ? '<span class="k">👑</span>' : "";
@@ -903,7 +904,7 @@ if (HAS) {
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) : "未定";
     const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
-    const st = dec ? (isWin ? "WIN 👑" : "LOSE") : "&nbsp;";
+    const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     const k  = dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : "";
     return `<div class="corner ${cls}${k}">
       <div class="cn">${corner}</div><div class="sd">${sd}</div>
@@ -914,7 +915,7 @@ if (HAS) {
     const dec = !!m.winner;
     const isNext = NX && m === NX;
     const rs = dec
-      ? `勝者　${esc(((m.winner === "a" ? m.a : m.b) || {}).name || "")}`
+      ? `勝者　${esc(((m.winner === "a" ? m.a : m.b) || {}).name || "")}${wdDecided(m) ? "（不戦勝）" : ""}`
       : (isNext ? "次の試合" : "試合前");
     return `<div class="mcard${dec ? " done" : ""}${isNext ? " next" : ""}" data-i="${i}">
       <div class="mh"><span class="rn">${esc(r.name)}</span>

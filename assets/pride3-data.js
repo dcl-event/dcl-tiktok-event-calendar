@@ -49,7 +49,7 @@ window.PRIDE3 = {
   rounds: [
     { name: "1回戦", date: "10/29(木)", matches: [
       { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "のん🤧🧂" }, b: { seed: 5, name: "lala🌴" },   winner: "a" },
-      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "おどぎ" },   b: { seed: 4, name: "れな🐟💚" }, winner: "a" }
+      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "おどぎ" },   b: { seed: 4, name: "れな🐟💚", withdrew: true }, winner: "a"   /* 連絡がつかず欠場。おどぎさんの不戦勝 */ }
     ]},
     { name: "準決勝", date: "10/30(金)", matches: [
       { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0], a: { seed: 3, name: "maron🐈‍⬛💗" },        b: { seed: 1, name: "のん🤧🧂" }, winner: "" },

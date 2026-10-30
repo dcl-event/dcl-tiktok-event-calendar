@@ -57,11 +57,13 @@ window.PRIDE3G = {
       { id: "R1-4", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "いぶ☕️🧡" },              b: { seed: 7, name: "さーたん🎀👑" },     winner: "b" }
     ]},
     { name: "準決勝", date: "10/30(金)", matches: [
-      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },   b: { seed: 5, name: "雲雀丘モガ" },   winner: "" },
-      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [2, 3], a: { seed: 3, name: "糸結おでん🍢" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "" }
+      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },   b: { seed: 5, name: "雲雀丘モガ" },   winner: "a" },
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [2, 3], a: { seed: 3, name: "糸結おでん🍢" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "a" }
     ]},
-    { name: "決勝", date: "10/31(土)", matches: [
-      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }
+    { name: "決勝・3位決定戦", date: "10/31(土)", matches: [
+      /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
+      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },  b: { seed: 3, name: "糸結おでん🍢" }, winner: "" },
+      { id: "3位決定戦", at: "2026-10-31T22:00:00+09:00",          a: { seed: 5, name: "雲雀丘モガ" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "" }
     ]}
   ]
 };

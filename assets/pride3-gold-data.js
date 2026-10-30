@@ -51,14 +51,14 @@ window.PRIDE3G = {
 
   rounds: [
     { name: "1回戦", date: "10/29(木)", matches: [
-      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },            b: { seed: 8, name: "ましゅまろ　うめ" }, winner: "" },
-      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 4, name: "伝説のツチノトちゃん🧡💫" }, b: { seed: 5, name: "雲雀丘モガ" },       winner: "" },
-      { id: "R1-3", at: "2026-10-29T22:00:00+09:00", a: { seed: 3, name: "糸結おでん🍢" },            b: { seed: 6, name: "ぺんぎょす" },       winner: "" },
-      { id: "R1-4", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "いぶ☕️🧡" },              b: { seed: 7, name: "さーたん🎀👑" },     winner: "" }
+      { id: "R1-1", at: "2026-10-29T22:00:00+09:00", a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },            b: { seed: 8, name: "ましゅまろ　うめ" }, winner: "a" },
+      { id: "R1-2", at: "2026-10-29T22:00:00+09:00", a: { seed: 4, name: "伝説のツチノトちゃん🧡💫" }, b: { seed: 5, name: "雲雀丘モガ" },       winner: "b" },
+      { id: "R1-3", at: "2026-10-29T22:00:00+09:00", a: { seed: 3, name: "糸結おでん🍢" },            b: { seed: 6, name: "ぺんぎょす" },       winner: "a" },
+      { id: "R1-4", at: "2026-10-29T22:00:00+09:00", a: { seed: 2, name: "いぶ☕️🧡" },              b: { seed: 7, name: "さーたん🎀👑" },     winner: "b" }
     ]},
     { name: "準決勝", date: "10/30(金)", matches: [
-      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" },
-      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [2, 3], a: null, b: null, winner: "" }
+      { id: "SF-1", at: "2026-10-30T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },   b: { seed: 5, name: "雲雀丘モガ" },   winner: "" },
+      { id: "SF-2", at: "2026-10-30T22:00:00+09:00", src: [2, 3], a: { seed: 3, name: "糸結おでん🍢" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "" }
     ]},
     { name: "決勝", date: "10/31(土)", matches: [
       { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: null, b: null, winner: "" }

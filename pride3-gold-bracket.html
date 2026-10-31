@@ -585,6 +585,10 @@ if (HAS) {
   const champ = DATA.champion || (fin && fin.winner ? (fin.winner === "a" ? fin.a : fin.b).name : "");
   if (!champ) return;
   const ru = DATA.runnerUp || (fin && fin.winner ? (fin.winner === "a" ? fin.b : fin.a).name : "");
+  /* 3位＝データに入っていればそれを、無ければ3位決定戦の勝者から拾う */
+  const t3m = HAS ? DATA.rounds[DATA.rounds.length-1].matches.find(m => /3位/.test(m.id || "")) : null;
+  const third = DATA.thirdPlaceWinner ||
+    (t3m && t3m.winner ? (t3m.winner === "a" ? t3m.a : t3m.b).name : "");
   const n = (DATA.entrants || []).length;
   area.innerHTML = `
     <section class="champ"><div class="inner">
@@ -598,6 +602,11 @@ if (HAS) {
       <div class="medal">🥈</div>
       <div class="rt"><div class="lb2">Runner-up</div><div class="rn">${esc(ru)}</div></div>
       <div class="rnote">決勝進出</div>
+    </section>` : ""}
+    ${third ? `<section class="runner">
+      <div class="medal">🥉</div>
+      <div class="rt"><div class="lb2">3rd Place</div><div class="rn">${esc(third)}</div></div>
+      <div class="rnote">3位決定戦</div>
     </section>` : ""}
     <div class="champmeta">${n ? n + "名が参加 ／ " : ""}決勝 ${esc(DATA.finalLabel || "")} 22:00</div>`;
 })();

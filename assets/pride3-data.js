@@ -2,7 +2,7 @@
    ここだけ直せば、企画書ページ(pride3.html)と配布ページ(pride3-bracket.html)が両方変わります。
    翌月以降は finalLabel / finalDate / nights / format の夜だけ差し替えればそのまま使えます。 */
 window.PRIDE3 = {
-  status: "live",                                  // entry → live → done
+  status: "done",                                  // entry → live → done
   entryDeadline: "2026-10-13T23:59:00+09:00",
   announceDate: "10/15(木)",
 
@@ -21,9 +21,9 @@ window.PRIDE3 = {
   thirdPlace: true,
   trophies: 3,                                      // 優勝・準優勝・3位
 
-  champion: "",
-  runnerUp: "",
-  thirdPlaceWinner: "",
+  champion: "おどぎ",
+  runnerUp: "のん🤧🧂",
+  thirdPlaceWinner: "maron🐈‍⬛💗",
 
   format: [
     { n: "2名",     br: "決勝のみ",    bye: "—",    nights: "10/31" },
@@ -57,8 +57,8 @@ window.PRIDE3 = {
     ]},
     { name: "決勝・3位決定戦", date: "10/31(土)", matches: [
       /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
-      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "のん🤧🧂" },     b: { seed: 2, name: "おどぎ" },               winner: "" },
-      { id: "3位決定戦", at: "2026-10-31T22:00:00+09:00",          a: { seed: 3, name: "maron🐈‍⬛💗" }, b: { seed: 6, name: "🍓まろん@美容整体師🌸" }, winner: "" }
+      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "のん🤧🧂" },     b: { seed: 2, name: "おどぎ" },               winner: "b" },
+      { id: "3位決定戦", at: "2026-10-31T22:00:00+09:00",          a: { seed: 3, name: "maron🐈‍⬛💗" }, b: { seed: 6, name: "🍓まろん@美容整体師🌸" }, winner: "a" }
     ]}
   ]
 };

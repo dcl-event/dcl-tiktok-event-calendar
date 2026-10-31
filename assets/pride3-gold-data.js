@@ -5,7 +5,7 @@
    ⚠️ ダイヤの実数はこのファイルにも書かない。ページに出る可能性があるため。 */
 window.PRIDE3G = {
   division: "20万ダイヤ以下部門",                       // ライバー向けページにだけ出す
-  status: "live",                                   // entry → live → done
+  status: "done",                                   // entry → live → done
 
   entryDeadline: "2026-10-13T23:59:00+09:00",
   announceDate: "10/15(木)",
@@ -23,9 +23,9 @@ window.PRIDE3G = {
   thirdPlace: true,
   trophies: 3,
 
-  champion: "",
-  runnerUp: "",
-  thirdPlaceWinner: "",
+  champion: "絢斗 -ｹﾝﾄ-",
+  runnerUp: "糸結おでん🍢",
+  thirdPlaceWinner: "雲雀丘モガ",
 
   format: [
     { n: "2名",     br: "決勝のみ",    bye: "—",    nights: "10/31" },
@@ -62,8 +62,8 @@ window.PRIDE3G = {
     ]},
     { name: "決勝・3位決定戦", date: "10/31(土)", matches: [
       /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
-      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },  b: { seed: 3, name: "糸結おでん🍢" }, winner: "" },
-      { id: "3位決定戦", at: "2026-10-31T22:00:00+09:00",          a: { seed: 5, name: "雲雀丘モガ" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "" }
+      { id: "FINAL", at: "2026-10-31T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "絢斗 -ｹﾝﾄ-" },  b: { seed: 3, name: "糸結おでん🍢" }, winner: "a" },
+      { id: "3位決定戦", at: "2026-10-31T22:00:00+09:00",          a: { seed: 5, name: "雲雀丘モガ" }, b: { seed: 7, name: "さーたん🎀👑" }, winner: "a" }
     ]}
   ]
 };

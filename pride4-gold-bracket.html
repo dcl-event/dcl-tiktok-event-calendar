@@ -463,31 +463,44 @@ body.intro-on{overflow:hidden}
 @media (prefers-reduced-motion:reduce){#intro{display:none!important}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ── 金属の質感：単色だと黄色とグレーにしか見えないので、
-      光沢をグラデーションで作ってゆっくり流す ── */
-#intro .word, .hero .mark{
-  background:linear-gradient(176deg,#ffffff 0%,#f6f9fe 9%,#d2dbe8 22%,#919daf 38%,#525d6b 49%,#a4b0c0 59%,#e4ebf4 75%,#ffffff 87%,#b6c1d0 100%);
-  background-size:100% 280%;
+/* ── 金属の質感 ──
+   ベース＝面の明暗（縦）。その上を、斜めのハイライトが一方向に流れる。
+   往復させると「横一直線が行き来する」ように見えて金属に見えないので片道ループ。 */
+#intro .word, .hero .mark, .champ .nm, .champ .ttl{
+  background-image:
+    linear-gradient(104deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.92) 47.5%,
+      rgba(255,255,255,.28) 51%, rgba(255,255,255,.75) 54%, rgba(255,255,255,0) 61%),
+    linear-gradient(172deg,#ffffff 0%,#f6f9fe 9%,#d2dbe8 22%,#919daf 38%,#525d6b 49%,#a4b0c0 59%,#e4ebf4 75%,#ffffff 87%,#b6c1d0 100%);
+  background-size:300% 100%, 100% 100%;
+  background-position:175% 0, 0 0;
+  background-repeat:no-repeat;
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent; color:transparent;
   text-shadow:none;
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(214,224,238,.48));
-  animation:sheen 5s ease-in-out infinite;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(214,224,238,.5));
 }
+#intro .word{animation:slam .5s .58s cubic-bezier(.16,1.3,.3,1) forwards,
+                       sheen 4.2s 1.15s linear infinite}
+.hero .mark, .champ .nm, .champ .ttl{animation:sheen 4.2s linear infinite}
+.champ .nm, .champ .ttl{filter:drop-shadow(0 1px 0 rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(214,224,238,.5))}
+#intro .cry--unused{filter:drop-shadow(0 0 18px rgba(214,224,238,.5))}
 #intro .word em, .hero .mark em{
   -webkit-text-fill-color:#ffce17; color:#ffce17; background:none;
-  filter:drop-shadow(0 0 14px rgba(255,206,23,.55));
+  filter:drop-shadow(0 0 16px rgba(255,206,23,.6));
 }
-.champ .nm, .champ .ttl{
-  background:linear-gradient(176deg,#ffffff 0%,#f6f9fe 9%,#d2dbe8 22%,#919daf 38%,#525d6b 49%,#a4b0c0 59%,#e4ebf4 75%,#ffffff 87%,#b6c1d0 100%); background-size:100% 280%;
-  -webkit-background-clip:text; background-clip:text;
-  -webkit-text-fill-color:transparent; color:transparent;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(214,224,238,.48));
-  animation:sheen 5s ease-in-out infinite;
-}
-@keyframes sheen{0%,100%{background-position:50% 2%}50%{background-position:50% 98%}}
+@keyframes sheen{from{background-position:175% 0, 0 0} to{background-position:-85% 0, 0 0}}
+
+/* スプラッシュの線とプレートも金属に */
+#intro .bar{background:linear-gradient(172deg,#ffffff 0%,#f6f9fe 9%,#d2dbe8 22%,#919daf 38%,#525d6b 49%,#a4b0c0 59%,#e4ebf4 75%,#ffffff 87%,#b6c1d0 100%) !important;height:3px}
+#intro .streak{background:linear-gradient(90deg,transparent,rgba(214,224,238,.5),#fff,rgba(214,224,238,.5),transparent) !important;height:3px}
+#intro .plate{border-color:rgba(214,224,238,.5) !important;color:#e6ecf5 !important;
+  background:linear-gradient(104deg,rgba(255,255,255,.05),rgba(255,255,255,.14) 48%,rgba(255,255,255,.03))}
+#intro .plate b{color:#e6ecf5}
+#intro .kicker{color:#e6ecf5}
+
 @media(prefers-reduced-motion:reduce){
-  #intro .word,.hero .mark,.champ .nm,.champ .ttl{animation:none}
+  #intro .word,.hero .mark,.champ .nm,.champ .ttl{
+    animation:none;background-position:52% 0,0 0}
 }
 </style>
 </head><body class="intro-on">

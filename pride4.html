@@ -638,7 +638,7 @@ function countdownInto(root, target){
         <thead><tr><th>エントリー</th><th>ブラケット</th><th>BYE</th><th>使う夜（22:00〜）</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
       <p class="brnote">決勝の <b>${esc(DATA.finalLabel)}</b> から連日で遡って、必要な夜だけ使います。
-        エントリー締切（11/10）で人数が出たら、この表に当てはめて確定させます。<br>
+        エントリー締切（11/15）で人数が出たら、この表に当てはめて確定させます。<br>
         ${esc(DATA.bestOfNote||"")}。</p>`;
   }
   area.innerHTML = html;
@@ -653,7 +653,7 @@ function countdownInto(root, target){
       `<div class="card nextup">
          <div class="lb">Entry</div>
          <div class="big">出場者は ${esc(DATA.announceDate || "")} 発表</div>
-         <div class="sub">エントリー締切は11/10(火)。<strong>招待をお送りした方が参加対象</strong>です。<br>
+         <div class="sub">エントリー締切は11/15(日)。<strong>招待をお送りした方が参加対象</strong>です。<br>
            勝ち上がった場合は <b>11/26〜11/28 の3夜すべて</b>配信できる方のみご参加ください。</div>
        </div>`;
     return;

@@ -12,11 +12,11 @@
 <style>
 :root{
   --void:#08090c; --panel:#12141a; --panel2:#181b23; --sunk:#0d0f14;
-  --line:#252932; --line-lt:#323845;
+  --line:#2c2820; --line-lt:#3d3626;
   --ink:#eef0f4; --ink-dim:#c4c9d4; --muted:#8b909d;
-  --blood:#ff2b4a; --blood-dk:#c2132c; --blood-soft:rgba(255,43,74,.12);
+  --blood:#e3b23c; --blood-dk:#8e1226; --blood-soft:rgba(227,178,60,.14);
   --corner:#3d7bff;
-  --gold:#f0b429; --gold-lt:#ffdd8a; --gold-soft:rgba(240,180,41,.12);
+  --gold:#ffc83d; --gold-lt:#ffeab0; --gold-soft:rgba(255,200,61,.16);
   --steel:#9aa4b5; --silver:#c9ced8; --bronze:#c8895a;
   --live:#28c76f;
 }
@@ -26,9 +26,10 @@ body{
   font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;
   color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased;
   background:
-    radial-gradient(900px 420px at 50% -6%, rgba(255,43,74,.20) 0%, rgba(255,43,74,0) 62%),
-    radial-gradient(700px 380px at 100% 4%, rgba(240,180,41,.10) 0%, rgba(240,180,41,0) 58%),
-    radial-gradient(700px 400px at 0% 10%, rgba(255,43,74,.10) 0%, rgba(255,43,74,0) 55%),
+    radial-gradient(1000px 470px at 50% -6%, rgba(255,200,61,.26) 0%, rgba(255,200,61,0) 64%),
+    radial-gradient(620px 340px at 6% 10%, rgba(201,20,46,.22) 0%, rgba(201,20,46,0) 60%),
+    radial-gradient(760px 400px at 100% 2%, rgba(201,20,46,.30) 0%, rgba(201,20,46,0) 60%),
+    radial-gradient(700px 400px at 0% 10%, rgba(227,178,60,.10) 0%, rgba(227,178,60,0) 55%),
     linear-gradient(180deg,#0b0c11 0%, var(--void) 60%);
   background-attachment:fixed;
 }
@@ -45,7 +46,7 @@ header.hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 22
   box-shadow:0 18px 40px rgba(0,0,0,.6)}
 header.hero::before{content:"";position:absolute;left:-30%;top:-40%;width:160%;height:80%;
   transform:rotate(-14deg);pointer-events:none;
-  background:linear-gradient(90deg,rgba(255,43,74,0) 0%,rgba(255,43,74,.30) 45%,rgba(255,43,74,0) 100%)}
+  background:linear-gradient(90deg,rgba(227,178,60,0) 0%,rgba(227,178,60,.30) 45%,rgba(227,178,60,0) 100%)}
 header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.030) 0 1px,transparent 1px 4px)}
 .hero .inner{position:relative}
@@ -53,7 +54,7 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   text-transform:uppercase;color:var(--gold)}
 .hero .mark{font-family:'Anton',sans-serif;font-size:clamp(52px,17vw,86px);line-height:.92;
   letter-spacing:.02em;margin:8px 0 2px;color:#fff;
-  text-shadow:0 0 32px rgba(255,43,74,.45), 0 2px 0 rgba(0,0,0,.5)}
+  text-shadow:0 0 32px rgba(227,178,60,.45), 0 2px 0 rgba(0,0,0,.5)}
 .hero .mark em{font-style:normal;color:var(--blood)}
 .hero .jp{font-weight:800;font-size:15px;letter-spacing:.02em;color:var(--ink-dim);margin-top:6px}
 .hero .tagline{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:13px;
@@ -62,8 +63,8 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 12px;
   font-size:12px;font-weight:700;border:1px solid var(--line-lt);background:rgba(255,255,255,.04);
   color:var(--ink-dim);font-family:'Noto Sans JP',sans-serif;white-space:nowrap}
-.pill.hot{border-color:rgba(255,43,74,.5);background:var(--blood-soft);color:#ffb9c4}
-.pill.gold{border-color:rgba(240,180,41,.5);background:var(--gold-soft);color:var(--gold-lt)}
+.pill.hot{border-color:rgba(227,178,60,.5);background:var(--blood-soft);color:#ffb9c4}
+.pill.gold{border-color:rgba(255,200,61,.5);background:var(--gold-soft);color:var(--gold-lt)}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--live);
   box-shadow:0 0 0 0 rgba(40,199,111,.6);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(40,199,111,.5)}70%{box-shadow:0 0 0 7px rgba(40,199,111,0)}100%{box-shadow:0 0 0 0 rgba(40,199,111,0)}}
@@ -134,8 +135,8 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
   text-transform:uppercase;color:var(--muted);margin-top:6px}
 .prize .t{font-weight:800;font-size:16px;margin-top:3px}
 .prize .d{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.6}
-.prize.p1{border-color:rgba(240,180,41,.45);
-  background:linear-gradient(160deg,rgba(240,180,41,.14),var(--panel) 60%)}
+.prize.p1{border-color:rgba(255,200,61,.45);
+  background:linear-gradient(160deg,rgba(255,200,61,.14),var(--panel) 60%)}
 .prize.p1 .t{color:var(--gold-lt)}
 .prize.p2{border-color:rgba(201,206,216,.28);
   background:linear-gradient(160deg,rgba(201,206,216,.10),var(--panel) 60%)}
@@ -149,7 +150,7 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
   letter-spacing:.03em}
 .rhead .tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;
   border:1px solid var(--line-lt);color:var(--muted)}
-.rhead .tag.fin{border-color:rgba(240,180,41,.5);color:var(--gold-lt);background:var(--gold-soft)}
+.rhead .tag.fin{border-color:rgba(255,200,61,.5);color:var(--gold-lt);background:var(--gold-soft)}
 .rhead .sp{flex:1}
 .match{overflow:hidden;margin-bottom:9px}
 .match .mh{display:flex;align-items:center;gap:8px;padding:8px 13px;background:var(--sunk);
@@ -168,8 +169,8 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
   font-size:11px;color:var(--muted);letter-spacing:.02em;margin-top:1px}
 .side .res{font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.side.win{background:linear-gradient(90deg,rgba(240,180,41,.13),transparent 70%)}
-.side.win .seed{color:var(--gold-lt);border-color:rgba(240,180,41,.45);background:var(--gold-soft)}
+.side.win{background:linear-gradient(90deg,rgba(255,200,61,.13),transparent 70%)}
+.side.win .seed{color:var(--gold-lt);border-color:rgba(255,200,61,.45);background:var(--gold-soft)}
 .side.win .who{color:#fff}
 .side.win .res{color:var(--gold-lt)}
 .side.lose{opacity:.5}
@@ -189,7 +190,7 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
   min-width:26px;text-align:center;font-variant-numeric:tabular-nums}
 .elist .nm{flex:1;min-width:0;font-weight:700;font-size:14.5px;word-break:break-word}
 .elist .bd{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;
-  border:1px solid rgba(240,180,41,.45);color:var(--gold-lt);background:var(--gold-soft)}
+  border:1px solid rgba(255,200,61,.45);color:var(--gold-lt);background:var(--gold-soft)}
 .elist li.top3 .n{color:var(--gold)}
 
 /* ── format table (entry phase) ── */
@@ -230,11 +231,11 @@ footer{text-align:center;font-size:12px;color:#5e636e;margin-top:40px;
 
 /* ── entry banner（締切を最優先で見せる） ── */
 .entrybar{position:relative;overflow:hidden;border-radius:18px;margin-bottom:16px;
-  border:1px solid rgba(255,43,74,.55);
-  background:linear-gradient(135deg,rgba(255,43,74,.24) 0%,rgba(194,19,44,.16) 45%,var(--panel) 100%);
-  box-shadow:0 14px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(255,43,74,.08) inset}
+  border:1px solid rgba(227,178,60,.55);
+  background:linear-gradient(135deg,rgba(227,178,60,.24) 0%,rgba(194,19,44,.16) 45%,var(--panel) 100%);
+  box-shadow:0 14px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(227,178,60,.08) inset}
 .entrybar::before{content:"";position:absolute;right:-50px;top:-70px;width:190px;height:190px;
-  border-radius:50%;background:radial-gradient(circle,rgba(255,43,74,.30),rgba(255,43,74,0) 70%)}
+  border-radius:50%;background:radial-gradient(circle,rgba(227,178,60,.30),rgba(227,178,60,0) 70%)}
 .entrybar .eb{position:relative;padding:18px 18px 16px}
 .entrybar .kick{display:inline-flex;align-items:center;gap:6px;font-family:'Jost',sans-serif;
   font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
@@ -251,7 +252,7 @@ footer{text-align:center;font-size:12px;color:#5e636e;margin-top:40px;
 /* ── sticky deadline bar ── */
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;
   background:rgba(10,11,15,.94);backdrop-filter:blur(8px);
-  border-top:1px solid rgba(255,43,74,.45);
+  border-top:1px solid rgba(227,178,60,.45);
   padding:9px 14px;display:flex;align-items:center;gap:10px;justify-content:center;
   font-size:12.5px;font-weight:700;color:var(--ink-dim)}
 .sticky b{color:#fff;font-family:'Jost',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
@@ -269,14 +270,14 @@ body.has-sticky .wrap{padding-bottom:112px}
 .bcol .clab i{display:block;font-style:normal;font-size:9px;letter-spacing:.08em;color:#5e636e;margin-top:2px}
 .bcol .cbody{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:7px}
 .bmatch{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--sunk)}
-.bmatch.done{border-color:rgba(240,180,41,.32)}
+.bmatch.done{border-color:rgba(255,200,61,.32)}
 .bslot{display:flex;align-items:center;gap:5px;padding:5px 7px;min-height:27px}
 .bslot + .bslot{border-top:1px solid var(--line)}
 .bslot .s{font-family:'Jost',sans-serif;font-size:9.5px;font-weight:700;color:var(--muted);
   width:13px;text-align:center;flex:0 0 auto;font-variant-numeric:tabular-nums}
 .bslot .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   font-size:11.5px;font-weight:700;color:var(--ink-dim)}
-.bslot.win{background:linear-gradient(90deg,rgba(240,180,41,.18),transparent)}
+.bslot.win{background:linear-gradient(90deg,rgba(255,200,61,.18),transparent)}
 .bslot.win .n{color:var(--gold-lt)}
 .bslot.win .s{color:var(--gold)}
 .bslot.lose{opacity:.4}
@@ -286,8 +287,8 @@ body.has-sticky .wrap{padding-bottom:112px}
 .bjoin i{flex:1;display:block;margin:5px 0;border:1px solid var(--line);border-left:0;
   border-radius:0 7px 7px 0}
 .bfinal{flex:0 0 150px;display:flex;flex-direction:column;justify-content:center;padding-top:26px}
-.bcrown{border:1px solid rgba(240,180,41,.5);border-radius:11px;padding:11px 9px;text-align:center;
-  background:linear-gradient(160deg,rgba(240,180,41,.16),var(--sunk) 70%)}
+.bcrown{border:1px solid rgba(255,200,61,.5);border-radius:11px;padding:11px 9px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,200,61,.16),var(--sunk) 70%)}
 .bcrown .c{font-size:22px;line-height:1}
 .bcrown .l{font-family:'Jost',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;color:var(--gold);margin-top:4px}
@@ -309,11 +310,11 @@ body.has-sticky .wrap{padding-bottom:112px}
 /* 走る光の筋 */
 #intro .streak{position:absolute;left:50%;top:50%;width:0;height:2px;transform:translate(-50%,-50%);
   background:linear-gradient(90deg,transparent,var(--blood),#fff,var(--blood),transparent);
-  box-shadow:0 0 22px rgba(255,43,74,.9);animation:streak .5s .05s cubic-bezier(.2,.8,.2,1) forwards}
+  box-shadow:0 0 22px rgba(227,178,60,.9);animation:streak .5s .05s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes streak{0%{width:0;opacity:0}25%{opacity:1}100%{width:min(680px,92vw);opacity:.85}}
 /* 赤いフラッシュ */
 #intro .flash{position:absolute;inset:0;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 50% 50%, rgba(255,43,74,.55) 0%, rgba(255,43,74,0) 62%);
+  background:radial-gradient(circle at 50% 50%, rgba(227,178,60,.55) 0%, rgba(227,178,60,0) 62%);
   animation:flash .5s .62s ease-out forwards}
 @keyframes flash{0%{opacity:0;transform:scale(.6)}18%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
 /* 縦のライト */
@@ -349,7 +350,7 @@ body.has-sticky .wrap{padding-bottom:112px}
 #intro .cry{font-family:'Noto Serif JP','Hiragino Mincho ProN',serif;font-weight:900;
   font-size:clamp(20px,6.4vw,32px);color:#fff;margin-top:19px;
   letter-spacing:.24em;text-indent:.24em;line-height:1.62;
-  text-shadow:0 0 30px rgba(240,180,41,.30), 0 1px 0 rgba(0,0,0,.6);
+  text-shadow:0 0 30px rgba(255,200,61,.30), 0 1px 0 rgba(0,0,0,.6);
   opacity:0;animation:cry .95s 1.38s cubic-bezier(.2,.9,.2,1) forwards}
 @keyframes cry{0%{opacity:0;letter-spacing:.92em;text-indent:.92em;filter:blur(7px)}
   100%{opacity:1;letter-spacing:.24em;text-indent:.24em;filter:blur(0)}}
@@ -381,10 +382,10 @@ body.intro-on{overflow:hidden}
 
 <header class="hero">
   <div class="inner">
-    <div class="eyebrow">DCL Tournament · 3rd</div>
+    <div class="eyebrow">DCL Tournament · 4th</div>
     <div class="mark">PR<em>I</em>DE</div>
     <div class="jp">第4回 DCLトーナメント</div>
-    <div class="tagline">🔥 一世一代の名誉を。3代目の王者を決める。</div>
+    <div class="tagline">🔥 一世一代の名誉を。4代目の王者を決める。</div>
     <div class="metarow" id="metarow"></div>
   </div>
 </header>

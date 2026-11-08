@@ -127,7 +127,6 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
 .giftc{display:block;margin-top:3px;font-size:10.5px;color:var(--muted);font-weight:400}
 .gift{display:inline-block;margin-top:6px;font-size:12px;line-height:1.5;color:var(--gold-lt)}
 .rsec li.pp{color:var(--muted);font-size:12px;line-height:1.7;margin-top:8px}
-.jpsub{font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.01em}
 .twolist{margin:10px 0 14px;padding-left:18px;line-height:2.0;font-size:14px}
 .twolist li::marker{color:var(--gold)}
 .prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -428,7 +427,7 @@ body.intro-on{overflow:hidden}
   <div class="inner">
     <div class="eyebrow">DCL Tournament · with FEST</div>
     <div class="mark">PR<em>I</em>DE</div>
-    <div class="jp">PRIDE with FEST 2　<span class="jpsub">第4回 DCLトーナメント</span></div>
+    <div class="jp">PRIDE with FEST 2</div>
     <div class="tagline">🔥 一世一代の名誉を。4代目の王者を決める。</div>
     <div class="metarow" id="metarow"></div>
   </div>
@@ -601,7 +600,7 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   $("updated").textContent =
     `最終更新: ${jst.getFullYear()}-${pad(jst.getMonth()+1)}-${pad(jst.getDate())} ${pad(jst.getHours())}:${pad(jst.getMinutes())} JST`;
   $("note").innerHTML =
-    "主催：DeNA Creator Links ／ PRIDE with FEST 2（第4回 DCLトーナメント PRIDE）。<br>" +
+    "主催：DeNA Creator Links ／ PRIDE with FEST 2。<br>" +
     "第1回の数値は前月同期間比。試合日はすべて22:00スタート、今回は連日開催（中日なし）です。" +
     "日程の変更・不戦敗の扱いはルール欄をご確認ください。";
 })();

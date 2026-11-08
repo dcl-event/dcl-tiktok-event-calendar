@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>🏆第4回 DCLトーナメント PRIDE</title>
+<title>🏆PRIDE with FEST 2</title>
 <link rel="icon" href="assets/dcl_mark.png">
 <link rel="apple-touch-icon" href="assets/dcl_mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,6 +127,7 @@ details.rules[open]>summary::after{transform:rotate(180deg)}
 .giftc{display:block;margin-top:3px;font-size:10.5px;color:var(--muted);font-weight:400}
 .gift{display:inline-block;margin-top:6px;font-size:12px;line-height:1.5;color:var(--gold-lt)}
 .rsec li.pp{color:var(--muted);font-size:12px;line-height:1.7;margin-top:8px}
+.jpsub{font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.01em}
 .prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .prizes.one{grid-template-columns:minmax(0,340px);justify-content:center}
 @media(max-width:720px){.prizes{grid-template-columns:1fr}}
@@ -423,9 +424,9 @@ body.intro-on{overflow:hidden}
 
 <header class="hero">
   <div class="inner">
-    <div class="eyebrow">DCL Tournament · 4th</div>
+    <div class="eyebrow">DCL Tournament · with FEST</div>
     <div class="mark">PR<em>I</em>DE</div>
-    <div class="jp">第4回 DCLトーナメント</div>
+    <div class="jp">PRIDE with FEST 2　<span class="jpsub">第4回 DCLトーナメント</span></div>
     <div class="tagline">🔥 一世一代の名誉を。4代目の王者を決める。</div>
     <div class="metarow" id="metarow"></div>
   </div>
@@ -548,7 +549,7 @@ body.intro-on{overflow:hidden}
 
 <p class="note" id="note"></p>
 
-<footer>DeNA Creator Links — DCL Tournament PRIDE</footer>
+<footer>DeNA Creator Links — PRIDE with FEST</footer>
 </div>
 <div id="stickyArea"></div>
 
@@ -585,7 +586,7 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
   $("updated").textContent =
     `最終更新: ${jst.getFullYear()}-${pad(jst.getMonth()+1)}-${pad(jst.getDate())} ${pad(jst.getHours())}:${pad(jst.getMinutes())} JST`;
   $("note").innerHTML =
-    "主催：DeNA Creator Links ／ 第4回 DCLトーナメント PRIDE。<br>" +
+    "主催：DeNA Creator Links ／ PRIDE with FEST 2（第4回 DCLトーナメント PRIDE）。<br>" +
     "第1回の数値は前月同期間比。試合日はすべて22:00スタート、今回は連日開催（中日なし）です。" +
     "日程の変更・不戦敗の扱いはルール欄をご確認ください。";
 })();

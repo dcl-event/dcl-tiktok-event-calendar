@@ -1,8 +1,10 @@
-/* 第4回 DCLトーナメント PRIDE（20万ダイヤ以上部門）─ 共有データ
+/* PRIDE with FEST 2 ＝ TOP 部門 ─ 共有データ
+   ⚠️ 表に出す名前は TOP / MIDDLE。「20万ダイヤ以上／以下」は社内の招待基準で、ページには書かない（収入が割り出せるため）
    ここだけ直せば、企画書ページ(pride4.html)と配布ページ(pride4-bracket.html)が両方変わります。
    いまは status:"entry"＝エントリー受付中。出場者が確定したら entrants と rounds を入れる。
    ⚠️ ダイヤの実数はこのファイルに書かない。ページに出る可能性があるため。 */
 window.PRIDE3 = {
+  division: "TOP",                                  // ライバー向けページにだけ出す
   status: "entry",                                 // entry → live → done
 
   entryDeadline: "2026-11-15T23:59:00+09:00",      // 締切 11/15(日) 23:59　※前回は招待から5日。変更が多かったので10日に伸ばした

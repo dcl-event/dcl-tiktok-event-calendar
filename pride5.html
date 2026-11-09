@@ -427,7 +427,7 @@ body.intro-on{overflow:hidden}
   <div class="inner">
     <div class="eyebrow">DCL Tournament · with FEST</div>
     <div class="mark">PR<em>I</em>DE</div>
-    <div class="jp">PRIDE with FEST 3</div>
+    <div class="jp">PRIDE with FEST 3<span id="divisionJp"></span></div>
     <div class="tagline">🔥 一世一代の名誉を。LIVE FESTの夜に、王者を決める。</div>
     <div class="metarow" id="metarow"></div>
   </div>
@@ -484,7 +484,7 @@ body.intro-on{overflow:hidden}
 
 <div class="sect"><span class="en">Two Chances</span><h2>出る日程を選べます</h2><span class="rule"></span></div>
 <div class="card legacy">
-  <p>20万ダイヤ以上の部門は、<b>LIVE FESTの期間中に2回あります。</b></p>
+  <p>TOP 部門は、<b>LIVE FESTの期間中に2回あります。</b></p>
   <ul class="twolist">
     <li><b>PRIDE with FEST 2</b>　11/20(金)〜11/25(水)</li>
     <li><b>PRIDE with FEST 3</b>　12/10(木)〜12/15(火)　← このページ</li>
@@ -585,6 +585,7 @@ const HAS = !!(DATA.rounds && DATA.rounds.length);
           || ["","" ];
   const bits = [];
   bits.push(`<span class="pill ${S[1]}">${DATA.status==="live"?'<span class="dot"></span>':""}${esc(S[0])}</span>`);
+  if (DATA.division) bits.push(`<span class="pill gold">${esc(DATA.division)}</span>`);
   bits.push(`<span class="pill gold">🏆 決勝 ${esc(DATA.finalLabel)} 22:00</span>`);
   bits.push(`<span class="pill">TikTok LIVE</span>`);
   bits.push(`<span class="pill">決勝は3回勝負</span>`);

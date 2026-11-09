@@ -472,6 +472,16 @@ body.intro-on{overflow:hidden}
 </details>
 
 
+<div class="sect"><span class="en">Schedule</span><h2>MIDDLE部門は11月と12月の2回</h2><span class="rule"></span></div>
+<div class="card legacy">
+  <p>MIDDLE 部門は、<b>11月と12月に1回ずつ開きます。</b></p>
+  <ul class="rules">
+    <li><b>PRIDE with FEST 1</b>　11/20(金)〜11/25(水)　← このページ</li>
+    <li><b>PRIDE MIDDLE 12月</b>　12/10(木)〜12/15(火)</li>
+  </ul>
+  <p><b>どちらに出るかは選べます。</b>両方出たい方は、エントリーのときにそう書いてください。</p>
+</div>
+
 <div class="sect"><span class="en">LIVE FEST</span><h2>今回は世界大会に重なります</h2><span class="rule"></span></div>
 <div class="card legacy">
   <p>11月のPRIDEは、TikTok LIVEの世界大会 <b>LIVE FEST</b> に合わせて開きます。<br>
@@ -703,9 +713,9 @@ function countdownInto(root, target){
   if (!el) return;
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let seen = false;
-  try { seen = sessionStorage.getItem("pride4-intro") === "1"; } catch(e){}
+  try { seen = sessionStorage.getItem("pride4g-intro") === "1"; } catch(e){}
   if (reduce || seen) { el.remove(); document.body.classList.remove("intro-on"); return; }
-  try { sessionStorage.setItem("pride4-intro", "1"); } catch(e){}
+  try { sessionStorage.setItem("pride4g-intro", "1"); } catch(e){}
   // Anton が来てから走らせる（代替フォント表示中にスラムが終わるのを防ぐ）
   const go = () => { el.classList.add("go"); setTimeout(close, 3000); };
   const fontReady = (document.fonts && document.fonts.load)

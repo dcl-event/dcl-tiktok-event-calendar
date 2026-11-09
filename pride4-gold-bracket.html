@@ -1033,9 +1033,9 @@ if (HAS) {
   if (!el) return;
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let seen = false;
-  try { seen = sessionStorage.getItem("pride4-intro") === "1"; } catch(e){}
+  try { seen = sessionStorage.getItem("pride4g-intro") === "1"; } catch(e){}
   if (reduce || seen) { el.remove(); document.body.classList.remove("intro-on"); return; }
-  try { sessionStorage.setItem("pride4-intro", "1"); } catch(e){}
+  try { sessionStorage.setItem("pride4g-intro", "1"); } catch(e){}
   // Anton が来てから走らせる（代替フォント表示中にスラムが終わるのを防ぐ）
   const go = () => { el.classList.add("go"); setTimeout(close, 3000); };
   const fontReady = (document.fonts && document.fonts.load)

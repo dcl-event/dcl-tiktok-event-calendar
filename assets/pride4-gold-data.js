@@ -1,4 +1,4 @@
-/* PRIDE with FEST 1 ＝ MIDDLE 部門 ─ 共有データ
+/* PRIDE MIDDLE 11月（11/20〜11/25・LIVE FEST 1 の期間）─ 共有データ
    ⚠️ 表に出す名前は TOP / MIDDLE。「20万ダイヤ以上／以下」は社内の招待基準で、ページには書かない
    ここだけ直せば、企画書ページ(pride4-gold.html)と配布ページ(pride4-gold-bracket.html)が両方変わります。
    いまは status:"entry"＝エントリー受付中。出場者が確定したら entrants と rounds を入れる。

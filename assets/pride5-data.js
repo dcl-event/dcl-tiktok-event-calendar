@@ -1,4 +1,4 @@
-/* PRIDE with FEST 3 ＝ TOP 部門 ─ 共有データ
+/* PRIDE TOP 12月（12/10〜12/15・LIVE FEST 3 の期間）─ 共有データ
    ⚠️ 表に出す名前は TOP / MIDDLE。「20万ダイヤ以上／以下」は社内の招待基準で、ページには書かない
    ここだけ直せば、企画書ページ(pride5.html)と配布ページ(pride5-bracket.html)が両方変わります。
    いまは status:"entry"＝エントリー受付中。出場者が確定したら entrants と rounds を入れる。

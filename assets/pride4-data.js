@@ -1,4 +1,4 @@
-/* PRIDE with FEST 2 ＝ TOP 部門 ─ 共有データ
+/* PRIDE TOP 11月（11/20〜11/25・LIVE FEST 2 の期間）─ 共有データ
    ⚠️ 表に出す名前は TOP / MIDDLE。「20万ダイヤ以上／以下」は社内の招待基準で、ページには書かない（収入が割り出せるため）
    ここだけ直せば、企画書ページ(pride4.html)と配布ページ(pride4-bracket.html)が両方変わります。
    いまは status:"entry"＝エントリー受付中。出場者が確定したら entrants と rounds を入れる。

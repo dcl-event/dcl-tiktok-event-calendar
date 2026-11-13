@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>20万超KPI 逆算ボード</title>
+<style>
+:root{
+  --bg:#fbfbfa; --panel:#fff; --fg:#1d1b17; --muted:#6b675f; --line:#e6e3dd;
+  --over:#2d6fe0; --under:#c9c5bd; --ok:#1a8a52; --warn:#b07400; --bad:#c0392b;
+  --font:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#17171a; --panel:#1f1f23; --fg:#ece9e4; --muted:#9a958c; --line:#32323a;
+  --over:#6fa3ff; --under:#4a4a53; --ok:#4cc38a; --warn:#e2a93b; --bad:#f06a5d;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);
+  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:22px;margin:0 0 4px;letter-spacing:.01em}
+h2{font-size:16px;margin:40px 0 4px;padding-top:20px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:0;padding-top:0}
+.sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+.lede{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card .k{font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.card .v{font-size:27px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.card .n{font-size:12.5px;color:var(--muted);margin-top:2px}
+.meter{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0 7px}
+.meter i{display:block;height:100%;border-radius:3px}
+.gap{font-size:13px;font-weight:600}
+.ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:14px 0}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:500;font-size:12.5px}
+tbody tr:hover{background:var(--panel)}
+.note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--over);
+  border-radius:8px;padding:13px 16px;margin:18px 0;font-size:13.5px}
+.note.red{border-left-color:var(--bad)}
+.note.amber{border-left-color:var(--warn)}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.lg{display:flex;gap:16px;font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+details{margin-top:26px;font-size:13.5px}
+summary{cursor:pointer;color:var(--muted);padding:8px 0}
+details li{margin:7px 0;color:var(--muted)}
+a{color:var(--over)}
+.btn{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:10px 15px;text-decoration:none;font-size:13.5px;margin:6px 0}
+#gate{max-width:520px;margin:18vh auto;padding:0 20px;text-align:center;color:var(--muted)}
+#gate b{color:var(--fg);display:block;font-size:17px;margin-bottom:10px}
+.foot{margin-top:46px;padding-top:16px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div id="gate" hidden><b>この画面は鍵がないと開けません</b>
+URLの「#」より後ろまで含めて開いてください。途中で切れていると中身は出ません。</div>
+<div class="wrap" id="app" hidden></div>
+<script>
+var N=function(x){return Math.round(x).toLocaleString('ja-JP')};
+var N1=function(x){return (Math.round(x*10)/10).toLocaleString('ja-JP')};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var cls=function(r){return r>=100?'ok':(r>=90?'warn':'bad')};
+var cvar=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()};
+
+function cards(D){
+  var rows=[['全体💎','total','💎','事業全体の獲得ダイヤ'],
+            ['20万超💎','over20','💎','20万ダイヤ以上の層が出すぶん'],
+            ['20万超の人数','count','人','単価'+N(D.tanka)+'で割った目安']];
+  return '<div class="cards">'+rows.map(function(r){
+    var x=D.now[r[1]], c=cls(x.rate), u=r[2];
+    var v=(r[1]==='count')?N1(x.proj):N(x.proj);
+    var need=(r[1]==='count')?N1(x.need):N(x.need);
+    var gap=x.gap>0 ? 'あと '+((r[1]==='count')?N1(x.gap):N(x.gap))+u
+                    : '必要な数に届いています';
+    return '<div class="card"><div class="k">'+r[0]+'</div>'+
+      '<div class="v">'+v+'<span style="font-size:15px;font-weight:400"> '+u+'</span></div>'+
+      '<div class="n">必要 '+need+u+'　/　'+esc(r[3])+'</div>'+
+      '<div class="meter"><i style="width:'+Math.min(x.rate,100)+'%;background:var(--'+c+')"></i></div>'+
+      '<div class="gap '+c+'">'+x.rate+'%　'+gap+'</div></div>';
+  }).join('')+'</div>';
+}
+
+/* 積み上げ棒。series=[{label, a, b, top}] a=下(薄) b=上(濃) */
+function stacked(series,aName,bName){
+  var W=860,H=260,P=34,BW=Math.min(66,(W-P*2)/series.length-16);
+  var mx=Math.max.apply(null,series.map(function(s){return s.a+s.b}))*1.18;
+  var step=(W-P*2)/series.length, s='';
+  series.forEach(function(d,i){
+    var x=P+step*i+(step-BW)/2, tot=d.a+d.b;
+    var hb=(d.b/mx)*(H-56), ha=(d.a/mx)*(H-56);
+    var yb=H-30-hb, ya=yb-ha;
+    s+='<rect x="'+x+'" y="'+yb+'" width="'+BW+'" height="'+hb+'" fill="var(--over)" rx="2"/>';
+    s+='<rect x="'+x+'" y="'+ya+'" width="'+BW+'" height="'+ha+'" fill="var(--under)" rx="2"/>';
+    s+='<text x="'+(x+BW/2)+'" y="'+(ya-8)+'" text-anchor="middle" font-size="12" font-weight="650" fill="var(--fg)">'+esc(d.top)+'</text>';
+    s+='<text x="'+(x+BW/2)+'" y="'+(H-10)+'" text-anchor="middle" font-size="12" fill="var(--muted)">'+esc(d.label)+'</text>';
+    s+='<title>'+esc(d.label)+'  合計 '+N(tot)+'\n'+esc(bName)+' '+N(d.b)+'\n'+esc(aName)+' '+N(d.a)+'</title>';
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img">'+s+'</svg>'+
+    '<div class="lg"><span><i style="background:var(--over)"></i>'+esc(bName)+'</span>'+
+    '<span><i style="background:var(--under)"></i>'+esc(aName)+'</span></div>';
+}
+
+/* 横棒（前月比）。100%に基準線 */
+function bars(list){
+  var W=860,RH=22,P=150,H=list.length*RH+30;
+  var mx=Math.max(120,Math.max.apply(null,list.map(function(d){return d.ratio})))*1.04;
+  var sc=function(v){return (v/mx)*(W-P-56)};
+  var s='<line x1="'+(P+sc(100))+'" y1="4" x2="'+(P+sc(100))+'" y2="'+(H-22)+
+        '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>'+
+        '<text x="'+(P+sc(100))+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--muted)">100%</text>';
+  list.forEach(function(d,i){
+    var y=i*RH+4, w=Math.max(sc(d.ratio),1);
+    var col=d.ratio>=100?'var(--ok)':(d.ratio>=60?'var(--warn)':'var(--bad)');
+    var nm=d.name.length>13?d.name.slice(0,13)+'…':d.name;
+    s+='<text x="'+(P-9)+'" y="'+(y+13)+'" text-anchor="end" font-size="12" fill="var(--fg)">'+esc(nm)+'</text>';
+    s+='<rect x="'+P+'" y="'+(y+3)+'" width="'+w+'" height="'+(RH-9)+'" fill="'+col+'" rx="2"/>';
+    s+='<text x="'+(P+w+7)+'" y="'+(y+13)+'" font-size="11.5" fill="var(--muted)">'+d.ratio+'%'+
+       (d.note?'　'+esc(d.note):'')+'</text>';
+    s+='<title>'+esc(d.name)+'\n先月 '+N(d.prev)+' → 今月の着地見込み '+N(d.land)+'（'+d.ratio+'%）</title>';
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img">'+s+'</svg>';
+}
+
+function start(D){
+  var c=D.cohort_sum, L=D.ladder, last=L[L.length-1], h=D.history;
+  var avg=Math.round(h.reduce(function(a,x){return a+x.share},0)/h.length*10)/10;
+  var o='';
+
+  o+='<h1>20万超KPI 逆算ボード</h1>'+
+     '<p class="sub">'+esc(D.month)+'　'+esc(D.asof)+'　/　更新 '+esc(D.updated)+
+     '　/　元データ = ハイタッチ確認シート '+esc(D.tab)+' タブ</p>';
+
+  o+='<h2>今月はどうなりそうか</h2>'+
+     '<p class="lede">着地の見込みと、全体計画から逆算した「必要な数」を並べたもの。</p>'+cards(D);
+
+  var t=D.now.total,v=D.now.over20,p=D.now.count;
+  o+='<div class="note'+(p.rate<100?' amber':'')+'">'+
+     (v.rate>=100&&p.rate<100
+       ? '<b>ダイヤは届くが、人数が足りない。</b>いま届いているのは一人あたりが大きい人がいるからで、層の厚みで届いているわけではない。'
+       : (v.rate>=100 ? '<b>ダイヤも人数も必要な数に届いている。</b>'
+                      : '<b>20万超のダイヤが必要な数に届いていない。</b>ここが全体の7割を作る層なので、ここが欠けると全体も欠ける。'))+
+     '</div>';
+
+  o+='<h2>先月20万を超えた'+c.n+'人は、いまどうなっているか</h2>'+
+     '<p class="lede">今月の着地見込み ÷ 先月の実績。点線より左が、先月より落ちている人。</p>'+
+     bars(D.cohort);
+  o+='<div class="note'+(c.ratio<100?' red':'')+'">'+
+     '<b>この'+c.n+'人だけを追うと、今月の合計は先月の'+c.ratio+'%</b>'+
+     '（'+N(c.prev)+' → '+N(c.land)+'）。'+c.under100+'人が100%を割っていて、'+
+     '今月も20万を超えそうなのは'+c.keep+'人。'+
+     (c.ratio<100 ? 'それでも20万超の合計が必要な数に近いのは、新しく上がってきた人が乗っているから。'+
+                    '<b>いまの達成は「出す」で作っていて、「残す」では作れていない。</b>' : '')+
+     '</div>';
+  o+='<a class="btn" href="'+esc(D.daily_board)+'" target="_blank" rel="noopener">'+
+     '→ どのライバーさんかは日次ボードで見る</a>';
+
+  var r3=h.slice(-3), ra=Math.round(r3.reduce(function(a,x){return a+x.share},0)/r3.length*10)/10;
+  o+='<h2>全体のどれだけを、この層が作っているか</h2>'+
+     '<p class="lede">'+esc(h[0].m)+'から'+esc(h[h.length-1].m)+'まで、20万超の層が占める割合は'+
+     Math.min.apply(null,h.map(function(x){return x.share}))+'% 〜 '+
+     Math.max.apply(null,h.map(function(x){return x.share}))+'%。'+esc(h.length)+'か月の平均は<b>'+avg+'%</b>だが、'+
+     '年の前半は'+h[0].share+'%で、直近3か月は'+r3.map(function(x){return x.share+'%'}).join('・')+
+     '（平均<b>'+ra+'%</b>）。<b>割合そのものが上がってきている</b>ので、平均より直近で見るほうが実態に近い。</p>'+
+     stacked(h.map(function(x){return {label:x.m,a:x.under20,b:x.over20,top:x.share+'%'}}),
+             '20万未満💎','20万超💎');
+  o+='<table><thead><tr><th>月</th><th>全体💎</th><th>20万超💎</th><th>占有率</th>'+
+     '<th>人数</th><th>一人あたり</th></tr></thead><tbody>'+
+     h.map(function(x){return '<tr><td>'+esc(x.m)+'</td><td>'+N(x.total)+'</td><td>'+N(x.over20)+
+       '</td><td>'+x.share+'%</td><td>'+x.n20+'人</td><td>'+N(x.tanka)+'</td></tr>'}).join('')+
+     '</tbody></table>';
+  var pk=h.reduce(function(a,x){return x.tanka>a.tanka?x:a},h[0]), lt=h[h.length-1];
+  var down=lt.tanka<pk.tanka;
+  o+='<div class="note">一人あたりは'+esc(pk.m)+'の'+N(pk.tanka)+'がいちばん高く、'+
+     esc(lt.m)+'は'+N(lt.tanka)+(down?'まで下がっている（-'+Math.round((1-lt.tanka/pk.tanka)*100)+'%）':'')+'。'+
+     (down?'<b>層は厚くなっているが、一人の大きさは小さくなっている。</b>'+
+           'だから同じダイヤを出すのに必要な人数はこれから増える。'
+         :'人数の目安はこの一人あたりで割って出している。')+'</div>';
+
+  o+='<h2>毎月いくら出せばいいか</h2>'+
+     '<p class="lede">全体計画から「20万未満の層が出すぶん」を引いた残りが、20万超の層に必要なダイヤ。'+
+     '20万未満の層は直近3か月で毎月およそ +'+N(D.under_delta)+'💎 で伸びているので、そのペースが続く前提で引いている。</p>'+
+     stacked(L.map(function(x){return {label:x.m,a:x.under,b:x.need,top:N1(x.people)+'人'}}),
+             '20万未満の見込み💎','必要な20万超💎');
+  o+='<table><thead><tr><th>月</th><th>全体計画💎</th><th>20万未満の見込み💎</th>'+
+     '<th>必要な20万超💎</th><th>必要な占有率</th><th>必要な人数</th></tr></thead><tbody>'+
+     L.map(function(x){return '<tr'+(x.m===D.month?' style="font-weight:650"':'')+'><td>'+esc(x.m)+
+       '</td><td>'+N(x.plan)+'</td><td>'+N(x.under)+'</td><td>'+N(x.need)+'</td><td>'+x.share+
+       '%</td><td>'+N1(x.people)+'人</td></tr>'}).join('')+'</tbody></table>';
+  o+='<div class="note"><b>必要な占有率はどの月も7割前後</b>で、直近3か月の実績（平均'+ra+
+     '%）の範囲内。つまり比率は無理をしなくていい。きついのは人数のほうで、'+
+     '<b>'+N1(L[0].people)+'人 → '+esc(last.m)+'に'+N1(last.people)+'人</b>。'+
+     '必要人数は単価'+N(D.tanka)+'で割った目安なので、単価が下がればさらに増える。</div>';
+
+  o+='<details><summary>数え方と注意点</summary><ul>'+
+     '<li>確定値は「先月のダイヤモンド数」の列だけを使っている。「ダイヤモンド」の列は月の途中の値なので確定値には使わない</li>'+
+     '<li>シートは2日遅れ。'+esc(D.tab)+'のタブに入っているのは'+esc(D.asof)+'</li>'+
+     '<li>今月の見込みは、'+D.days+'日ぶんを月末まで伸ばしたもの。伸ばす倍率は過去の「同じ日づけ」で実際に測った値の平均（'+
+       D.factors.used.map(function(f){return esc(f.m)+' '+f.total}).join(' / ')+' → 全体 '+D.factors.total+
+       '倍、20万超💎 '+D.factors.over20+'倍、人数 '+D.factors.n20+'倍）</li>'+
+     '<li><b>先月比だけは別の倍率（'+D.factors.cohort+'倍）を使っている。</b>'+
+       '全体の倍率は「新しく上がってきた人」も込みの束の倍率なので、'+
+       '“先月20万超だった人”という決まった束にそのまま掛けると実態より大きく出る。'+
+       '過去の月で同じ束の伸び方を測り直した倍率を使っている（'+
+       D.factors.used.map(function(f){return esc(f.m)+' '+f.cohort}).join(' / ')+'）</li>'+
+     '<li>人の名寄せはクリエイターID。IDが空になる退会者だけユーザー名で拾う</li>'+
+     '<li>全体計画の正本は「00.事業戦略 / 計画」。そちらが動いたら monthly_kpi.py の PLAN を直す</li>'+
+     '<li>必要人数は直近の確定月の単価（'+N(D.tanka)+'）で割った目安。単価は下がり続けているので増える側に振れる</li>'+
+     '</ul></details>';
+
+  o+='<p class="foot">このページは暗号化してあります。URLの「#」以降が鍵なので、'+
+     '人に渡すときは必ず最後まで含めて渡してください。社外には出さないこと。</p>';
+
+  var app=document.getElementById('app');
+  app.innerHTML=o; app.hidden=false;
+}
+
+
+(function(){
+  var B='e6W6C7Xfe2aB5siE94TRm7Hjlr569513YEbojRqaFEgUje7xPNrTQnDkq4G1A9ZaBgrpLBtOMa6j3q6vNw9NbA3qdJJ2D1bFQznSyEWQwaHJqt2dinTnSA7M0Yp0SbpZyLG6oNt5HrI8/REWcILlp/AInt6M7y0rQGgN5euuU/fLSBLNQSaNjwvFXG6c/kpZiQIXl/JknKeZvAad+sndvTNvw44wdByzNhfGFgRH62a7149qTxU7w6Q7HMu4hME+r7+KQ5VFrnosTLgnYoyxhcSO21hSThu6pAvHbXfHJT9Eqk20jWBKVC6mvlHvwY71TdsF+F1MoebqROhlKD5hqhav57D1wb+9zJ5eIlOZC7JbW6Qj+nnfgn4Bs9LuoOLYUpXDfB5zPrOYH5VcYDMxfnJErsUSeldz2/j+f8WPmv1KWz23o66oXIm7c52uB6dDxLg2WOYA3T4ITbW4y2bBBN4zk23JQoCIdVro29sLgS3DfiGP/4RzPHyOIC03rVhBk0JEVq0vZcz79U3m0a1nAVRaiHDGqy0h0j7p5FSI6sk3yAAtRoByws8C/VsTLBOwxaEqZ7sPJPWVZLydPA82MYHUNostyDk0tYX3eR+AjfFUfzMH1e1Gv+Liovii72JyZMyxdLD7szR3OIo7DJJC1AdHApqQekjAfHMo4NMpv7faZI297UM7+N+yv8GvzCMaIo8nixhwIauSHRw7fOdJAcT2FK4m4gHMZhlt/9bZnq4CipqzmB9uuS8hx2ddP2qDjcJQoWZ3pbT5YDR7e+kkDW/dTUVc0iMEVEz3mVNY2h4e9LGEc2el9uanGvGsJNZbDGUY6iaQjFz8PRRIrNOZ6M6yv0kJvUZmdF6SIq4KRV5ZCJGabK2tTP8VATAra89uNelmEKAGOAdJeN8TNuzK15rCpP9Sjp5IGdeFpMGOcr/IqNFPt3+8azi8sJk6DMrrnhtBjZBC46bIJnm1XyuO/QN139M0ejq2BPSNEEwNgw58LlyJNrYCICgFc5jZ1nSqiKYhnHTgZVLPF8a3N39JOLu625ZiT6JmLdqRW8bbyShzHXEeT4OGWOJGUSXJBi7l9EGkFBOS/iKiIIhyzUS7d1kOd2SzFBI48OExZQEZLTtJauTMDtPU9m4hubYdV820ZyALfK2wX95DDGTxmmbGIBDdOQdkB/zSd1uLOQJFMu881+TN9Vy3x10YKK2lrOktIk9B5sT6fk968sZaMf4oq9kl8oGbN+NgZQVhK3f0FGsTUAPmn9wP6GkpOMhwTVDQbNv2jD/O9PdytrJO9yny5uZEct9ZVZBWVRzZIR0njgD939tp8bxK70IXDj1L0kiCt931FBpyfiKYcjsrcVhq3u5g5Os0UbUso2ksm6pMdStP818HA82GIs2pVERnk/t4bm408uvvL+YVOyOqF8lDtU6AKG29OLboIz4+jqo9I5Qz1Ftnkwba9L0Q6SkiUooM1tdaErPjct824uAb/RX+r7IOHImFYAfoP8lHP4BPArRYMUPIVCpR2b73reJPjlSitNG2aPINJR12Qupj5Xrm314A+TyJlTHs4M43lGQLhyX0BXaalassrQj2mq/KPZOjlvhwIlDmkXJDwtLeATfo1/nwMgXVOScLFvG7IuIDxexqH2c70ENjANumiLxWni0PN9Uw18yLe4HyhWoxebWjOGjsMbDdTpyQ5hvstp4x8xUg7zWHF1no7SEvpqGRdbf9hzMIUmFDzju6FigRpVYRJUbjnNkoF6PEix5P3XPU/i2lgcuWfz0PluPLoF3oHvWx7XmLrGebLcFHCuTnzpi0amWx6ankyb23T3ekOAhldtiNWYwLqjeb5QZLR7eHC3gjO1EKjuZHv5nvocspfLRX23QyJ93fgYLxAAhV6+vHu89n7Z6tdbUho5rzRlKq+dRzi6TF0b+lO8CCZmQtfOkHb7fjGae5ao9B63bBrUg4D8jHpb5JTf1YS9IrcbXCiZobaOtwcSSGx3f7wzjgXST1WnG8vy4QRr0arsFTRP3tt4OrCkhgyyuObwqBDypQXHUzjOMynOFIwY2piU/56ldyaJrvNXPgdz4BlKwN0yx7iweDlrtJb3ZoU4yBqj/f2Ua9BUSnOofy5ORwf8sfTJpCyx+rm250X3UNuuAP9jaXwK5BIa30CqPhuA91mv/+BYIqUTIrlQFMcrwL8c2tw2Ma2P7BIS3SO7ge4hXDYJMJDhU5EGREaDgeGKad57FZsQfRDu1+GskJFywTyMwYOI0WqjdjxvRXzHwUVuDZ/BQSc6dgRbXswYQMRYbVReWUDyZtvXihvOSDtNSrZeBoNBhk98GNRJbCeczCNtoZImpNbzwQ7tE1vYjepCX6NJVpK8RjPuYhO/q/fGhkoAQNgdKXScZg0H7MmLBayB73RnGfQ5dTpRGrYGzn7+8IT19j8B8+FlL1/YsDSsHDWi1AWMhLloZkV31epMWd6yTXBC47LdTR4ki8Kz7TkmVKFCUOGdzwMgOx5OoAplurz2bmoT9OQ9j/Yvr19NMMXlWm5Cr/Lu+udnoI3+C6fUK9YB4aHaF13uhF12foE4a/pzlqvGkQnUR5RjGG/FGUK+dXZZmtK7QmW5PUjQLXBfBBdwaBmkHpTBEq9ttsRIJgG0cCfUgYiSpSfwue8s4C8BmI2jr9t1rTSB71wnMoeiRvocJVuHMst/Oe216VPaP+7w6Vv+iqK7lTHg3vLUFdZxPcl6hSBFbm/DYogJylptJ+/9OHL9qsHDCTIPutRwoPbO3RyBwn1c06L6XlFO59XRm8GvOcrO45FiJ/1aka/cL32txONgzvGF+R0qeMiqxSG1P/6wH67tUFuskzLCS+D46fzCCL1hI4i93MwdXKmctSQoMGBSL1QV7513e0feaDQ/SKwlof8Fs5jkdjirxreuU534X/2UCN5MQATRZvqyYx9kJgP+Las8Sa5FYGKv/OnANmiujPCz6XvCudNsbRhfpAiAqGx8Wu8SRDKjHJY4vSCa7qdQcZG0JJLOchN18KRoZtq7IRLyDsQm8WeVHkYtEgzlNKn9xa2fj+yb+hiI2YvOKE8i4HX+RJrfzyFaBKnjh/Dz94fNvZT8BpO64Gp2YKQ8f25j6krH38isuqfRwQJE1XeXyja8gIUpgtRmypxZbli3wkwHSYrUJ7SB4s6QcziutwK9auvTJrHbejuU9XO91jTyTQSugg6I4szPmjl9fza357ud3nAwEW0khdxPgATpBAv/+s72l7sieFhZX9GDj3Cz0dmUFTGPmqLKq6YfmF0zeo44wmbHqr03GILkEBj1erBTbFsqyGByYZgV83KJRIBMZQKAgWA4gLGo5iRihJKsp5cKXdNHKS1K28KZhgxj0kqhUV33TlnCf4b/Zbh/TWwAb1wuQS/TTSj8rX7yT5n5pVV2cyPaST1IdtWDU8HSs4FVa1cykZ1gLqj5azgY2Otn0hcYBUjoGYsBG1nqqkcZt389n8RGp7K6MnSvo+Nalc4BkTG+hbEnfwDoJIPAZ58xn5ynhogK/dI7UDKlfeZqY9VEmGjnHAQ3W/X9R+dAiahLDsTCJy4yRcY2GF+EacHgQSBy47coCw5X3eBDNVH/Frz4ygG412goLW5n3R0b5KuijLO25fzAQz4gKMX77EYl7ivJEhsBX0zh+a6V0cSV3+iyG9LVa8ox0IJQlSDxiZbPLiWylQpO0yNgCyUbi69b5VcNceQNOKuO0/Ubt6q5m7+SRYVASKNJd2SJBiM+LX2KzBdBkjbxfQrASXu6ACVjUGIBPWhdAJ0gCOoue/dA+sYLDlWxH19XURPSSGC92pWKpPcuupQmln4Wm2Gm+VF8IIYkYG6WSONWmW9RdRx9/8tTJb5PIIOyKo8rErSpFFzg1wY/KJpazswH715u+0Cftc7BShlNPodjSb13FvIC6FWOL9FUhiZPEJKRJ1+rO8dghCTJ45Utee2jI+AaG0DXhvES6Xqtxbh9Zh0+puMKXa36/n+GyQFtB/xV2M9yebGkee0+5uEk4nfIjEs2GIx+J5WlSSJDkos8uRA6CcheeNF3yDzRlPxUT3qCelHMR831iG67y9Vc7xlWd4HDL9EGTMej9JlzZrNxk0ssL+JwLcUFIw2jqHalIYoJJJ083vqTMq3DFWw7QfdBG1sCF3MVS8miqqlYhSwWEaGxCvea1ZpnQ9G0A8tb+LZIvg/E0SKwyv8htTwwhwLoDUjUPobflBsbKh11yidYwNioNC2e/UQjqHffy1ayUvF95lZVE368diglAcfD5vQKe0aA519mZ8d7afDcVZUE+nuyJ2IlJLK4Xs8iQkns4aHk1ReuJKIARgsM0T2U4DDnkWirp7pdxNSFEZNJvNkRox3QCmsrI/4yNWA2f5R9o8KuP5yganrOR//eUIpm1A9NrA8DCSmlrcUd6wOnLGWaKr09e8Kx0bY2NZ7Vz2H4nOLXnDXIG+gM+yahhoZyqrhlYJk1blToc7sN+DYuFN+b6qPiwgo3JZfofS7g1o8ln/i5U+H1UupGSgwa4J1XpJ9fTbjbnOjUzVtOdgC9JJDG08s5PPeYf3U+G/x8ZpuE8Z6j6ipTKmybCpqvbpGzDg+mqZ6+ZQuoAdkTzESVGicJfYT4wNfdwKbkdUe5+9+htG7ahEb/vLexL8Lwf6/1vNPtze71PSthwcTP+FBCPf39qlRGC6iccQEGq09JKTEBF1IUpYbhk4D6me7Dz/dEbDNEItZwPGfWkBLenWw65MN75ToxYHjajcHNGltXCltEeZj5jgMrW5FhIRPOuhB6mMqToSsegFC+kNDX5bfi/eK/nXGqp7vVcdTbiCFc7TEeMwTsA4xDO/gwWVXIDDW794VHY6YxDCYBQJGUx2zfMBu8yjbWpxKODuSk0gzQEyoCiivfps/xg+uOLIIWdUv7w1fyO86dhjiGbz6pbUEkjH+sB8YehrilRxCblcrDAWkiQOj9YK58zZFF+m02r0LcqjY6LpDIoauj46lHZQ81gNhLtTg7pvRM5RcC8lQ60mxmypIMBuV1QRGsrHh14NI4oRnFDUUpIs8A4v4Hcm9XMZv0J8rRghFzLR0j0Ka7V7vcZl5nGkaJkysEQzht/+imxCkD4NtnO+ym66ETfg3MVxkBGKRhFFLX+k1Vv27pa2C+Y7hHrDnO2Zkv7Chgf0sy+3kfGYBkdZC9O9jqREw5JzoxvqQ9aUVIo8WFqOWnC9saWpBHWa2Yxaizy9WKeKJu3t3Rj8AGtfKmIm28vwOaQKXJOiTx7Ayp73eeClNft0SmJeWe5/TEAbmmEEbT1J2oALP4qP7ku4OeKBJKdFsOQ/abAS1rsofY8KaZ9FdgRMdoaLckSXteqCUIVff/sBZUuEXO1a/Q0a/zTLDtQelbvDYX3hfNDyz1BIfS3yTqcfQ1Y6/+pSg5vho2alES4ZJcBFD2Edknr/U/tPX9sGkHczqL5nRDtuC7sBFMCXBpC17RqyPFymemFBgkDLUyN0EnDhldRQwTrkxdZ+5Fjpi7GCblmsazMZmjujXbJGSieBxwKM/cAptF4ofqeYyfJDYMyhQ6qnzvtsXfV5FX/dGoxi0xUlWlfKpYxG8WtHHtO3+OnI+9G4lGuwabSpmmK1jLTfXOmI1KHn2SZQBGeEOi0E7AlygaNmV+cxAkBbWzO9PmeKnvGgmLC3y8/kK3I5zMO8PNbxS8/cwBsuf3r7CMMq47GfBcCKJI7v/JuvFM83EMDeGNjXJZNQbO1MddsrGUP9hwXqiHRWw4JNccM+lAFBuhzixrJy2wi3mhKzBBimAgd0muA/lD1D+9TudnJXSr7m0axq+IF+t5WI1fGgzBzScHex955TFpzd/fFMHeBWiGN6R3LnD4HC10ienWAzhBygpGPwNgRZBY9wDWmo41+7jTqM3dxBWP5IIrhyDgk7IPwF/iIdkFRGEDVs5ZiQDzMB/jZK2yHqkRRl6zuXw2WPIsvv4sBWwpOFziQm/Ze3ZCe2j8gPFIsRTsije++LTkNGrfS6f4agyg==', V='4ORPFlkGTvPKmfrS';
+  var bytes=function(b64){var s=atob(b64),a=new Uint8Array(s.length);
+    for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a};
+  var gate=function(){document.getElementById('gate').hidden=false};
+  var h=location.hash.slice(1);
+  if(!h||h.length<40){gate();return}
+  var raw;
+  try{raw=bytes(h.replace(/-/g,'+').replace(/_/g,'/')+'==')}catch(e){gate();return}
+  crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){
+    return crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(V)},k,bytes(B));
+  }).then(function(buf){
+    start(JSON.parse(new TextDecoder().decode(buf)));
+  }).catch(function(){gate()});
+})();
+
+</script>
+</body>
+</html>

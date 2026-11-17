@@ -49,14 +49,16 @@ window.PRIDE3 = {
      並びの計算には seed を使うので、データ側には残しています。 */
   hideSeeds: true,
 
+  /* user = TikTokのユーザー名。名前の横のTikTokアイコンのリンク先になります。
+     同じ表示名の人が実在するので、必ず @ユーザー名 で合わせること（例: にゃんさんは2人いる） */
   entrants: [
-    { seed: 1, name: "のん🤧🧂" },
-    { seed: 2, name: "いぶ将軍🪭" },
-    { seed: 3, name: "絢斗-ｹﾝﾄ-" },
-    { seed: 4, name: "nunu🍫🩵" },
-    { seed: 5, name: "にゃん" },
-    { seed: 6, name: "🍓まろん@美容整体師🌸" },
-    { seed: 7, name: "ひろにゃん" },
+    { seed: 1, name: "のん🤧🧂", user: "nyonnyon0927" },
+    { seed: 2, name: "いぶ将軍🪭", user: "eve_122394" },
+    { seed: 3, name: "絢斗-ｹﾝﾄ-", user: "kent.room0235" },
+    { seed: 4, name: "nunu🍫🩵", user: "nunu15864" },
+    { seed: 5, name: "にゃん", user: "xxivue" },
+    { seed: 6, name: "🍓まろん@美容整体師🌸", user: "ytncousk455" },
+    { seed: 7, name: "ひろにゃん", user: "hiro.mi.ao" },
     { seed: 8, name: "？？？" }
   ],
 

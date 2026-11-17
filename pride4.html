@@ -614,6 +614,8 @@ body.intro-on{overflow:hidden}
 </div>
 <div id="stickyArea"></div>
 
+<!-- 歴代優勝者の名簿。王冠はこのファイルから出します -->
+<script>document.write('<script src="assets/pride-champions.js?t='+Math.floor(Date.now()/60000)+'"><\/script>');</script>
 <script>document.write('<script src="assets/pride4-data.js?t='+Math.floor(Date.now()/60000)+'"><\/script>');</script>
 <script>
 const DATA = window.PRIDE3;
@@ -634,12 +636,20 @@ const TTSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4
 /* ── 過去にPRIDEで優勝した人の王冠。名前の左の四角（シード番号の跡地）に出ます ──
    entrants の crowns（優勝した回の配列）を見ています。空か未記入なら何も出しません。 */
 const CR = {};
-(DATA.entrants || []).forEach(e => { if (e && e.crowns && e.crowns.length) CR[e.name] = e.crowns; });
+(DATA.entrants || []).forEach(e => {
+  if (!e) return;
+  /* 名簿(assets/pride-champions.js)との突き合わせ。
+     TikTokのユーザー名が分かる人はそれで、分からない人は名前で照合します。 */
+  const hit = (window.PRIDE_CHAMPIONS || []).filter(c =>
+    (c.user && e.user) ? (c.user === e.user) : (c.name === e.name));
+  const all = hit.concat(e.crowns || []);   /* データ側に直接書いた分も拾う */
+  if (all.length) CR[e.name] = all;
+});
 /* crowns は { ev:"第3回", div:"TOP" } の形。昔の書き方（文字列）も読めるようにしてあります。 */
 const crownDiv  = c => (typeof c === "string") ? (/TOP/i.test(c) ? "TOP" : "MIDDLE")
                                               : ((c && c.div === "TOP") ? "TOP" : "MIDDLE");
 const crownText = c => (typeof c === "string") ? c
-                     : (((c && c.ev) || "") + " " + crownDiv(c) + " 優勝").trim();
+                     : ((c && c.label) || (((c && c.ev) || "") + " " + crownDiv(c) + " 優勝").trim());
 const crownTip  = name => (CR[name] || []).map(crownText).join(" ／ ");
 /* 色は優勝した大会で決まります。赤で優勝していれば赤、黄色だけなら金。両方なら赤。 */
 const crownRank = name => (CR[name] || []).some(c => crownDiv(c) === "TOP") ? "top" : "mid";

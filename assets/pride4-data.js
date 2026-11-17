@@ -49,19 +49,16 @@ window.PRIDE3 = {
      並びの計算には seed を使うので、データ側には残しています。 */
   hideSeeds: true,
 
-  /* crowns = 過去にPRIDEで優勝した回。書くと名前の左の四角が王冠になります。
-     書き方は crowns: [{ ev: "第3回", div: "TOP" }]。
-     div が "TOP" なら赤い王冠、"MIDDLE" なら金の王冠になります（出ているページの色ではなく、
-     優勝した大会の色で固定。黄色のページでも赤で優勝した人は赤いままです）。
-     2回以上なら [{ ev:"第2回", div:"MIDDLE" }, { ev:"第3回", div:"TOP" }] のように足す。
-     四角に回数が出ます。赤と黄色の両方で優勝していれば赤が優先です。
-     これまでの優勝者: 第2回 MIDDLE=ぐでち。🍳💫 ／ 第3回 TOP=おどぎ ／ 第3回 MIDDLE=絢斗-ｹﾝﾄ-
+  /* 名前の左の王冠（過去の優勝者）は、ここではなく
+     assets/pride-champions.js（歴代優勝者の名簿）から出ます。
+     大会が終わったらあちらに1行足すだけで、以降の全ページに反映されます。
+     ここに crowns を書くこともできますが、その月のページにしか効きません。
      user = TikTokのユーザー名。名前の横のTikTokアイコンのリンク先になります。
      同じ表示名の人が実在するので、必ず @ユーザー名 で合わせること（例: にゃんさんは2人いる） */
   entrants: [
     { seed: 1, name: "のん🤧🧂", user: "nyonnyon0927" },
     { seed: 2, name: "いぶ将軍🪭", user: "eve_122394" },
-    { seed: 3, name: "絢斗-ｹﾝﾄ-", user: "kent.room0235", crowns: [{ ev: "第3回", div: "MIDDLE" }] },
+    { seed: 3, name: "絢斗-ｹﾝﾄ-", user: "kent.room0235" },
     { seed: 4, name: "nunu🍫🩵", user: "nunu15864" },
     { seed: 5, name: "にゃん", user: "xxivue" },
     { seed: 6, name: "🍓まろん@美容整体師🌸", user: "ytncousk455" },

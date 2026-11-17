@@ -528,17 +528,20 @@ body.intro-on{overflow:hidden}
 .bslot .ttl{margin-left:0;margin-right:auto}
 @media(max-width:480px){.ttl{width:24px;height:24px}.ttl svg{width:12px;height:12px}}
 
-/* 優勝したことがある人の王冠。シード番号の四角をそのまま使っています */
-.s.cr{width:20px;height:20px;flex:0 0 auto;display:inline-grid;place-items:center;
-  font-size:11px;line-height:1;opacity:1;color:#1b1403;
-  background:linear-gradient(180deg,#ffd966,#e3a400);
-  box-shadow:0 0 10px rgba(255,200,61,.42);
-  clip-path:polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px)}
-.s.cr i{font-style:normal;font-family:'Jost',sans-serif;font-weight:800;font-size:8px;margin-left:-1px}
-.ch .s.cr{width:18px;height:18px;font-size:10px}
-.crt{color:var(--gold-lt);font-weight:800;letter-spacing:.02em}
+/* 優勝したことがある人の王冠。シード番号の四角をそのまま使っています。
+   金色のベタ塗りは「その試合に勝った人」の色なので、こちらは細枠にして役割を分けています。 */
+.s.cr{width:auto;height:20px;flex:0 0 auto;display:inline-flex;align-items:center;
+  padding:0;background:none;box-shadow:none;clip-path:none}
+.s.cr svg{display:block}
+.s.cr .pl{fill:rgba(255,200,61,.08);stroke:var(--gold);stroke-width:1;opacity:.72}
+.s.cr .cw{fill:var(--gold-lt)}
+.s.cr .ct{fill:var(--gold-lt);font-family:'Jost',sans-serif;font-size:9.5px;font-weight:800}
+.bslot.win .s.cr .pl,.ch .s.cr .pl{opacity:.9}
+.crt{display:inline-flex;align-items:center;gap:6px;color:var(--gold-lt);
+  font-weight:800;letter-spacing:.02em}
 
-.legend b.s.cr{width:15px;height:15px;font-size:8.5px;margin-right:-2px}
+.legend b.s.cr{height:15px}
+.legend b.s.cr svg{width:15px;height:15px}
 </style>
 </head><body class="intro-on">
 <div id="intro" aria-hidden="true">
@@ -654,11 +657,21 @@ const TTSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4
 const CR = {};
 (DATA.entrants || []).forEach(e => { if (e && e.crowns && e.crowns.length) CR[e.name] = e.crowns; });
 const crownTip = name => (CR[name] || []).join(" ／ ");
+/* 王冠マークは絵文字ではなく描いています（絵文字だと端末ごとに形も色も変わるため）。
+   角を落とした板＋王冠。2回以上優勝していれば板が広がって回数が入ります。 */
+const crownSVG = n => {
+  const many = n > 1, w = many ? 29 : 20;
+  return '<svg viewBox="0 0 ' + w + ' 20" width="' + w + '" height="20" aria-hidden="true">' +
+    '<path class="pl" d="M3.2 .6H' + (w - .6) + 'V16.8L' + (w - 3.2) + ' 19.4H.6V3.2Z"/>' +
+    '<path class="cw" d="M5 13.3L4.1 5.7L7.4 8.1L10 4.3L12.6 8.1L15.9 5.7L15 13.3Z"/>' +
+    '<rect class="cw" x="4.8" y="14.4" width="10.4" height="1.5"/>' +
+    (many ? '<text class="ct" x="' + (w - 6.2) + '" y="13.9" text-anchor="middle">' + n + '</text>' : "") +
+    '</svg>';
+};
 const crownBox = name => {
   const c = CR[name];
   if (!c) return "";
-  return '<span class="s cr" title="' + esc("👑 " + crownTip(name)) + '">👑' +
-    (c.length > 1 ? '<i>' + c.length + '</i>' : "") + '</span>';
+  return '<span class="s cr" title="' + esc(crownTip(name)) + '">' + crownSVG(c.length) + '</span>';
 };
 const ttIcon = name => {
   const u = TT[name];
@@ -775,7 +788,7 @@ if (HAS) {
 
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) + ttIcon(p.name) : "未定";
-    const sd = (p && CR[p.name]) ? `<span class="crt">👑 ${esc(crownTip(p.name))}</span>`
+    const sd = (p && CR[p.name]) ? `<span class="crt"><span class="s cr">${crownSVG(CR[p.name].length)}</span>${esc(crownTip(p.name))}</span>`
       : ((SHOW_SEED && p && p.seed != null) ? `SEED ${p.seed}` : "&nbsp;");
     const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     return `<div class="corner ${cls}${dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : ""}">
@@ -952,7 +965,7 @@ if (HAS) {
       <span><i class="r"></i>次の試合</span>
       <span><i class="b"></i>まだ未定</span>
       <span><i class="l"></i>線は勝った人の進む先</span>
-      ${Object.keys(CR).length ? '<span><b class="s cr">👑</b>PRIDEで優勝したことがある人</span>' : ""}
+      ${Object.keys(CR).length ? '<span><b class="s cr">' + crownSVG(1) + '</b>PRIDEで優勝したことがある人</span>' : ""}
     </div>
     `;
 
@@ -1036,7 +1049,7 @@ if (HAS) {
 
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) + ttIcon(p.name) : "未定";
-    const sd = (p && CR[p.name]) ? `<span class="crt">👑 ${esc(crownTip(p.name))}</span>`
+    const sd = (p && CR[p.name]) ? `<span class="crt"><span class="s cr">${crownSVG(CR[p.name].length)}</span>${esc(crownTip(p.name))}</span>`
       : ((SHOW_SEED && p && p.seed != null) ? `SEED ${p.seed}` : "&nbsp;");
     const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     const k  = dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : "";

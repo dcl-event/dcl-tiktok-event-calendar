@@ -392,6 +392,16 @@ header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
 .linkbox a:hover{transform:translateY(-2px)}
 .linkbox a::after{content:"›";color:var(--blood);font-size:20px;line-height:1}
 .note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:14px 2px 0}
+/* ── 仮の山割りバナー（確定したら data 側の provisional を消すだけで非表示になる） ── */
+.prov{display:flex;gap:12px;align-items:flex-start;margin:0 0 14px;padding:13px 15px;border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,200,61,.15),rgba(255,200,61,.05));
+  border:1px solid rgba(255,200,61,.46)}
+.prov .pv-tag{flex:none;font-weight:800;font-size:12.5px;letter-spacing:.1em;color:#1a1403;
+  background:var(--gold);border-radius:6px;padding:4px 10px;margin-top:1px}
+.prov .pv-tx{font-size:13px;line-height:1.75;color:var(--ink-dim)}
+.prov .pv-tx b{display:block;color:var(--gold-lt);font-size:14.5px;margin-bottom:3px;letter-spacing:.02em}
+.prov .pv-tx u{text-decoration:none;color:var(--gold-lt);font-weight:700}
+@media(max-width:480px){.prov{padding:11px 12px;gap:10px}.prov .pv-tx{font-size:12.5px}.prov .pv-tx b{font-size:13.5px}}
 footer{text-align:center;font-size:12px;color:#5e636e;margin-top:38px;
   font-family:'Jost',sans-serif;letter-spacing:.06em}
 .demobar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(227,178,60,.94);
@@ -520,6 +530,8 @@ body.intro-on{overflow:hidden}
 
 <div class="brandbar"><img src="assets/dcl_logo_dark.png" alt="DeNA Creator Links" onerror="this.style.display='none'"></div>
 
+<div id="provisional"></div>
+
 <header class="hero">
   <div class="inner">
     <div class="eyebrow">DCL Tournament · with FEST</div>
@@ -590,6 +602,7 @@ const DEMO_DATA = {
 };
 const IS_DEMO = /[?&]demo=1/.test(location.search);
 const DATA = IS_DEMO ? DEMO_DATA : window.PRIDE3;
+const SHOW_SEED = !DATA.hideSeeds;   // 当月ダイヤの順位が見えてしまうので、既定では出さない
 if (IS_DEMO) {
   const b = document.createElement("div");
   b.className = "demobar";
@@ -652,9 +665,22 @@ if (HAS) {
     <div class="champmeta">${n ? n + "名が参加 ／ " : ""}決勝 ${esc(DATA.finalLabel || "")} 22:00</div>`;
 })();
 
+/* ── 仮の山割りバナー（DATA.provisional がある間だけ出る） ── */
+(function(){
+  const p = DATA.provisional;
+  const box = $("provisional");
+  if (!p) { if (box) box.remove(); return; }
+  box.innerHTML = `<div class="prov">
+    <span class="pv-tag">仮</span>
+    <div class="pv-tx"><b>${esc(p.label || "仮の山割り")}です</b>${esc(p.note || "")}
+      ${p.until ? `<br>確定版は <u>${esc(p.until)}</u> に出します。` : ""}</div></div>`;
+  document.title = "【仮】" + document.title;
+})();
+
 /* ── hero meta ── */
 (function(){
   const b = [];
+  if (DATA.provisional) b.push('<span class="pill gold">⚠️ ' + ((DATA.provisional.label) || "仮") + '</span>');
   if (DATA.status === "live") b.push('<span class="pill hot"><span class="dot"></span>開催中</span>');
   else if (DATA.status === "done") b.push('<span class="pill gold">大会終了</span>');
   else b.push('<span class="pill hot">' + ((DATA.nights && DATA.nights[0]) || "") + ' 開幕</span>');
@@ -695,7 +721,7 @@ if (HAS) {
 
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) : "未定";
-    const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
+    const sd = (SHOW_SEED && p && p.seed != null) ? `SEED ${p.seed}` : "&nbsp;";
     const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     return `<div class="corner ${cls}${dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : ""}">
       <div class="cn">${corner}</div><div class="sd">${sd}</div>
@@ -790,7 +816,7 @@ if (HAS) {
     area.innerHTML = `<div class="sect"><span class="en">Entrants</span><h2>出場者</h2><span class="rule"></span></div>
       <div class="card survive"><div class="hd"><b>${DATA.entrants.length}</b><span>人が出場します</span></div>
       <div class="chips">${DATA.entrants.map(e =>
-        `<span class="ch"><span class="s">${esc(e.seed != null ? e.seed : "")}</span><span class="t">${esc(e.name)}</span></span>`).join("")}</div></div>`;
+        `<span class="ch">${SHOW_SEED ? `<span class="s">${esc(e.seed != null ? e.seed : "")}</span>` : ""}<span class="t">${esc(e.name)}</span></span>`).join("")}</div></div>`;
     return;
   }
   // 敗者を集める
@@ -804,7 +830,7 @@ if (HAS) {
   const alive = all.filter(e => !out.has(e.name));
   const dead  = all.filter(e =>  out.has(e.name));
   const chip = (e, cls) =>
-    `<span class="ch ${cls}"><span class="s">${esc(e.seed != null ? e.seed : "")}</span><span class="t">${esc(e.name)}</span></span>`;
+    `<span class="ch ${cls}">${SHOW_SEED ? `<span class="s">${esc(e.seed != null ? e.seed : "")}</span>` : ""}<span class="t">${esc(e.name)}</span></span>`;
   area.innerHTML = `<div class="sect"><span class="en">Survivors</span><h2>勝ち上がり</h2><span class="rule"></span></div>
     <div class="card survive">
       <div class="hd"><b>${alive.length}</b><span>人が残っています</span></div>
@@ -818,10 +844,10 @@ if (HAS) {
 (function(){
   const area = $("bracketArea");
   const bslot = (p, isWin, decided) => {
-    let cls = "bslot", seed = "–", name = "未定";
+    let cls = "bslot", seed = SHOW_SEED ? "–" : "", name = "未定";
     if (!p) cls += " tbd";
     else {
-      seed = p.seed != null ? p.seed : "–";
+      seed = (SHOW_SEED && p.seed != null) ? p.seed : "";
       name = esc(p.name);
       if (p.bye) { cls += " bye"; name += "（シード）"; }
       if (p.withdrew) name += "（欠場）";
@@ -953,7 +979,7 @@ if (HAS) {
 
   const side = (p, cls, corner, isWin, dec) => {
     const nm = p ? esc(p.name) : "未定";
-    const sd = p && p.seed != null ? `SEED ${p.seed}` : "&nbsp;";
+    const sd = (SHOW_SEED && p && p.seed != null) ? `SEED ${p.seed}` : "&nbsp;";
     const st = dec ? (isWin ? "WIN 👑" : (p && p.withdrew ? "欠場" : "LOSE")) : "&nbsp;";
     const k  = dec ? (isWin ? " win" : (p && p.withdrew ? " wd" : " lose")) : "";
     return `<div class="corner ${cls}${k}">

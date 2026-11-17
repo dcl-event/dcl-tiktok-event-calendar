@@ -38,6 +38,16 @@ body{
 /* ── brand ── */
 .brandbar{display:flex;justify-content:center;margin:8px 0 18px}
 .brandbar img{height:30px;width:auto;opacity:.9}
+/* ── 仮の山割りバナー（data 側の provisional を消すと自動で非表示） ── */
+.prov{display:flex;gap:12px;align-items:flex-start;margin:0 0 14px;padding:13px 15px;border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,200,61,.15),rgba(255,200,61,.05));
+  border:1px solid rgba(255,200,61,.46)}
+.prov .pv-tag{flex:none;font-weight:800;font-size:12.5px;letter-spacing:.1em;color:#1a1403;
+  background:#ffc83d;border-radius:6px;padding:4px 10px;margin-top:1px}
+.prov .pv-tx{font-size:13px;line-height:1.75;color:#c4c9d4}
+.prov .pv-tx b{display:block;color:#ffeab0;font-size:14.5px;margin-bottom:3px;letter-spacing:.02em}
+.prov .pv-tx u{text-decoration:none;color:#ffeab0;font-weight:700}
+@media(max-width:480px){.prov{padding:11px 12px;gap:10px}.prov .pv-tx{font-size:12.5px}.prov .pv-tx b{font-size:13.5px}}
 
 /* ── hero ── */
 header.hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 22px 24px;
@@ -425,6 +435,8 @@ body.intro-on{overflow:hidden}
 
 <div class="brandbar"><img src="assets/dcl_logo_dark.png" alt="DeNA Creator Links" onerror="this.style.display='none'"></div>
 
+<div id="provisional"></div>
+
 <header class="hero">
   <div class="inner">
     <div class="eyebrow">DCL Tournament · with FEST</div>
@@ -575,6 +587,7 @@ body.intro-on{overflow:hidden}
 <script>document.write('<script src="assets/pride4-data.js?t='+Math.floor(Date.now()/60000)+'"><\/script>');</script>
 <script>
 const DATA = window.PRIDE3;
+const SHOW_SEED = !DATA.hideSeeds;   // 当月ダイヤの順位が見えてしまうので、既定では出さない
 
 /* ---------- helpers ---------- */
 const $ = id => document.getElementById(id);
@@ -717,6 +730,18 @@ function countdownInto(root, target){
   area.innerHTML = html;
 })();
 
+/* ── 仮の出場者バナー（DATA.provisional がある間だけ出る） ── */
+(function(){
+  const p = DATA.provisional, box = document.getElementById("provisional");
+  if (!box) return;
+  if (!p) { box.remove(); return; }
+  box.innerHTML = `<div class="prov">
+    <span class="pv-tag">仮</span>
+    <div class="pv-tx"><b>${esc(p.label || "仮")}です</b>${esc(p.note || "")}
+      ${p.until ? `<br>確定版は <u>${esc(p.until)}</u> に出します。` : ""}</div></div>`;
+  document.title = "【仮】" + document.title;
+})();
+
 /* ---------- entrants ---------- */
 (function entrants(){
   const area = $("entrantArea");
@@ -732,7 +757,7 @@ function countdownInto(root, target){
     return;
   }
   const li = DATA.entrants.map((e, i) =>
-    `<li${i < 3 ? ' class="top3"' : ""}><span class="n">${esc(e.seed != null ? e.seed : i+1)}</span>
+    `<li${(SHOW_SEED && i < 3) ? ' class="top3"' : ""}>${SHOW_SEED ? `<span class="n">${esc(e.seed != null ? e.seed : i+1)}</span>` : ""}
       <span class="nm">${esc(e.name)}</span>${e.badge ? `<span class="bd">${esc(e.badge)}</span>` : ""}</li>`).join("");
   area.innerHTML = head + `<ul class="elist">${li}</ul>`;
 })();

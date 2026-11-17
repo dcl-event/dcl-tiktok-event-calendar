@@ -424,6 +424,16 @@ body.intro-on{overflow:hidden}
 .ttl:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .bslot .ttl{margin-left:0}
 @media(max-width:480px){.ttl{width:24px;height:24px}.ttl svg{width:12px;height:12px}}
+
+/* 優勝したことがある人の王冠。シード番号の四角をそのまま使っています */
+.s.cr{width:20px;height:20px;flex:0 0 auto;display:inline-grid;place-items:center;
+  font-size:11px;line-height:1;opacity:1;color:#1b1403;
+  background:linear-gradient(180deg,#ffd966,#e3a400);
+  box-shadow:0 0 10px rgba(255,200,61,.42);
+  clip-path:polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px)}
+.s.cr i{font-style:normal;font-family:'Jost',sans-serif;font-weight:800;font-size:8px;margin-left:-1px}
+.ch .s.cr{width:18px;height:18px;font-size:10px}
+.crt{color:var(--gold-lt);font-weight:800;letter-spacing:.02em}
 </style>
 </head><body class="intro-on">
 <div id="intro" aria-hidden="true">
@@ -585,6 +595,17 @@ const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
 const TT = {};
 (DATA.entrants || []).forEach(e => { if (e && e.user) TT[e.name] = e.user; });
 const TTSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.1v12.43a2.59 2.59 0 1 1-2.59-2.59c.18 0 .35.02.51.05V9.66a5.73 5.73 0 0 0-.51-.03 5.69 5.69 0 1 0 5.69 5.69V8.87a7.34 7.34 0 0 0 4.28 1.37V7.15a4.28 4.28 0 0 1-3.22-1.33z"/></svg>';
+/* ── 過去にPRIDEで優勝した人の王冠。名前の左の四角（シード番号の跡地）に出ます ──
+   entrants の crowns（優勝した回の配列）を見ています。空か未記入なら何も出しません。 */
+const CR = {};
+(DATA.entrants || []).forEach(e => { if (e && e.crowns && e.crowns.length) CR[e.name] = e.crowns; });
+const crownTip = name => (CR[name] || []).join(" ／ ");
+const crownBox = name => {
+  const c = CR[name];
+  if (!c) return "";
+  return '<span class="s cr" title="' + esc("👑 " + crownTip(name)) + '">👑' +
+    (c.length > 1 ? '<i>' + c.length + '</i>' : "") + '</span>';
+};
 const ttIcon = name => {
   const u = TT[name];
   if (!u) return "";
@@ -756,7 +777,7 @@ function countdownInto(root, target){
     return;
   }
   const li = DATA.entrants.map((e, i) =>
-    `<li${(SHOW_SEED && i < 3) ? ' class="top3"' : ""}>${SHOW_SEED ? `<span class="n">${esc(e.seed != null ? e.seed : i+1)}</span>` : ""}
+    `<li${(SHOW_SEED && i < 3) ? ' class="top3"' : ""}>${crownBox(e.name) || (SHOW_SEED ? `<span class="n">${esc(e.seed != null ? e.seed : i+1)}</span>` : "")}
       <span class="nm">${esc(e.name)}</span>${ttIcon(e.name)}${e.badge ? `<span class="bd">${esc(e.badge)}</span>` : ""}</li>`).join("");
   area.innerHTML = head + `<ul class="elist">${li}</ul>`;
 })();

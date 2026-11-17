@@ -430,12 +430,17 @@ body.intro-on{overflow:hidden}
 .s.cr{width:auto;height:20px;flex:0 0 auto;display:inline-flex;align-items:center;
   padding:0;background:none;box-shadow:none;clip-path:none}
 .s.cr svg{display:block}
-.s.cr .pl{fill:rgba(255,200,61,.08);stroke:var(--gold);stroke-width:1;opacity:.72}
-.s.cr .cw{fill:var(--gold-lt)}
-.s.cr .ct{fill:var(--gold-lt);font-family:'Jost',sans-serif;font-size:9.5px;font-weight:800}
-.bslot.win .s.cr .pl,.ch .s.cr .pl{opacity:.9}
-.crt{display:inline-flex;align-items:center;gap:6px;color:var(--gold-lt);
+/* 色はページの色ではなく「優勝した大会の色」で固定します。
+   黄色のページでも、赤で優勝した人の王冠は赤いままにするためです。 */
+.s.cr .pl{fill:rgba(255,200,61,.08);stroke:#ffc83d;stroke-width:1;opacity:.75}
+.s.cr .cw,.s.cr .ct{fill:#ffeab0}
+.s.cr.top .pl{fill:rgba(255,59,77,.12);stroke:#ff3b4d}
+.s.cr.top .cw,.s.cr.top .ct{fill:#ff9199}
+.s.cr .ct{font-family:'Jost',sans-serif;font-size:9.5px;font-weight:800}
+.bslot.win .s.cr .pl,.ch .s.cr .pl{opacity:.95}
+.crt{display:inline-flex;align-items:center;gap:6px;color:#ffeab0;
   font-weight:800;letter-spacing:.02em}
+.crt.top{color:#ff9199}
 </style>
 </head><body class="intro-on">
 <div id="intro" aria-hidden="true">
@@ -601,7 +606,14 @@ const TTSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4
    entrants の crowns（優勝した回の配列）を見ています。空か未記入なら何も出しません。 */
 const CR = {};
 (DATA.entrants || []).forEach(e => { if (e && e.crowns && e.crowns.length) CR[e.name] = e.crowns; });
-const crownTip = name => (CR[name] || []).join(" ／ ");
+/* crowns は { ev:"第3回", div:"TOP" } の形。昔の書き方（文字列）も読めるようにしてあります。 */
+const crownDiv  = c => (typeof c === "string") ? (/TOP/i.test(c) ? "TOP" : "MIDDLE")
+                                              : ((c && c.div === "TOP") ? "TOP" : "MIDDLE");
+const crownText = c => (typeof c === "string") ? c
+                     : (((c && c.ev) || "") + " " + crownDiv(c) + " 優勝").trim();
+const crownTip  = name => (CR[name] || []).map(crownText).join(" ／ ");
+/* 色は優勝した大会で決まります。赤で優勝していれば赤、黄色だけなら金。両方なら赤。 */
+const crownRank = name => (CR[name] || []).some(c => crownDiv(c) === "TOP") ? "top" : "mid";
 /* 王冠マークは絵文字ではなく描いています（絵文字だと端末ごとに形も色も変わるため）。
    角を落とした板＋王冠。2回以上優勝していれば板が広がって回数が入ります。 */
 const crownSVG = n => {
@@ -616,7 +628,8 @@ const crownSVG = n => {
 const crownBox = name => {
   const c = CR[name];
   if (!c) return "";
-  return '<span class="s cr" title="' + esc(crownTip(name)) + '">' + crownSVG(c.length) + '</span>';
+  return '<span class="s cr ' + crownRank(name) + '" title="' + esc(crownTip(name)) +
+    '">' + crownSVG(c.length) + '</span>';
 };
 const ttIcon = name => {
   const u = TT[name];

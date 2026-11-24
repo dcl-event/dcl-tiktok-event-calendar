@@ -51,7 +51,7 @@ window.PRIDE3G = {
      同じ表示名の人が実在するので、必ず @ユーザー名 で合わせること（例: にゃんさんは2人いる） */
   entrants: [
     { seed: 1, name: "りーぬちゃん🐹🌻",   user: "riiinuchan3" },
-    { seed: 2, name: "工藤阿弥香🤍🪽",     user: "toaru.musume" },
+    { seed: 2, name: "工藤阿弥香🤍🪽",     user: "ayakakudo0210" },  // 11/24修正。toaru.musume は404（本人がIDを変えたもよう）
     { seed: 3, name: "スミワタル",         user: "sumiwataru88" },
     { seed: 4, name: "ちゃむ🥀🖤",         user: "cham.cham...3" },
     { seed: 5, name: "一ノ瀬　あい🐶🍨🍼", user: "ai.ichinose0908" },

@@ -766,10 +766,11 @@ function countdownInto(root, target){
   // 山割り図はリスナー向けページに一本化してある（同じデータを読むので常に同期）
   let html = `<div class="linkbox">
        <a href="pride4-gold-bracket.html"><span>⚔️ 山割り・対戦表 — リスナーさんにそのまま配れるページ</span></a>
-     </div>
-     <div class="linkbox" style="margin-top:10px">
-       <a href="pride4-gold-guide.pdf" target="_blank" rel="noopener"><span>📄 参加者向けルールガイド（PDF・4ページ）</span></a>
      </div>`;
+  // ルールガイドPDF（pride4-gold-guide.pdf）へのリンクは外してあります。
+  // ファイルを作っていなくて404になっていたため（2026-11-25 福本判断）。
+  // PDFを置いたら、下の1行を戻す：
+  // html += `<div class="linkbox" style="margin-top:10px"><a href="pride4-gold-guide.pdf" target="_blank" rel="noopener"><span>📄 参加者向けルールガイド（PDF・4ページ）</span></a></div>`;
 
   if (!HAS) {
     const rows = DATA.format.map(f =>

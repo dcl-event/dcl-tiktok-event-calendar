@@ -21,5 +21,8 @@ window.PRIDE_CHAMPIONS = [
     note: "表記はカタカナで「イマミオ」。8月の DCL MATCH とは別の大会（2026-11-17 福本確認）" },
   { label: "第2回 優勝",     div: "TOP",    name: "ぐでち。🍳💫",  user: "gudechi11131",  when: "2026年9月" },
   { label: "第3回 🔴 優勝",  div: "TOP",    name: "おどぎ",        user: "odogiwww",      when: "2026年10月" },
-  { label: "第1回 🟡 優勝",  div: "MIDDLE", name: "絢斗-ｹﾝﾄ-",     user: "kent.room0235", when: "2026年10月" }
+  { label: "第1回 🟡 優勝",  div: "MIDDLE", name: "絢斗-ｹﾝﾄ-",     user: "kent.room0235", when: "2026年10月" },
+  /* 11月から「第N回」の数え方をやめたので、ラベルは月で書いています（2026-11-09の決定） */
+  { label: "11月 🔴 優勝",   div: "TOP",    name: "いぶ将軍🪭",    user: "eve_122394",    when: "2026年11月" },
+  { label: "11月 🟡 優勝",   div: "MIDDLE", name: "工藤阿弥香🤍🪽", user: "ayakakudo0210", when: "2026年11月" }
 ];

@@ -23,8 +23,8 @@ window.PRIDE3G = {
   thirdPlace: true,
   trophies: 3,                                      // 優勝・準優勝・3位
 
-  champion: "",
-  runnerUp: "",
+  champion: "工藤阿弥香🤍🪽",
+  runnerUp: "りーぬちゃん🐹🌻",
   thirdPlaceWinner: "",
 
   format: [
@@ -105,7 +105,7 @@ window.PRIDE3G = {
     ]},
     { name: "決勝・3位決定戦", date: "11/25(水)", matches: [
       /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
-      { id: "FINAL",     at: "2026-11-25T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "りーぬちゃん🐹🌻" }, b: { seed: 2, name: "工藤阿弥香🤍🪽" }, winner: "" },
+      { id: "FINAL",     at: "2026-11-25T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "りーぬちゃん🐹🌻" }, b: { seed: 2, name: "工藤阿弥香🤍🪽" }, winner: "b" },
       { id: "3位決定戦", at: "2026-11-25T22:00:00+09:00",              a: { seed: 4, name: "ちゃむ🥀🖤" }, b: { seed: 3, name: "スミワタル" }, winner: "" }
     ]}
   ]

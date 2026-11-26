@@ -23,8 +23,8 @@ window.PRIDE3 = {
   thirdPlace: true,
   trophies: 3,                                      // 優勝・準優勝・3位
 
-  champion: "",
-  runnerUp: "",
+  champion: "いぶ将軍🪭",
+  runnerUp: "ひろにゃん",
   thirdPlaceWinner: "",
 
   format: [
@@ -103,7 +103,7 @@ window.PRIDE3 = {
     ]},
     { name: "決勝・3位決定戦", date: "11/25(水)", matches: [
       /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
-      { id: "FINAL",     at: "2026-11-25T22:00:00+09:00", src: [0, 1], a: { seed: 8, name: "ひろにゃん" }, b: { seed: 2, name: "いぶ将軍🪭" }, winner: "" },
+      { id: "FINAL",     at: "2026-11-25T22:00:00+09:00", src: [0, 1], a: { seed: 8, name: "ひろにゃん" }, b: { seed: 2, name: "いぶ将軍🪭" }, winner: "b" },
       { id: "3位決定戦", at: "2026-11-25T22:00:00+09:00",              a: { seed: 5, name: "にゃん" }, b: { seed: 3, name: "絢斗-ｹﾝﾄ-" }, winner: "" }
     ]}
   ]

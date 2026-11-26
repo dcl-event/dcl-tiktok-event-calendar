@@ -5,7 +5,7 @@
    ⚠️ ダイヤの実数はこのファイルに書かない。ページに出る可能性があるため。 */
 window.PRIDE3G = {
   division: "MIDDLE",                               // ライバー向けページにだけ出す
-  status: "live",                                  // entry → live → done
+  status: "done",                                  // entry → live → done
 
   entryDeadline: "2026-11-15T23:59:00+09:00",      // 締切 11/15(日) 23:59　※前回は招待から5日。変更が多かったので10日に伸ばした
   announceDate: "11/17(火)",                        // 山割り発表
@@ -25,7 +25,7 @@ window.PRIDE3G = {
 
   champion: "工藤阿弥香🤍🪽",
   runnerUp: "りーぬちゃん🐹🌻",
-  thirdPlaceWinner: "",
+  thirdPlaceWinner: "ちゃむ🥀🖤",
 
   format: [
     { n: "2名",     br: "決勝のみ",    bye: "—",    nights: "11/25" },
@@ -106,7 +106,7 @@ window.PRIDE3G = {
     { name: "決勝・3位決定戦", date: "11/25(水)", matches: [
       /* matches[0] が決勝。優勝者の判定がここを見るので、順番を入れ替えないこと */
       { id: "FINAL",     at: "2026-11-25T22:00:00+09:00", src: [0, 1], a: { seed: 1, name: "りーぬちゃん🐹🌻" }, b: { seed: 2, name: "工藤阿弥香🤍🪽" }, winner: "b" },
-      { id: "3位決定戦", at: "2026-11-25T22:00:00+09:00",              a: { seed: 4, name: "ちゃむ🥀🖤" }, b: { seed: 3, name: "スミワタル" }, winner: "" }
+      { id: "3位決定戦", at: "2026-11-25T22:00:00+09:00",              a: { seed: 4, name: "ちゃむ🥀🖤" }, b: { seed: 3, name: "スミワタル" }, winner: "a" }
     ]}
   ]
 };
